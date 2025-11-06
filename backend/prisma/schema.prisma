@@ -1,0 +1,149 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  extensions = [postgis]
+}
+
+// Código de conductor para autenticación
+model DriverCode {
+  id        String   @id @default(uuid())
+  code      String   @unique // Hasheado con bcrypt
+  isActive  Boolean  @default(true)
+  assignedTo String? // Nombre del conductor (opcional)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  sessions  Session[]
+  
+  @@map("driver_codes")
+}
+
+// Sesión de conductor (para tracking de usuarios activos)
+model Session {
+  id         String   @id @default(uuid())
+  token      String   @unique
+  codeId     String
+  code       DriverCode @relation(fields: [codeId], references: [id], onDelete: Cascade)
+  isActive   Boolean  @default(true)
+  lineId     String?  // Línea asignada
+  line       BusLine? @relation(fields: [lineId], references: [id])
+  startedAt  DateTime @default(now())
+  endedAt    DateTime?
+  expiresAt  DateTime
+  
+  locations  BusLocation[]
+  
+  @@index([codeId])
+  @@index([token])
+  @@map("sessions")
+}
+
+// Línea de autobús
+model BusLine {
+  id          String   @id @default(uuid())
+  name        String   @unique // L1, L2, L3, L4
+  color       String   // Color hex
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  stops       StopOnLine[]
+  routes      Route[]
+  locations   BusLocation[]
+  sessions    Session[]
+  
+  @@map("bus_lines")
+}
+
+// Parada de autobús
+model Stop {
+  id        String   @id @default(uuid())
+  name      String
+  latitude  Decimal  @db.Decimal(10, 7)
+  longitude Decimal  @db.Decimal(10, 7)
+  // Usando extension PostGIS para queries geoespaciales eficientes
+  // location  Unsupported("geography(Point,4326)")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  lines     StopOnLine[]
+  
+  @@index([latitude, longitude])
+  @@map("stops")
+}
+
+// Relación muchos a muchos entre Paradas y Líneas con orden
+model StopOnLine {
+  id       String  @id @default(uuid())
+  stopId   String
+  stop     Stop    @relation(fields: [stopId], references: [id], onDelete: Cascade)
+  lineId   String
+  line     BusLine @relation(fields: [lineId], references: [id], onDelete: Cascade)
+  order    Int     // Orden de la parada en la línea (1, 2, 3...)
+  
+  routeStops RouteStop[]
+  
+  @@unique([stopId, lineId])
+  @@index([lineId, order])
+  @@map("stops_on_lines")
+}
+
+// Ruta (secuencia ordenada de paradas para una línea)
+model Route {
+  id        String   @id @default(uuid())
+  lineId    String
+  line      BusLine  @relation(fields: [lineId], references: [id], onDelete: Cascade)
+  name      String   // "Circular", "Ida", "Vuelta", etc.
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  stops     RouteStop[]
+  
+  @@index([lineId])
+  @@map("routes")
+}
+
+// Paradas de una ruta específica (ordenadas)
+model RouteStop {
+  id          String     @id @default(uuid())
+  routeId     String
+  route       Route      @relation(fields: [routeId], references: [id], onDelete: Cascade)
+  stopOnLineId String
+  stopOnLine  StopOnLine @relation(fields: [stopOnLineId], references: [id], onDelete: Cascade)
+  order       Int        // Orden en esta ruta específica
+  
+  @@unique([routeId, order])
+  @@index([routeId])
+  @@map("route_stops")
+}
+
+// Ubicación de bus en tiempo real
+model BusLocation {
+  id         String   @id @default(uuid())
+  sessionId  String
+  session    Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  lineId     String
+  line       BusLine  @relation(fields: [lineId], references: [id], onDelete: Cascade)
+  latitude   Decimal  @db.Decimal(10, 7)
+  longitude  Decimal  @db.Decimal(10, 7)
+  // location   Unsupported("geography(Point,4326)")
+  accuracy   Float?   // Precisión GPS en metros
+  speed      Float?   // Velocidad en m/s
+  heading    Float?   // Dirección en grados (0-360)
+  timestamp  DateTime @default(now())
+  
+  @@index([sessionId])
+  @@index([lineId, timestamp])
+  @@index([latitude, longitude])
+  @@index([timestamp])
+  @@map("bus_locations")
+}
