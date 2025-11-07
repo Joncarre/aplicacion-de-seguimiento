@@ -92,6 +92,102 @@ class ApiClient {
   }
 
   // ============================================
+  // LOCATION ENDPOINTS
+  // ============================================
+
+  /**
+   * Envía la ubicación del conductor
+   */
+  async submitLocation(data: {
+    sessionId: string;
+    lineId: string;
+    latitude: number;
+    longitude: number;
+    accuracy?: number;
+    speed?: number | null;
+    heading?: number | null;
+  }): Promise<{
+    success: boolean;
+    location: {
+      id: string;
+      latitude: number;
+      longitude: number;
+      timestamp: string;
+    };
+  }> {
+    return this.request('/api/location', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  /**
+   * Asigna una línea a una sesión
+   */
+  async assignLineToSession(sessionId: string, lineId: string): Promise<{
+    success: boolean;
+    session: {
+      id: string;
+      lineId: string;
+    };
+  }> {
+    return this.request(`/api/session/${sessionId}/line`, {
+      method: 'PUT',
+      body: JSON.stringify({ lineId }),
+    });
+  }
+
+  /**
+   * Finaliza la sesión de conductor
+   */
+  async endDriverSession(sessionId: string): Promise<{
+    success: boolean;
+    session: {
+      id: string;
+      endedAt: string;
+    };
+  }> {
+    return this.request(`/api/session/${sessionId}/end`, {
+      method: 'PUT',
+    });
+  }
+
+  /**
+   * Obtiene ubicaciones recientes de una línea
+   */
+  async getLocationsByLine(lineId: string, limit?: number): Promise<{
+    success: boolean;
+    locations: Array<{
+      id: string;
+      latitude: number;
+      longitude: number;
+      accuracy: number | null;
+      speed: number | null;
+      heading: number | null;
+      timestamp: string;
+      sessionId: string;
+    }>;
+  }> {
+    const queryString = limit ? `?limit=${limit}` : '';
+    return this.request(`/api/location/line/${lineId}${queryString}`);
+  }
+
+  /**
+   * Obtiene todas las líneas de autobús
+   */
+  async getBusLines(): Promise<{
+    success: boolean;
+    lines: Array<{
+      id: string;
+      name: string;
+      color: string;
+      description: string | null;
+    }>;
+  }> {
+    return this.request('/api/lines');
+  }
+
+  // ============================================
   // HEALTH CHECK
   // ============================================
 

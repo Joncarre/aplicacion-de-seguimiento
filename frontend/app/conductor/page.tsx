@@ -34,9 +34,9 @@ export default function ConductorAuthPage() {
       const response = await api.validateCode(code);
 
       if (response.success) {
-        // Guardar token en sessionStorage
-        sessionStorage.setItem('driverToken', response.data.token);
-        sessionStorage.setItem('sessionId', response.data.sessionId);
+        // Guardar token en localStorage
+        localStorage.setItem('authToken', response.data.token);
+        localStorage.setItem('sessionId', response.data.sessionId);
 
         // Redirigir al panel de conductor
         router.push('/conductor/panel');

@@ -20,7 +20,6 @@ export const metadata: Metadata = {
   description: 'Aplicación de seguimiento en tiempo real de autobuses urbanos de Aranjuez. Consulta la ubicación exacta de cada autobús y tiempos estimados de llegada.',
   keywords: ['autobuses', 'Aranjuez', 'transporte público', 'tiempo real', 'tracking'],
   authors: [{ name: 'Autobuses Aranjuez' }],
-  manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -56,7 +55,6 @@ export default function RootLayout({
     <html lang="es" className={`${inter.variable} ${poppins.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
       <body className={inter.className}>
         <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50">
