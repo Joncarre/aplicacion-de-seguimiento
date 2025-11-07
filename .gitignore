@@ -62,3 +62,7 @@ logs
 # Temporary files
 tmp/
 temp/
+
+# Driver codes (sensitive data)
+backend/generated/
+**/driver-codes*.txt
