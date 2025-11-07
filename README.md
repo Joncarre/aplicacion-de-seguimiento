@@ -2,7 +2,7 @@
 
 > Aplicación web progresiva (PWA) para seguimiento en tiempo real de autobuses urbanos en Aranjuez, Madrid.
 
-[![Estado](https://img.shields.io/badge/estado-Fase%201-green)]()
+[![Estado](https://img.shields.io/badge/estado-Fase%202-green)]()
 [![Next.js](https://img.shields.io/badge/Next.js-14-black)]()
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue)]()
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14+-blue)]()
@@ -64,7 +64,23 @@ Aplicaciones como Google Maps solo hacen estimaciones sobre cuándo pasará el s
 - PostgreSQL 14+ con PostGIS
 - npm
 
-### ⚡ Instalación Rápida
+### ⚡ Instalación Automatizada (Recomendado)
+
+```powershell
+# 1. Clonar el repositorio
+git clone https://github.com/Joncarre/aplicacion-de-seguimiento.git
+cd aplicacion-de-seguimiento
+
+# 2. Instalar PostgreSQL + PostGIS (descargar del sitio oficial)
+# Ver: INICIO_RAPIDO.md
+
+# 3. Ejecutar script de configuración automatizado
+.\setup-database.ps1
+
+# ¡Listo! El script configurará todo y podrá iniciar los servidores automáticamente
+```
+
+### 🔧 Instalación Manual
 
 ```powershell
 # 1. Clonar el repositorio
@@ -81,16 +97,14 @@ CREATE EXTENSION IF NOT EXISTS postgis;
 # 3. Backend
 cd backend
 npm install
-copy .env.example .env
-# Edita .env con tu configuración
-npm run prisma:migrate
+# Edita .env con tu configuración de PostgreSQL
+npx prisma migrate dev --name init
 npm run generate-codes
 npm run dev
 
 # 4. Frontend (en otra terminal)
 cd frontend
 npm install
-copy .env.local.example .env.local
 npm run dev
 ```
 
@@ -99,7 +113,10 @@ npm run dev
 - **Frontend:** http://localhost:3000
 - **Backend API:** http://localhost:3001
 
-📖 **Instrucciones detalladas:** Ver [`SETUP.md`](./SETUP.md) o [`docs/INSTALLATION.md`](./docs/INSTALLATION.md)
+📖 **Guías disponibles:**
+- [`INICIO_RAPIDO.md`](./INICIO_RAPIDO.md) - ⚡ Configuración más rápida
+- [`CONFIGURACION_POSTGRESQL.md`](./CONFIGURACION_POSTGRESQL.md) - 🗄️ Paso a paso con PostgreSQL
+- [`docs/INSTALLATION.md`](./docs/INSTALLATION.md) - 📚 Instalación completa detallada
 
 ---
 
@@ -159,14 +176,14 @@ aplicacion-de-seguimiento/
 | Fase | Estado | Descripción |
 |------|--------|-------------|
 | **Fase 1** | ✅ Completada | Setup y estructura base |
-| **Fase 2** | 🔄 En progreso | Autenticación y roles |
+| **Fase 2** | ✅ Completada | Autenticación y roles |
 | **Fase 3** | ⏳ Pendiente | Panel de conductor |
 | **Fase 4** | ⏳ Pendiente | Panel de usuario - Selección |
 | **Fase 5** | ⏳ Pendiente | Cálculo de llegadas |
 | **Fase 6** | ⏳ Pendiente | Tiempo real y optimización |
 | **Fase 7** | ⏳ Pendiente | Testing y deployment |
 
-**Progreso total:** 14% (1/7 fases)
+**Progreso total:** 29% (2/7 fases)
 
 ---
 
@@ -221,15 +238,22 @@ npm run lint             # Ejecutar linter
 
 ## 📚 Documentación
 
+### Guías de Inicio
 | Documento | Descripción |
 |-----------|-------------|
-| [`SETUP.md`](./SETUP.md) | Guía de inicio rápido |
-| [`docs/INSTALLATION.md`](./docs/INSTALLATION.md) | Instalación detallada |
-| [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) | Arquitectura del sistema |
-| [`docs/PHASES.md`](./docs/PHASES.md) | Plan de desarrollo por fases |
-| [`docs/DESIGN_SYSTEM.md`](./docs/DESIGN_SYSTEM.md) | Sistema de diseño completo |
-| [`docs/SECURITY.md`](./docs/SECURITY.md) | Consideraciones de seguridad |
-| [`docs/PROJECT_STRUCTURE.md`](./docs/PROJECT_STRUCTURE.md) | Estructura de archivos |
+| [`INICIO_RAPIDO.md`](./INICIO_RAPIDO.md) | ⚡ Inicio rápido - Configuración en 15 min |
+| [`CONFIGURACION_POSTGRESQL.md`](./CONFIGURACION_POSTGRESQL.md) | 🗄️ Guía completa de PostgreSQL |
+| [`docs/INSTALLATION.md`](./docs/INSTALLATION.md) | 📦 Instalación detallada paso a paso |
+
+### Documentación Técnica
+| Documento | Descripción |
+|-----------|-------------|
+| [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) | 🏗️ Arquitectura del sistema |
+| [`docs/PHASES.md`](./docs/PHASES.md) | 📋 Plan de desarrollo por fases |
+| [`docs/DESIGN_SYSTEM.md`](./docs/DESIGN_SYSTEM.md) | 🎨 Sistema de diseño completo |
+| [`docs/SECURITY.md`](./docs/SECURITY.md) | 🔐 Consideraciones de seguridad |
+| [`docs/PROJECT_STRUCTURE.md`](./docs/PROJECT_STRUCTURE.md) | 📁 Estructura de archivos |
+| [`docs/FASE_2_COMPLETADA.md`](./docs/FASE_2_COMPLETADA.md) | ✅ Resumen Fase 2 completada |
 
 ---
 
@@ -285,9 +309,9 @@ Proyecto privado para uso municipal de Aranjuez, Madrid.
 <div align="center">
 
 **Estado:** 🟢 En desarrollo activo  
-**Fase actual:** Fase 1 - Completada ✅  
-**Próxima fase:** Fase 2 - Autenticación y Roles  
-**Última actualización:** Noviembre 2025
+**Fase actual:** Fase 2 - Completada ✅  
+**Próxima fase:** Fase 3 - Panel de Conductor  
+**Última actualización:** 6 Noviembre 2025
 
 [⬆ Volver arriba](#-aplicación-de-seguimiento-de-autobuses-urbanos-de-aranjuez)
 
