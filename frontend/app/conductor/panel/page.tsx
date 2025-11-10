@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { Bus, MapPin, Power, Radio, AlertCircle } from 'lucide-react';
+import { Bus, MapPin, AlertCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useGeolocationTracking } from '@/hooks/useGeolocation';
@@ -22,6 +22,7 @@ export default function PanelConductor() {
   const [selectedLine, setSelectedLine] = useState<string | null>(null);
   const [isTransmitting, setIsTransmitting] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
+  const [showEndConfirm, setShowEndConfirm] = useState(false);
   const locationIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Hook de geolocalización con tracking automático
@@ -110,7 +111,15 @@ export default function PanelConductor() {
     }
   };
 
-  const handleEndJourney = async () => {
+  const handlePauseJourney = () => {
+    setIsTransmitting(false);
+  };
+
+  const handleEndJourneyClick = () => {
+    setShowEndConfirm(true);
+  };
+
+  const handleEndJourneyConfirm = async () => {
     if (!sessionId) return;
 
     try {
@@ -130,7 +139,12 @@ export default function PanelConductor() {
     } catch (error) {
       console.error('Error al finalizar trayecto:', error);
       setApiError('Error al finalizar el trayecto');
+      setShowEndConfirm(false);
     }
+  };
+
+  const handleEndJourneyCancel = () => {
+    setShowEndConfirm(false);
   };
 
   if (!isAuthenticated) {
@@ -144,34 +158,11 @@ export default function PanelConductor() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100 p-4 pb-safe">
       <div className="max-w-md mx-auto space-y-4">
-        {/* Header */}
-        <Card>
-          <CardHeader className="pb-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Bus className="w-6 h-6 text-primary" />
-                <CardTitle className="text-xl">Panel de Conductor</CardTitle>
-              </div>
-              <div className="flex items-center gap-2">
-                {isTransmitting && (
-                  <Radio className="w-5 h-5 text-green-600 animate-pulse" />
-                )}
-              </div>
-            </div>
-            <CardDescription>
-              Sesión ID: {sessionId?.slice(0, 8)}...
-            </CardDescription>
-          </CardHeader>
-        </Card>
-
         {/* Selección de línea */}
         {!isTransmitting && (
           <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Selecciona tu línea</CardTitle>
-              <CardDescription>
-                Elige la línea que vas a operar
-              </CardDescription>
+            <CardHeader className="mb-2.5">
+              <CardTitle className="text-base font-normal">Selecciona tu línea</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
@@ -179,13 +170,24 @@ export default function PanelConductor() {
                   <button
                     key={line.id}
                     onClick={() => handleLineSelection(line.id)}
-                    className={`p-4 rounded-lg border-2 transition-all ${
+                    className={`p-4 rounded-lg border-[2px] transition-all ${
                       selectedLine === line.id
-                        ? 'border-green-600 bg-green-50 scale-105'
-                        : 'border-gray-200 hover:border-green-300'
+                        ? 'scale-100'
+                        : ''
                     }`}
                     style={{
-                      backgroundColor: selectedLine === line.id ? `${line.color}20` : undefined,
+                      backgroundColor: selectedLine === line.id ? `${line.color}20` : 'white',
+                      borderColor: selectedLine === line.id ? line.color : '#e5e7eb',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (selectedLine !== line.id) {
+                        e.currentTarget.style.borderColor = line.color;
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (selectedLine !== line.id) {
+                        e.currentTarget.style.borderColor = '#e5e7eb';
+                      }
                     }}
                   >
                     <div className="flex items-center justify-center gap-2">
@@ -204,31 +206,31 @@ export default function PanelConductor() {
 
         {/* Estado de transmisión */}
         {isTransmitting && selectedLine && (
-          <Card className="border-green-600 bg-green-50">
-            <CardContent className="pt-6">
-              <div className="flex flex-col items-center gap-3">
-                <MapPin className="w-12 h-12 text-green-600 animate-pulse" />
-                <div className="text-center">
-                  <p className="font-bold text-green-900">
-                    Transmitiendo posición...
-                  </p>
-                  <p className="text-sm text-green-700">
-                    Línea {selectedLine} activa
-                  </p>
-                  <p className="text-xs text-green-600 mt-1">
-                    GPS actualizado cada 10 segundos
-                  </p>
-                  {location && (
-                    <div className="mt-2 text-xs text-green-600">
-                      <p>Lat: {location.latitude.toFixed(6)}</p>
-                      <p>Lng: {location.longitude.toFixed(6)}</p>
-                      <p>Precisión: {location.accuracy.toFixed(0)}m</p>
-                    </div>
-                  )}
-                </div>
+          <div className="backdrop-blur-sm rounded-3xl shadow-lg p-6 border transition-all duration-100 animated-border-card">
+            <div className="flex flex-col items-center gap-3">
+              <MapPin className="w-12 h-12 animate-pulse" 
+                style={{ color: busLines.find(l => l.id === selectedLine)?.color }} 
+              />
+              <div className="text-center">
+                <p className="font-bold text-green-900">
+                  Transmitiendo posición...
+                </p>
+                <p className="text-sm font-semibold"
+                  style={{ color: busLines.find(l => l.id === selectedLine)?.color }}>
+                  Línea {busLines.find(l => l.id === selectedLine)?.name} activa
+                </p>
+                <p className="text-xs text-green-600 mt-1">
+                  GPS actualizado cada 10 segundos
+                </p>
+                {location && (
+                  <div className="mt-2 text-xs text-green-600">
+                    <p>Latitud: {location.latitude.toFixed(6)}</p>
+                    <p>Longitud: {location.longitude.toFixed(6)}</p>
+                  </div>
+                )}
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         )}
 
         {/* Error de ubicación */}
@@ -262,30 +264,214 @@ export default function PanelConductor() {
         )}
 
         {/* Botones de acción */}
-        <Card>
-          <CardContent className="pt-6 space-y-3">
-            {!isTransmitting ? (
-              <Button
-                onClick={handleStartJourney}
-                disabled={!selectedLine}
-                className="w-full h-14 text-lg bg-green-600 hover:bg-green-700"
-              >
-                <MapPin className="w-5 h-5 mr-2" />
+        {!isTransmitting ? (
+          <div className="flex justify-center">
+            <button
+              onClick={handleStartJourney}
+              disabled={!selectedLine}
+              className="pushable"
+              style={{ 
+                width: '75%',
+                cursor: selectedLine ? 'pointer' : 'not-allowed',
+                opacity: selectedLine ? 1 : 0.7
+              }}
+            >
+              <span className="shadow-start"></span>
+              <span className="edge-start"></span>
+              <span className="front-start">
                 Comenzar trayecto
-              </Button>
-            ) : (
-              <Button
-                onClick={handleEndJourney}
-                variant="destructive"
-                className="w-full h-14 text-lg"
-              >
-                <Power className="w-5 h-5 mr-2" />
+              </span>
+            </button>
+          </div>
+        ) : (
+          <div className="flex gap-3 justify-center">
+            <button
+              onClick={handlePauseJourney}
+              className="pushable"
+              style={{ width: '45%' }}
+            >
+              <span className="shadow-pause"></span>
+              <span className="edge-pause"></span>
+              <span className="front-pause">
+                Pausar trayecto
+              </span>
+            </button>
+            <button
+              onClick={handleEndJourneyClick}
+              className="pushable"
+              style={{ width: '40%' }}
+            >
+              <span className="shadow-end"></span>
+              <span className="edge-end"></span>
+              <span className="front-end">
                 Finalizar trayecto
-              </Button>
-            )}
-          </CardContent>
-        </Card>
+              </span>
+            </button>
+          </div>
+        )}
       </div>
+
+      {/* Modal de confirmación */}
+      {showEndConfirm && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+          <div className="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl border-2 transition-all duration-300 p-10 max-w-sm w-full transform hover:scale-[1.00]">
+            <div className="text-center mb-6">
+              <div className="mx-auto w-16 h-16 bg-red-10 rounded-full flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                ¿Finalizar trayecto?
+              </h3>
+              <p className="text-sm text-gray-600">
+                Esta acción cerrará tu sesión actual
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <Button
+                onClick={handleEndJourneyCancel}
+                className="flex-1 h-12 text-base font-medium transition-all hover:scale-100"
+                style={{ backgroundColor: '#9ca3af', color: 'white', borderColor: '#5f5f5fff', borderWidth: '1px', borderRadius: '6px' }}
+              >
+                Cancelar
+              </Button>
+              <Button
+                onClick={handleEndJourneyConfirm}
+                className="flex-1 h-12 text-base font-medium transition-all hover:scale-100"
+                style={{ backgroundColor: '#f35d52ff', color: 'white', borderColor: '#c42424ff', borderWidth: '1px', borderRadius: '6px' }}
+              >
+                Finalizar
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style jsx>{`
+        @property --angle {
+          syntax: "<angle>";
+          initial-value: 0deg;
+          inherits: false;
+        }
+
+        .animated-border-card {
+          border: 2px solid transparent;
+          background: linear-gradient(white, white) padding-box,
+                      linear-gradient(var(--angle), #070707, #17c3b2) border-box;
+          animation: 4s rotate linear infinite;
+        }
+
+        @keyframes rotate {
+          to {
+            --angle: 360deg;
+          }
+        }
+
+        /* Pushable button styles */
+        .pushable {
+          position: relative;
+          background: transparent;
+          padding: 0px;
+          border: none;
+          cursor: pointer;
+          outline-offset: 4px;
+          transition: filter 250ms;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          height: 56px;
+        }
+
+        .pushable:focus:not(:focus-visible) {
+          outline: none;
+        }
+
+   
+
+        /* Edge layer */
+        .edge-pause, .edge-end, .edge-start {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          border-radius: 8px;
+        }
+
+        .edge-pause {
+          background: linear-gradient(
+            to right,
+            hsl(44, 85%, 55%) 0%,
+            hsl(44, 85%, 65%) 8%,
+            hsl(44, 85%, 55%) 92%,
+            hsl(44, 85%, 45%) 100%
+          );
+        }
+
+        .edge-end {
+          background: linear-gradient(
+            to right,
+            hsl(15, 85%, 55%) 0%,
+            hsl(15, 85%, 65%) 8%,
+            hsl(15, 85%, 55%) 92%,
+            hsl(15, 85%, 45%) 100%
+          );
+        }
+
+        .edge-start {
+          background: linear-gradient(
+            to right,
+            hsl(30, 10%, 55%) 0%,
+            hsl(30, 10%, 65%) 8%,
+            hsl(30, 10%, 55%) 92%,
+            hsl(30, 10%, 45%) 100%
+          );
+        }
+
+        /* Front layer */
+        .front-pause, .front-end, .front-start {
+          display: block;
+          position: relative;
+          border-radius: 8px;
+          padding: 16px 16px;
+          color: white;
+          font-weight: 700;
+          text-transform: none;
+          font-size: 0.9rem;
+          transform: translateY(-4px);
+          transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+        }
+
+        .front-pause {
+          background: #f7d08a;
+        }
+
+        .front-end {
+          background: #f79f79;
+        }
+
+        .front-start {
+          background: #a8a8a8ff;
+        }
+
+        .pushable:disabled .front-start {
+          background: #dfd7d3ff;
+        }
+
+        .pushable:active .front-pause,
+        .pushable:active .front-end,
+        .pushable:active .front-start {
+          transform: translateY(-2px);
+          transition: transform 34ms;
+        }
+
+        .pushable:disabled:hover .front-start {
+          transform: translateY(-4px);
+        }
+
+        .pushable:disabled:active .front-start {
+          transform: translateY(-4px);
+        }
+      `}</style>
     </div>
   );
 }

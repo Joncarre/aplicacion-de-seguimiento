@@ -11,9 +11,6 @@ export default function HomePage() {
       <div className="w-full max-w-md animate-fadeIn">
         {/* Título principal */}
         <div className="text-center mb-12">
-          <div className="inline-block mb-4">
-            <div className="text-6xl mb-2">🚌</div>
-          </div>
           <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">
             Autobuses Aranjuez
           </h1>
@@ -96,10 +93,10 @@ export default function HomePage() {
         {/* Footer */}
         <div className="mt-12 text-center">
           <p className="text-xs text-text-muted">
-            © 2025 Autobuses Urbanos de Aranjuez
+            All rights reserved © 2025 Jonathan Carrero
           </p>
           <p className="text-xs text-text-muted mt-1">
-            Versión 1.0.0 - Fase 2
+            Version 1.0.0
           </p>
         </div>
       </div>

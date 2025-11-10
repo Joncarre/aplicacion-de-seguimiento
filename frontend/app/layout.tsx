@@ -1,18 +1,12 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Poppins } from 'next/font/google';
+import { Quicksand } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({
+const quicksand = Quicksand({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-quicksand',
   display: 'swap',
-});
-
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['600', '700'],
-  variable: '--font-poppins',
-  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -52,11 +46,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${inter.variable} ${poppins.variable}`}>
+    <html lang="es" className={quicksand.variable}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={inter.className}>
+      <body className={quicksand.className}>
         <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50">
           {children}
         </div>

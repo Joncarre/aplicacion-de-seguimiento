@@ -97,15 +97,24 @@ export default function ConductorAuthPage() {
               maxLength={10}
             />
 
-            <Button
-              type="submit"
-              variant="primary"
-              size="lg"
-              className="w-full"
-              disabled={code.length !== 10 || isLoading}
-            >
-              {isLoading ? 'Validando...' : 'Acceder'}
-            </Button>
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                disabled={code.length !== 10 || isLoading}
+                className="pushable-access"
+                style={{
+                  width: '100%',
+                  cursor: (code.length === 10 && !isLoading) ? 'pointer' : 'not-allowed',
+                  opacity: (code.length === 10 && !isLoading) ? 1 : 0.7
+                }}
+              >
+                <span className="shadow-access"></span>
+                <span className="edge-access"></span>
+                <span className="front-access">
+                  {isLoading ? 'Validando...' : 'Acceder'}
+                </span>
+              </button>
+            </div>
           </form>
 
           {/* Información adicional */}
@@ -125,6 +134,76 @@ export default function ConductorAuthPage() {
           </div>
         )}
       </div>
+
+      <style jsx>{`
+        /* Pushable button styles */
+        .pushable-access {
+          position: relative;
+          background: transparent;
+          padding: 0px;
+          border: none;
+          cursor: pointer;
+          outline-offset: 4px;
+          transition: filter 250ms;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          height: 56px;
+        }
+
+        .pushable-access:focus:not(:focus-visible) {
+          outline: none;
+        }
+
+        /* Edge layer */
+        .edge-access {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          border-radius: 8px;
+          background: linear-gradient(
+            to right,
+            #42a59f 0%,
+            #51bea1 8%,
+            #42a59f 92%,
+            #42a59f 100%
+          );
+        }
+
+        /* Front layer */
+        .front-access {
+          display: block;
+          position: relative;
+          border-radius: 8px;
+          padding: 16px 16px;
+          color: white;
+          font-weight: 700;
+          text-transform: none;
+          font-size: 0.9rem;
+          transform: translateY(-4px);
+          transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+          background: #5dcaadff;
+        }
+
+        .pushable-access:disabled .front-access {
+          background: #a8d8cc;
+        }
+
+ 
+
+        .pushable-access:active .front-access {
+          transform: translateY(-2px);
+          transition: transform 34ms;
+        }
+
+        .pushable-access:disabled:hover .front-access {
+          transform: translateY(-4px);
+        }
+
+        .pushable-access:disabled:active .front-access {
+          transform: translateY(-4px);
+        }
+      `}</style>
     </main>
   );
 }
