@@ -10,6 +10,7 @@ dotenv.config();
 // Importar rutas
 import authRoutes from './routes/auth.routes';
 import locationRoutes from './routes/location.routes';
+import adminRoutes from './routes/admin.routes';
 
 const app: Application = express();
 
@@ -74,7 +75,7 @@ app.get('/health', (req: Request, res: Response) => {
 // Rutas de la API
 app.use('/api/auth', authRoutes);
 app.use('/api', locationRoutes);
-app.use('/api', locationRoutes);
+app.use('/api/admin', adminRoutes);
 
 // ============================================
 // MANEJO DE ERRORES

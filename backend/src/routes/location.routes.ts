@@ -8,11 +8,70 @@ import {
   manualCleanup,
   getStats,
 } from '../controllers/location.controller';
+import { PrismaClient } from '@prisma/client';
 
 const router = Router();
+const prisma = new PrismaClient();
 
 // GET /api/lines - Obtener todas las líneas
 router.get('/lines', getBusLines);
+
+// GET /api/lines/:lineId/stops - Obtener paradas de una línea
+router.get('/lines/:lineId/stops', async (req, res) => {
+  try {
+    const { lineId } = req.params;
+
+    const stopsOnLine = await prisma.stopOnLine.findMany({
+      where: { lineId },
+      include: {
+        stop: true,
+      },
+      orderBy: { order: 'asc' },
+    });
+
+    const stops = stopsOnLine.map((sol) => ({
+      id: sol.stop.id,
+      name: sol.stop.name,
+      street: sol.stop.street,
+      latitude: sol.stop.latitude,
+      longitude: sol.stop.longitude,
+      order: sol.order,
+    }));
+
+    res.json(stops);
+  } catch (error) {
+    console.error('Error al obtener paradas:', error);
+    res.status(500).json({ error: 'Error al obtener paradas' });
+  }
+});
+
+// GET /api/bus-location/:lineId/latest - Obtener última ubicación de un bus en una línea
+router.get('/bus-location/:lineId/latest', async (req, res) => {
+  try {
+    const { lineId } = req.params;
+
+    const latestLocation = await prisma.busLocation.findFirst({
+      where: {
+        lineId,
+        session: {
+          isActive: true,
+        },
+      },
+      orderBy: {
+        timestamp: 'desc',
+      },
+    });
+
+    if (!latestLocation) {
+      return res.status(404).json({ message: 'No hay buses activos en esta línea' });
+    }
+
+    res.json(latestLocation);
+  } catch (error) {
+    console.error('Error al obtener ubicación:', error);
+    res.status(500).json({ error: 'Error al obtener ubicación' });
+  }
+});
 
 // POST /api/location - Enviar ubicación del conductor
 router.post('/location', submitLocation);

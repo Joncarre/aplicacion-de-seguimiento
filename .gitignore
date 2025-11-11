@@ -66,3 +66,29 @@ temp/
 # Driver codes (sensitive data)
 backend/generated/
 **/driver-codes*.txt
+
+# Leaflet/Maps (already in node_modules, but ignore if copied)
+**/leaflet/dist/
+
+# Documentation (if regenerated)
+docs/
+
+# Prisma generated client (regenerated with npx prisma generate)
+**/node_modules/.prisma/
+**/node_modules/@prisma/client/
+
+# Map tiles cache (if any)
+**/map-cache/
+**/.map-cache/
+
+# Admin credentials (if stored locally - use env vars instead)
+admin-credentials.txt
+
+# Backup files
+*.backup
+*.bak
+*.old
+
+# Phase 4 specific - stops/paradas data exports
+stops-export*.json
+paradas-export*.json
