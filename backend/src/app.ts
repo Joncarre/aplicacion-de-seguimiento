@@ -11,6 +11,7 @@ dotenv.config();
 import authRoutes from './routes/auth.routes';
 import locationRoutes from './routes/location.routes';
 import adminRoutes from './routes/admin.routes';
+import etaRoutes from './routes/eta.routes';
 
 const app: Application = express();
 
@@ -76,6 +77,7 @@ app.get('/health', (req: Request, res: Response) => {
 app.use('/api/auth', authRoutes);
 app.use('/api', locationRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/eta', etaRoutes);
 
 // ============================================
 // MANEJO DE ERRORES

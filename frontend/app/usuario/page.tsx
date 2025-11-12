@@ -47,7 +47,9 @@ export default function UsuarioPage() {
   const [stops, setStops] = useState<Stop[]>([]);
   const [busLocation, setBusLocation] = useState<BusLocation | null>(null);
   const [selectedStop, setSelectedStop] = useState<Stop | null>(null);
+  const [etas, setEtas] = useState<BusETA[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingETAs, setIsLoadingETAs] = useState(false);
   const [error, setError] = useState('');
 
   // Función para ajustar el brillo de un color hexadecimal
@@ -135,39 +137,57 @@ export default function UsuarioPage() {
     }
   };
 
-  // Generar ETAs mockeadas para buses (3-4 buses por línea)
-  const generateMockETAs = (stop: Stop): BusETA[] => {
-    const numberOfBuses = Math.floor(Math.random() * 2) + 3; // 3 o 4 buses
-    const etas: BusETA[] = [];
+  // Cargar ETAs reales desde el backend
+  const loadRealETAs = async (stop: Stop): Promise<BusETA[]> => {
+    if (!selectedLineId) return [];
     
-    for (let i = 0; i < numberOfBuses; i++) {
-      // Generar tiempos entre 2 y 25 minutos
-      const minutes = Math.floor(Math.random() * 23) + 2;
+    try {
+      const response = await fetch(`http://localhost:3001/api/eta/${selectedLineId}/${stop.id}`);
       
-      // Generar coordenadas cercanas a la parada (simulando que el bus viene hacia ella)
-      const latOffset = (Math.random() - 0.5) * 0.01;
-      const lonOffset = (Math.random() - 0.5) * 0.01;
+      if (!response.ok) {
+        console.error('Error cargando ETAs');
+        return [];
+      }
+
+      const data = await response.json();
       
-      etas.push({
-        busId: `Autobús ${i + 1}`,
-        estimatedMinutes: minutes,
-        latitude: stop.latitude + latOffset,
-        longitude: stop.longitude + lonOffset,
-      });
+      if (!data.success || !data.data) {
+        return [];
+      }
+
+      // Transformar los datos del backend al formato del frontend
+      return data.data.map((eta: any, index: number) => ({
+        busId: `Autobús ${index + 1}`,
+        estimatedMinutes: eta.estimatedMinutes,
+        latitude: stop.latitude,
+        longitude: stop.longitude,
+      }));
+
+    } catch (err) {
+      console.error('Error al cargar ETAs:', err);
+      return [];
     }
-    
-    // Ordenar por tiempo de llegada
-    return etas.sort((a, b) => a.estimatedMinutes - b.estimatedMinutes);
   };
 
   // Manejar selección de parada
-  const handleStopClick = (stop: Stop) => {
+  const handleStopClick = async (stop: Stop) => {
     setSelectedStop(stop);
+    setIsLoadingETAs(true);
+    setEtas([]); // Limpiar ETAs previos
+    
+    // Esperar 20 segundos antes de mostrar ETAs (necesitamos 2 posiciones del bus)
+    // Las posiciones se envían cada 10 segundos, por lo que 20 segundos garantizan 2 posiciones
+    setTimeout(async () => {
+      const realETAs = await loadRealETAs(stop);
+      setEtas(realETAs);
+      setIsLoadingETAs(false);
+    }, 20000); // 20 segundos
   };
 
   // Volver a la lista de paradas
   const handleBackToStops = () => {
     setSelectedStop(null);
+    setEtas([]);
   };
 
   return (
@@ -336,43 +356,61 @@ export default function UsuarioPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-3">
-                    {generateMockETAs(selectedStop).map((eta, index) => (
-                      <div
-                        key={eta.busId}
-                        className="flex items-center justify-between p-4 bg-gradient-to-r from-slate-50 to-slate-100 rounded-lg border border-slate-200"
-                      >
-                        <div className="flex items-center">
-                          <div
-                            className="w-12 h-12 rounded-full flex items-center justify-center mr-4"
-                            style={{ backgroundColor: selectedLine.color }}
-                          >
-                            <svg
-                              className="w-6 h-6 text-white"
-                              fill="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2l2-2h4l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4M7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17m9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m1.5-7H6V6h12v4z" />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="font-semibold text-slate-800">{eta.busId}</p>
-                            <p className="text-xs text-slate-500">Línea {selectedLine.name}</p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-2xl font-bold" style={{ color: selectedLine.color }}>
-                            {eta.estimatedMinutes}
-                          </p>
-                          <p className="text-xs text-slate-600">minutos</p>
-                        </div>
+                  {/* Estado de carga con mensaje de espera de 20 segundos */}
+                  {isLoadingETAs ? (
+                    <div className="space-y-3">
+                      <div className="flex flex-col items-center justify-center py-12">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 mb-4" style={{ borderColor: selectedLine.color }}></div>
+                        <p className="text-slate-700 font-semibold mb-2">Calculando tiempos de llegada...</p>
+                        <p className="text-sm text-slate-600 text-center max-w-md">
+                          Esperando datos de posición del autobús (~20 segundos). Necesitamos determinar la dirección.
+                        </p>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ) : etas.length === 0 ? (
+                    <div className="text-center py-8">
+                      <p className="text-slate-600">No hay autobuses acercándose a esta parada en este momento</p>
+                      <p className="text-sm text-slate-500 mt-2">Los autobuses deben estar activos y transmitiendo su ubicación</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      {etas.map((eta, index) => (
+                        <div
+                          key={eta.busId}
+                          className="flex items-center justify-between p-4 bg-gradient-to-r from-slate-50 to-slate-100 rounded-lg border border-slate-200"
+                        >
+                          <div className="flex items-center">
+                            <div
+                              className="w-12 h-12 rounded-full flex items-center justify-center mr-4"
+                              style={{ backgroundColor: selectedLine.color }}
+                            >
+                              <svg
+                                className="w-6 h-6 text-white"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2l2-2h4l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4M7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17m9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m1.5-7H6V6h12v4z" />
+                              </svg>
+                            </div>
+                            <div>
+                              <p className="font-semibold text-slate-800">{eta.busId}</p>
+                              <p className="text-xs text-slate-500">Línea {selectedLine.name}</p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-2xl font-bold" style={{ color: selectedLine.color }}>
+                              {Math.round(eta.estimatedMinutes)}
+                            </p>
+                            <p className="text-xs text-slate-600">minutos</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
                   <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
                     <p className="text-xs text-blue-700 text-center">
-                      Recuerda que los tiempos pueden variar según condiciones externas
+                      El cálculo mostrado se basa en la posición real del autobús
                     </p>
                   </div>
                 </>
