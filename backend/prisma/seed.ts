@@ -36,34 +36,57 @@ async function main() {
   // Paradas de ejemplo (coordenadas ficticias en Aranjuez)
   // Centro: aproximadamente 40.0333, -3.6000
   const stopsData = [
-    // L1 - Línea Centro-Norte
+    // L1 - Línea Centro-Norte (8 paradas)
     { name: 'Plaza de Toros', street: 'Calle de la Reina', lat: 40.0320, lon: -3.6010, line: 'L1', order: 1 },
-    { name: 'Estación de Renfe', street: 'Plaza de la Estación', lat: 40.0340, lon: -3.6020, line: 'L1', order: 2 },
-    { name: 'Hospital', street: 'Avenida de Andalucía', lat: 40.0360, lon: -3.6030, line: 'L1', order: 3 },
-    { name: 'Polideportivo', street: 'Calle del Deporte', lat: 40.0380, lon: -3.6040, line: 'L1', order: 4 },
+    { name: 'Jardines del Príncipe', street: 'Calle del Jardín', lat: 40.0330, lon: -3.6015, line: 'L1', order: 2 },
+    { name: 'Estación de Renfe', street: 'Plaza de la Estación', lat: 40.0340, lon: -3.6020, line: 'L1', order: 3 },
+    { name: 'Centro de Salud', street: 'Calle de la Salud', lat: 40.0350, lon: -3.6025, line: 'L1', order: 4 },
+    { name: 'Hospital', street: 'Avenida de Andalucía', lat: 40.0360, lon: -3.6030, line: 'L1', order: 5 },
+    { name: 'IES Alpajés', street: 'Avenida del Ejército', lat: 40.0370, lon: -3.6035, line: 'L1', order: 6 },
+    { name: 'Polideportivo', street: 'Calle del Deporte', lat: 40.0380, lon: -3.6040, line: 'L1', order: 7 },
+    { name: 'Residencial Norte', street: 'Calle de la Paz', lat: 40.0390, lon: -3.6045, line: 'L1', order: 8 },
 
-    // L2 - Línea Este-Oeste
+    // L2 - Línea Este-Oeste (9 paradas)
     { name: 'Palacio Real', street: 'Calle del Príncipe', lat: 40.0333, lon: -3.5980, line: 'L2', order: 1 },
-    { name: 'Mercado Municipal', street: 'Plaza del Mercado', lat: 40.0333, lon: -3.6000, line: 'L2', order: 2 },
-    { name: 'Ayuntamiento', street: 'Plaza de la Constitución', lat: 40.0333, lon: -3.6020, line: 'L2', order: 3 },
-    { name: 'Parque del Parterre', street: 'Calle de la Montaña', lat: 40.0333, lon: -3.6040, line: 'L2', order: 4 },
+    { name: 'Iglesia de San Antonio', street: 'Plaza de San Antonio', lat: 40.0333, lon: -3.5990, line: 'L2', order: 2 },
+    { name: 'Mercado Municipal', street: 'Plaza del Mercado', lat: 40.0333, lon: -3.6000, line: 'L2', order: 3 },
+    { name: 'Correos', street: 'Calle de las Infantas', lat: 40.0333, lon: -3.6010, line: 'L2', order: 4 },
+    { name: 'Ayuntamiento', street: 'Plaza de la Constitución', lat: 40.0333, lon: -3.6020, line: 'L2', order: 5 },
+    { name: 'Teatro Real Carlos III', street: 'Calle del Teatro', lat: 40.0333, lon: -3.6030, line: 'L2', order: 6 },
+    { name: 'Parque del Parterre', street: 'Calle de la Montaña', lat: 40.0333, lon: -3.6040, line: 'L2', order: 7 },
+    { name: 'Piscina Municipal', street: 'Avenida del Deporte', lat: 40.0333, lon: -3.6050, line: 'L2', order: 8 },
+    { name: 'Zona Industrial', street: 'Polígono Sur', lat: 40.0333, lon: -3.6060, line: 'L2', order: 9 },
 
-    // L3 - Línea Circular
+    // L3 - Línea Circular (10 paradas)
     { name: 'Universidad', street: 'Avenida de la Universidad', lat: 40.0300, lon: -3.6000, line: 'L3', order: 1 },
-    { name: 'Centro Comercial', street: 'Calle del Comercio', lat: 40.0310, lon: -3.6010, line: 'L3', order: 2 },
-    { name: 'Biblioteca Municipal', street: 'Plaza de las Letras', lat: 40.0320, lon: -3.6000, line: 'L3', order: 3 },
-    { name: 'Teatro', street: 'Calle del Arte', lat: 40.0310, lon: -3.5990, line: 'L3', order: 4 },
+    { name: 'Campus Universitario', street: 'Calle del Saber', lat: 40.0305, lon: -3.6005, line: 'L3', order: 2 },
+    { name: 'Centro Comercial', street: 'Calle del Comercio', lat: 40.0310, lon: -3.6010, line: 'L3', order: 3 },
+    { name: 'Cines Aranjuez', street: 'Avenida del Ocio', lat: 40.0315, lon: -3.6005, line: 'L3', order: 4 },
+    { name: 'Biblioteca Municipal', street: 'Plaza de las Letras', lat: 40.0320, lon: -3.6000, line: 'L3', order: 5 },
+    { name: 'Museo de la Ciudad', street: 'Calle de la Cultura', lat: 40.0315, lon: -3.5995, line: 'L3', order: 6 },
+    { name: 'Teatro', street: 'Calle del Arte', lat: 40.0310, lon: -3.5990, line: 'L3', order: 7 },
+    { name: 'Conservatorio', street: 'Plaza de la Música', lat: 40.0305, lon: -3.5992, line: 'L3', order: 8 },
+    { name: 'Parque de Infantas', street: 'Calle de las Infantas', lat: 40.0300, lon: -3.5995, line: 'L3', order: 9 },
+    { name: 'Centro Cívico', street: 'Avenida de Europa', lat: 40.0298, lon: -3.5998, line: 'L3', order: 10 },
 
-    // L4 - Línea Sur
-    { name: 'Jardines del Príncipe', street: 'Calle del Jardín', lat: 40.0280, lon: -3.6010, line: 'L4', order: 1 },
-    { name: 'Casco Antiguo', street: 'Calle Mayor', lat: 40.0290, lon: -3.6000, line: 'L4', order: 2 },
-    { name: 'Plaza de Abastos', street: 'Plaza de Abastos', lat: 40.0300, lon: -3.5990, line: 'L4', order: 3 },
+    // L4 - Línea Sur (7 paradas)
+    { name: 'Jardines del Príncipe Sur', street: 'Calle del Jardín Sur', lat: 40.0280, lon: -3.6010, line: 'L4', order: 1 },
+    { name: 'Plaza de Parejas', street: 'Plaza de Parejas', lat: 40.0285, lon: -3.6005, line: 'L4', order: 2 },
+    { name: 'Casco Antiguo', street: 'Calle Mayor', lat: 40.0290, lon: -3.6000, line: 'L4', order: 3 },
+    { name: 'Casa de la Cultura', street: 'Calle de la Cultura', lat: 40.0295, lon: -3.5995, line: 'L4', order: 4 },
+    { name: 'Plaza de Abastos', street: 'Plaza de Abastos', lat: 40.0300, lon: -3.5990, line: 'L4', order: 5 },
+    { name: 'Convento de San Pascual', street: 'Calle San Pascual', lat: 40.0305, lon: -3.5985, line: 'L4', order: 6 },
+    { name: 'Río Tajo', street: 'Paseo del Río', lat: 40.0310, lon: -3.5980, line: 'L4', order: 7 },
 
-    // L5 - Línea Residencial
+    // L5 - Línea Residencial (8 paradas)
     { name: 'Urbanización Norte', street: 'Calle de la Paz', lat: 40.0400, lon: -3.6000, line: 'L5', order: 1 },
-    { name: 'Colegio San Fernando', street: 'Avenida San Fernando', lat: 40.0380, lon: -3.6010, line: 'L5', order: 2 },
-    { name: 'Centro de Salud', street: 'Calle de la Salud', lat: 40.0360, lon: -3.6000, line: 'L5', order: 3 },
-    { name: 'Parque de Ocio', street: 'Calle del Ocio', lat: 40.0340, lon: -3.5990, line: 'L5', order: 4 },
+    { name: 'Plaza Mayor Norte', street: 'Plaza Mayor Norte', lat: 40.0390, lon: -3.6005, line: 'L5', order: 2 },
+    { name: 'Colegio San Fernando', street: 'Avenida San Fernando', lat: 40.0380, lon: -3.6010, line: 'L5', order: 3 },
+    { name: 'Parque Infantil', street: 'Calle de los Niños', lat: 40.0370, lon: -3.6008, line: 'L5', order: 4 },
+    { name: 'Centro de Salud Norte', street: 'Calle de la Salud', lat: 40.0360, lon: -3.6000, line: 'L5', order: 5 },
+    { name: 'Supermercado Central', street: 'Avenida del Comercio', lat: 40.0350, lon: -3.5995, line: 'L5', order: 6 },
+    { name: 'Parque de Ocio', street: 'Calle del Ocio', lat: 40.0340, lon: -3.5990, line: 'L5', order: 7 },
+    { name: 'Estación de Autobuses', street: 'Plaza de los Viajeros', lat: 40.0330, lon: -3.5985, line: 'L5', order: 8 },
   ];
 
   for (const stopData of stopsData) {
@@ -115,6 +138,7 @@ async function main() {
   console.log('📊 Resumen:');
   console.log(`   - ${lines.length} líneas creadas`);
   console.log(`   - ${stopsData.length} paradas creadas`);
+  console.log('   - L1: 8 paradas | L2: 9 paradas | L3: 10 paradas | L4: 7 paradas | L5: 8 paradas');
   console.log('');
   console.log('📋 Próximos pasos:');
   console.log('   1. Ejecuta: npm run generate-codes');
