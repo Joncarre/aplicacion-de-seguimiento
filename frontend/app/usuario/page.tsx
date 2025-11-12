@@ -261,8 +261,12 @@ export default function UsuarioPage() {
                           className="w-full flex items-center p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
                         >
                           <div
-                            className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3"
-                            style={{ backgroundColor: selectedLine.color }}
+                            className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm mr-3 border-2"
+                            style={{ 
+                              backgroundColor: 'white',
+                              borderColor: selectedLine.color,
+                              color: selectedLine.color
+                            }}
                           >
                             {index + 1}
                           </div>
@@ -316,8 +320,12 @@ export default function UsuarioPage() {
                     </h3>
                     <div className="mt-2 flex items-center">
                       <div
-                        className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3"
-                        style={{ backgroundColor: selectedLine.color }}
+                        className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm mr-3 border-2"
+                        style={{ 
+                          backgroundColor: 'white',
+                          borderColor: selectedLine.color,
+                          color: selectedLine.color
+                        }}
                       >
                         {stops.findIndex((s) => s.id === selectedStop.id) + 1}
                       </div>
@@ -420,7 +428,7 @@ export default function UsuarioPage() {
         }
 
         .pushable-line:hover .front-line {
-          transform: translateY(-6px);
+          transform: translateY(-4px);
           transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
         }
 
@@ -436,6 +444,11 @@ export default function UsuarioPage() {
 
         .pushable-line.selected:active .front-line {
           transform: translateY(-4px);
+        }
+
+        /* Leaflet popup styles */
+        .leaflet-popup-content-wrapper {
+          background-color: white !important;
         }
       `}</style>
     </div>

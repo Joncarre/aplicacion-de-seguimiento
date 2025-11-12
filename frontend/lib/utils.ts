@@ -34,10 +34,10 @@ export function formatTime(seconds: number): string {
 }
 
 /**
- * Valida un código de conductor (10 dígitos)
+ * Valida un código de conductor (6 dígitos)
  */
 export function validateDriverCode(code: string): boolean {
-  return /^\d{10}$/.test(code);
+  return /^\d{6}$/.test(code);
 }
 
 /**

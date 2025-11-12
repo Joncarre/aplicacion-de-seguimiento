@@ -23,7 +23,7 @@ export default function ConductorAuthPage() {
 
     // Validación del código
     if (!validateDriverCode(code)) {
-      setError('El código debe tener exactamente 10 dígitos');
+      setError('El código debe tener exactamente 6 dígitos');
       return;
     }
 
@@ -52,8 +52,8 @@ export default function ConductorAuthPage() {
   };
 
   const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Solo permitir números y máximo 10 dígitos
-    const value = e.target.value.replace(/\D/g, '').slice(0, 10);
+    // Solo permitir números y máximo 6 dígitos
+    const value = e.target.value.replace(/\D/g, '').slice(0, 6);
     setCode(value);
     setError(''); // Limpiar error al escribir
   };
@@ -88,24 +88,24 @@ export default function ConductorAuthPage() {
               type="text"
               inputMode="numeric"
               pattern="[0-9]*"
-              placeholder="12345"
+              placeholder="123456"
               value={code}
               onChange={handleCodeChange}
               error={error}
               disabled={isLoading}
               autoFocus
-              maxLength={10}
+              maxLength={6}
             />
 
             <div className="flex justify-center">
               <button
                 type="submit"
-                disabled={code.length !== 10 || isLoading}
+                disabled={code.length !== 6 || isLoading}
                 className="pushable-access"
                 style={{
                   width: '100%',
-                  cursor: (code.length === 10 && !isLoading) ? 'pointer' : 'not-allowed',
-                  opacity: (code.length === 10 && !isLoading) ? 1 : 0.7
+                  cursor: (code.length === 6 && !isLoading) ? 'pointer' : 'not-allowed',
+                  opacity: (code.length === 6 && !isLoading) ? 1 : 0.7
                 }}
               >
                 <span className="shadow-access"></span>

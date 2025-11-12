@@ -6,8 +6,8 @@ import { z } from 'zod';
 // Schema de validación para el código
 const ValidateCodeSchema = z.object({
   code: z.string()
-    .length(10, 'El código debe tener 10 dígitos')
-    .regex(/^\d{10}$/, 'El código solo debe contener dígitos')
+    .length(6, 'El código debe tener 6 dígitos')
+    .regex(/^\d{6}$/, 'El código solo debe contener dígitos')
 });
 
 // Schema para finalizar sesión

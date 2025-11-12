@@ -6,7 +6,7 @@ import * as path from 'path';
 const prisma = new PrismaClient();
 
 /**
- * Genera códigos aleatorios de 10 dígitos para conductores
+ * Genera códigos aleatorios de 6 dígitos para conductores
  */
 async function generateDriverCodes(count: number = 30) {
   console.log('='.repeat(60));
@@ -23,9 +23,9 @@ async function generateDriverCodes(count: number = 30) {
     const plainCodes = new Set<string>();
     
     while (plainCodes.size < count) {
-      // Generar código de 10 dígitos
+      // Generar código de 6 dígitos
       let code = '';
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 6; i++) {
         code += Math.floor(Math.random() * 10);
       }
       plainCodes.add(code);

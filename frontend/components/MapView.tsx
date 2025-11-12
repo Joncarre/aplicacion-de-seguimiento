@@ -44,32 +44,30 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   const [locationError, setLocationError] = useState<string | null>(null);
 
-  // Obtener ubicación del usuario
+  // Tracking continuo de la ubicación del usuario
   useEffect(() => {
     if (!navigator.geolocation) {
       const msg = 'Tu navegador no soporta geolocalización';
       console.error(msg);
       setLocationError(msg);
-      alert(msg);
       return;
     }
 
-    console.log('🔍 Solicitando permisos de geolocalización...');
+    console.log('Iniciando tracking de ubicación del usuario...');
 
-    navigator.geolocation.getCurrentPosition(
+    const watchId = navigator.geolocation.watchPosition(
       (position) => {
         const coords = [position.coords.latitude, position.coords.longitude] as [number, number];
-        console.log('✅ Ubicación obtenida:', {
+        console.log('Ubicación actualizada:', {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           accuracy: position.coords.accuracy
         });
         setUserLocation(coords);
         setLocationError(null);
-        alert(`Ubicación detectada: ${coords[0].toFixed(4)}, ${coords[1].toFixed(4)}`);
       },
       (error) => {
-        console.error('❌ Error obteniendo ubicación:', error);
+        console.error('Error obteniendo ubicación:', error);
         let errorMessage = 'No se pudo obtener tu ubicación';
         
         switch (error.code) {
@@ -86,14 +84,19 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
         
         console.error('💡 Mensaje de error:', errorMessage);
         setLocationError(errorMessage);
-        alert(errorMessage);
       },
       {
         enableHighAccuracy: true,
-        timeout: 15000,
+        timeout: 10000,
         maximumAge: 0
       }
     );
+
+    // Cleanup: detener el tracking cuando el componente se desmonte
+    return () => {
+      console.log('🛑 Deteniendo tracking de ubicación');
+      navigator.geolocation.clearWatch(watchId);
+    };
   }, []);
 
   // Centro del mapa: Aranjuez
@@ -173,8 +176,8 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
         >
           <Popup>
             <div className="text-sm" style={{ color: lineColor }}>
-              <p className="font-bold mb-0.5">Parada {index + 1}</p>
-              <p className="font-normal text-slate-700">{stop.name}</p>
+                <p className="my-0" style={{ marginBottom: '2px', marginTop: '4px' }}>Parada {index + 1}</p>
+                <p className="font-normal text-slate-700 my-0" style={{ marginBottom: '2px', marginTop: '2px' }}>{stop.name}</p>
             </div>
           </Popup>
         </Marker>
@@ -226,22 +229,30 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
         }
 
         .leaflet-popup-content-wrapper {
-          background: rgba(255, 255, 255, 0.85) !important;
-          backdrop-filter: blur(12px) saturate(180%) !important;
-          -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
-          border-radius: 16px !important;
+          background: rgba(255, 255, 255, 0.81) !important;
+          border-radius: 12px !important;
           box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), 
                       0 4px 12px rgba(0, 0, 0, 0.08) !important;
-          border: 2px solid transparent !important;
-          background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)) padding-box,
-                      linear-gradient(var(--angle), ${lineColor}, ${lineColor}80, ${lineColor}) border-box !important;
           padding: 8px 12px !important;
-          animation: 4s rotate linear infinite !important;
+          position: relative !important;
+        }
+
+        .leaflet-popup-content-wrapper::before {
+          content: '' !important;
+          position: absolute !important;
+          inset: 0 !important;
+          border-radius: 12px !important;
+          padding: 2px !important;
+          background: linear-gradient(var(--angle), rgba(231, 230, 230, 0.81), rgba(231, 230, 230, 0.81), rgba(231, 230, 230, 0.81), rgba(231, 230, 230, 0.81), ${lineColor}) !important;
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0) !important;
+          -webkit-mask-composite: xor !important;
+          mask-composite: exclude !important;
+          animation: 5s rotate linear infinite !important;
+          pointer-events: none !important;
         }
 
         .leaflet-popup-tip {
-          background: rgba(255, 255, 255, 0.85) !important;
-          backdrop-filter: blur(12px) !important;
+          display: none !important;
         }
 
         .leaflet-popup-content {

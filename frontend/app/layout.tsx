@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from 'next';
-import { Quicksand } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 import './globals.css';
 import 'leaflet/dist/leaflet.css';
 
-const quicksand = Quicksand({
+const montserrat = Montserrat({
   subsets: ['latin'],
-  variable: '--font-quicksand',
+  variable: '--font-montserrat',
   display: 'swap',
   weight: ['300', '400', '500', '600', '700'],
 });
@@ -47,11 +47,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={quicksand.variable}>
+    <html lang="es" className={montserrat.variable}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={quicksand.className}>
+      <body className={montserrat.className}>
         <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50">
           {children}
         </div>
