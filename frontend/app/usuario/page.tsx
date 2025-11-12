@@ -33,12 +33,20 @@ interface BusLocation {
   timestamp: string;
 }
 
+interface BusETA {
+  busId: string;
+  estimatedMinutes: number;
+  latitude: number;
+  longitude: number;
+}
+
 export default function UsuarioPage() {
   const [lines, setLines] = useState<BusLine[]>([]);
   const [selectedLineId, setSelectedLineId] = useState<string>('');
   const [selectedLine, setSelectedLine] = useState<BusLine | null>(null);
   const [stops, setStops] = useState<Stop[]>([]);
   const [busLocation, setBusLocation] = useState<BusLocation | null>(null);
+  const [selectedStop, setSelectedStop] = useState<Stop | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -127,6 +135,41 @@ export default function UsuarioPage() {
     }
   };
 
+  // Generar ETAs mockeadas para buses (3-4 buses por línea)
+  const generateMockETAs = (stop: Stop): BusETA[] => {
+    const numberOfBuses = Math.floor(Math.random() * 2) + 3; // 3 o 4 buses
+    const etas: BusETA[] = [];
+    
+    for (let i = 0; i < numberOfBuses; i++) {
+      // Generar tiempos entre 2 y 25 minutos
+      const minutes = Math.floor(Math.random() * 23) + 2;
+      
+      // Generar coordenadas cercanas a la parada (simulando que el bus viene hacia ella)
+      const latOffset = (Math.random() - 0.5) * 0.01;
+      const lonOffset = (Math.random() - 0.5) * 0.01;
+      
+      etas.push({
+        busId: `Autobús ${i + 1}`,
+        estimatedMinutes: minutes,
+        latitude: stop.latitude + latOffset,
+        longitude: stop.longitude + lonOffset,
+      });
+    }
+    
+    // Ordenar por tiempo de llegada
+    return etas.sort((a, b) => a.estimatedMinutes - b.estimatedMinutes);
+  };
+
+  // Manejar selección de parada
+  const handleStopClick = (stop: Stop) => {
+    setSelectedStop(stop);
+  };
+
+  // Volver a la lista de paradas
+  const handleBackToStops = () => {
+    setSelectedStop(null);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Header */}
@@ -193,39 +236,138 @@ export default function UsuarioPage() {
                   stops={stops}
                   busLocation={busLocation}
                   lineColor={selectedLine.color}
+                  onStopClick={handleStopClick}
                 />
               )}
             </Card>
 
-            {/* Lista de paradas */}
+            {/* Lista de paradas O Panel de ETAs */}
             <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-4 text-slate-800">
-                Paradas de la línea
-              </h3>
-              {stops.length === 0 ? (
-                <p className="text-slate-600 text-center py-8">
-                  No hay paradas configuradas para esta línea
-                </p>
+              {!selectedStop ? (
+                <>
+                  <h3 className="text-lg font-semibold mb-4 text-slate-800">
+                    Paradas de la línea
+                  </h3>
+                  {stops.length === 0 ? (
+                    <p className="text-slate-600 text-center py-8">
+                      No hay paradas configuradas para esta línea
+                    </p>
+                  ) : (
+                    <div className="space-y-2">
+                      {stops.map((stop, index) => (
+                        <button
+                          key={stop.id}
+                          onClick={() => handleStopClick(stop)}
+                          className="w-full flex items-center p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                        >
+                          <div
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3"
+                            style={{ backgroundColor: selectedLine.color }}
+                          >
+                            {index + 1}
+                          </div>
+                          <div className="flex-1 text-left">
+                            <h4 className="font-semibold text-slate-800">{stop.name}</h4>
+                            <p className="text-sm text-slate-600">{stop.street}</p>
+                          </div>
+                          <svg
+                            className="w-5 h-5 text-slate-400"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </>
               ) : (
-                <div className="space-y-2">
-                  {stops.map((stop, index) => (
-                    <div
-                      key={stop.id}
-                      className="flex items-center p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors"
+                <>
+                  {/* Panel de tiempos de llegada */}
+                  <div className="mb-4">
+                    <button
+                      onClick={handleBackToStops}
+                      className="font-medium rounded-2xl transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed bg-transparent hover:bg-green-50 text-accent-primary px-4 py-2 text-sm flex items-center gap-2"
                     >
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 19l-7-7 7-7"
+                        />
+                      </svg>
+                      Volver a paradas
+                    </button>
+                    <h3 className="text-lg font-semibold text-slate-800">
+                      Tiempos de llegada en:
+                    </h3>
+                    <div className="mt-2 flex items-center">
                       <div
                         className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3"
                         style={{ backgroundColor: selectedLine.color }}
                       >
-                        {index + 1}
+                        {stops.findIndex((s) => s.id === selectedStop.id) + 1}
                       </div>
-                      <div className="flex-1">
-                        <h4 className="font-semibold text-slate-800">{stop.name}</h4>
-                        <p className="text-sm text-slate-600">{stop.street}</p>
+                      <div>
+                        <h4 className="font-semibold text-slate-800">{selectedStop.name}</h4>
+                        <p className="text-sm text-slate-600">{selectedStop.street}</p>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    {generateMockETAs(selectedStop).map((eta, index) => (
+                      <div
+                        key={eta.busId}
+                        className="flex items-center justify-between p-4 bg-gradient-to-r from-slate-50 to-slate-100 rounded-lg border border-slate-200"
+                      >
+                        <div className="flex items-center">
+                          <div
+                            className="w-12 h-12 rounded-full flex items-center justify-center mr-4"
+                            style={{ backgroundColor: selectedLine.color }}
+                          >
+                            <svg
+                              className="w-6 h-6 text-white"
+                              fill="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2l2-2h4l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4M7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17m9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m1.5-7H6V6h12v4z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-slate-800">{eta.busId}</p>
+                            <p className="text-xs text-slate-500">Línea {selectedLine.name}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-2xl font-bold" style={{ color: selectedLine.color }}>
+                            {eta.estimatedMinutes}
+                          </p>
+                          <p className="text-xs text-slate-600">minutos</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                    <p className="text-xs text-blue-700 text-center">
+                      Recuerda que los tiempos pueden variar según condiciones externas
+                    </p>
+                  </div>
+                </>
               )}
             </Card>
           </>
