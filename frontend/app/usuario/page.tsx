@@ -363,13 +363,13 @@ export default function UsuarioPage() {
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 mb-4" style={{ borderColor: selectedLine.color }}></div>
                         <p className="text-slate-700 font-semibold mb-2">Calculando tiempos de llegada...</p>
                         <p className="text-sm text-slate-600 text-center max-w-md">
-                          Esperando datos de posición del autobús (~20 segundos). Necesitamos determinar la dirección.
+                          Esperando datos de posición del autobús (~20 segundos) Necesitamos determinar la dirección
                         </p>
                       </div>
                     </div>
                   ) : etas.length === 0 ? (
                     <div className="text-center py-8">
-                      <p className="text-slate-600">No hay autobuses acercándose a esta parada en este momento</p>
+                      <p className="text-slate-600">Lo sentimos, no hay autobuses acercándose a esta parada en este momento</p>
                       <p className="text-sm text-slate-500 mt-2">Los autobuses deben estar activos y transmitiendo su ubicación</p>
                     </div>
                   ) : (
