@@ -255,10 +255,6 @@ export default function AdminPage() {
               Acceder
             </Button>
           </form>
-
-          <p className="text-xs text-slate-500 mt-4 text-center">
-            Usuario: admin | Contraseña: admin123 (por defecto)
-          </p>
         </Card>
       </div>
     );

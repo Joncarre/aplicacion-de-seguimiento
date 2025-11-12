@@ -42,6 +42,15 @@ export default function UsuarioPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Función para ajustar el brillo de un color hexadecimal
+  const adjustColor = (color: string, amount: number): string => {
+    const hex = color.replace('#', '');
+    const r = Math.max(0, Math.min(255, parseInt(hex.substring(0, 2), 16) + amount));
+    const g = Math.max(0, Math.min(255, parseInt(hex.substring(2, 4), 16) + amount));
+    const b = Math.max(0, Math.min(255, parseInt(hex.substring(4, 6), 16) + amount));
+    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+  };
+
   // Cargar líneas al montar el componente
   useEffect(() => {
     loadLines();
@@ -53,7 +62,7 @@ export default function UsuarioPage() {
       const response = await fetch('http://localhost:3001/api/lines');
       if (response.ok) {
         const data = await response.json();
-        setLines(data);
+        setLines(data.lines || data);
       }
     } catch (err) {
       console.error('Error al cargar líneas:', err);
@@ -125,10 +134,10 @@ export default function UsuarioPage() {
         <div className="max-w-6xl mx-auto px-4 py-4">
           <BackButton href="/" />
           <h1 className="text-2xl font-bold text-slate-800 mt-4">
-            🚌 Seguimiento de Autobuses - Aranjuez
+            Seguimiento de autobuses
           </h1>
           <p className="text-sm text-slate-600 mt-1">
-            Selecciona una línea para ver su recorrido y ubicación en tiempo real
+            Selecciona una línea para recorrido y ubicación en tiempo real
           </p>
         </div>
       </div>
@@ -151,14 +160,20 @@ export default function UsuarioPage() {
                 <button
                   key={line.id}
                   onClick={() => setSelectedLineId(line.id)}
-                  className={`p-4 rounded-lg font-bold text-white transition-all ${
-                    selectedLineId === line.id
-                      ? 'ring-4 ring-offset-2 ring-slate-400 scale-105'
-                      : 'hover:scale-105 opacity-80 hover:opacity-100'
+                  className={`pushable-line ${
+                    selectedLineId === line.id ? 'selected' : ''
                   }`}
-                  style={{ backgroundColor: line.color }}
+                  style={{
+                    '--line-color': line.color,
+                    '--line-color-dark': adjustColor(line.color, -20),
+                    '--line-color-darker': adjustColor(line.color, -30),
+                  } as React.CSSProperties}
                 >
-                  {line.name}
+                  <span className="shadow-line"></span>
+                  <span className="edge-line"></span>
+                  <span className="front-line">
+                    {line.name}
+                  </span>
                 </button>
               ))
             ) : (
@@ -169,20 +184,6 @@ export default function UsuarioPage() {
 
         {selectedLine && (
           <>
-            {/* Información de la línea seleccionada */}
-            <div className="mb-4 p-4 rounded-lg text-white font-semibold"
-                 style={{ backgroundColor: selectedLine.color }}>
-              <h2 className="text-xl">
-                Línea {selectedLine.name} - {selectedLine.description}
-              </h2>
-              <p className="text-sm opacity-90 mt-1">
-                {stops.length} paradas • 
-                {busLocation 
-                  ? ' Bus en circulación 🟢' 
-                  : ' Sin buses activos 🔴'}
-              </p>
-            </div>
-
             {/* Mapa */}
             <Card className="p-0 overflow-hidden mb-4" style={{ height: '500px' }}>
               {isLoading ? (
@@ -230,6 +231,71 @@ export default function UsuarioPage() {
           </>
         )}
       </div>
+
+      <style jsx>{`
+        /* Pushable button styles para líneas */
+        .pushable-line {
+          position: relative;
+          background: transparent;
+          padding: 0px;
+          border: none;
+          cursor: pointer;
+          outline-offset: 4px;
+          transition: filter 250ms;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          height: 56px;
+          width: 100%;
+        }
+
+        .pushable-line:focus:not(:focus-visible) {
+          outline: none;
+        }
+
+        /* Edge layer */
+        .edge-line {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          border-radius: 8px;
+          background: var(--line-color-darker);
+        }
+
+        /* Front layer */
+        .front-line {
+          display: block;
+          position: relative;
+          border-radius: 8px;
+          padding: 16px 16px;
+          color: white;
+          font-weight: 700;
+          text-transform: none;
+          font-size: 0.9rem;
+          transform: translateY(-4px);
+          transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+          background: var(--line-color);
+        }
+
+        .pushable-line:hover .front-line {
+          transform: translateY(-6px);
+          transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+        }
+
+        .pushable-line:active .front-line {
+          transform: translateY(-2px);
+          transition: transform 34ms;
+        }
+
+        .pushable-line.selected .front-line {
+          transform: translateY(-6px);
+          box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .pushable-line.selected:active .front-line {
+          transform: translateY(-4px);
+        }
+      `}</style>
     </div>
   );
 }
