@@ -191,15 +191,15 @@ export default function UsuarioPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b border-slate-200">
+    <div className="min-h-screen bg-transparent relative z-10">
+      {/* Header con estilo oscuro */}
+      <div className="bg-dark-bg-card shadow-lg border-b border-dark-border">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <BackButton href="/" />
-          <h1 className="text-2xl font-bold text-slate-800 mt-4">
+          <h1 className="text-2xl font-bold text-neon-green mt-4">
             Seguimiento de autobuses
           </h1>
-          <p className="text-sm text-slate-600 mt-1">
+          <p className="text-sm text-dark-text-muted mt-1">
             Selecciona una línea para recorrido y ubicación en tiempo real
           </p>
         </div>
@@ -207,14 +207,14 @@ export default function UsuarioPage() {
 
       <div className="max-w-6xl mx-auto p-4">
         {error && (
-          <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-4 text-sm">
+          <div className="bg-neon-pink bg-opacity-10 border border-neon-pink text-neon-pink p-3 rounded-lg mb-4 text-sm backdrop-blur-sm">
             {error}
           </div>
         )}
 
-        {/* Selector de líneas */}
-        <Card className="p-6 mb-4">
-          <h2 className="text-lg font-semibold mb-4 text-slate-800">
+        {/* Selector de líneas con estilo oscuro */}
+        <div className="card-dark p-6 mb-4 rounded-2xl">
+          <h2 className="text-lg font-semibold mb-4 text-dark-text-primary">
             Selecciona tu línea
           </h2>
           <div className="grid grid-cols-5 gap-4">
@@ -240,17 +240,17 @@ export default function UsuarioPage() {
                 </button>
               ))
             ) : (
-              <p className="col-span-5 text-center text-slate-600">Cargando líneas...</p>
+              <p className="col-span-5 text-center text-dark-text-muted">Cargando líneas...</p>
             )}
           </div>
-        </Card>
+        </div>
 
         {selectedLine && (
           <>
-            {/* Mapa */}
-            <Card className="p-0 overflow-hidden mb-4" style={{ height: '500px' }}>
+            {/* Mapa con borde neón */}
+            <div className="card-dark p-0 overflow-hidden mb-4 rounded-2xl" style={{ height: '500px' }}>
               {isLoading ? (
-                <p className="text-center py-12">Cargando mapa...</p>
+                <p className="text-center py-12 text-dark-text-muted">Cargando mapa...</p>
               ) : (
                 <MapView
                   stops={stops}
@@ -259,31 +259,31 @@ export default function UsuarioPage() {
                   onStopClick={handleStopClick}
                 />
               )}
-            </Card>
+            </div>
 
-            {/* Lista de paradas O Panel de ETAs */}
-            <Card className="p-6">
+            {/* Lista de paradas O Panel de ETAs con estilo oscuro */}
+            <div className="card-dark p-6 rounded-2xl">
               {!selectedStop ? (
                 <>
-                  <h3 className="text-lg font-semibold mb-4 text-slate-800">
+                  <h3 className="text-lg font-semibold mb-4 text-dark-text-primary">
                     Paradas de la línea
                   </h3>
                   {stops.length === 0 ? (
-                    <p className="text-slate-600 text-center py-8">
+                    <p className="text-dark-text-muted text-center py-8">
                       No hay paradas configuradas para esta línea
                     </p>
                   ) : (
                     <div className="space-y-2">
                       {stops.map((stop, index) => (
-                        <button
+                        <div
                           key={stop.id}
                           onClick={() => handleStopClick(stop)}
-                          className="w-full flex items-center p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                          className="w-full flex items-center p-3 bg-dark-bg-tertiary bg-opacity-30 rounded-lg hover:bg-opacity-50 transition-all cursor-pointer border border-dark-border group"
                         >
                           <div
-                            className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm mr-3 border-2"
+                            className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm mr-3 border-2 transition-all"
                             style={{ 
-                              backgroundColor: 'white',
+                              backgroundColor: 'transparent',
                               borderColor: selectedLine.color,
                               color: selectedLine.color
                             }}
@@ -291,11 +291,11 @@ export default function UsuarioPage() {
                             {index + 1}
                           </div>
                           <div className="flex-1 text-left">
-                            <h4 className="font-semibold text-slate-800">{stop.name}</h4>
-                            <p className="text-sm text-slate-600">{stop.street}</p>
+                            <h4 className="font-semibold text-dark-text-primary transition-colors">{stop.name}</h4>
+                            <p className="text-sm text-dark-text-muted">{stop.street}</p>
                           </div>
                           <svg
-                            className="w-5 h-5 text-slate-400"
+                            className="w-5 h-5 text-dark-text-muted transition-colors"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -307,7 +307,7 @@ export default function UsuarioPage() {
                               d="M9 5l7 7-7 7"
                             />
                           </svg>
-                        </button>
+                        </div>
                       ))}
                     </div>
                   )}
@@ -318,7 +318,7 @@ export default function UsuarioPage() {
                   <div className="mb-4">
                     <button
                       onClick={handleBackToStops}
-                      className="font-medium rounded-2xl transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed bg-transparent hover:bg-green-50 text-accent-primary px-4 py-2 text-sm flex items-center gap-2"
+                      className="font-medium rounded-2xl transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed bg-dark-bg-tertiary bg-opacity-30 hover:bg-opacity-50 text-neon-green px-4 py-2 text-sm flex items-center gap-2 border border-dark-border"
                     >
                       <svg
                         className="w-5 h-5"
@@ -335,23 +335,24 @@ export default function UsuarioPage() {
                       </svg>
                       Volver a paradas
                     </button>
-                    <h3 className="text-lg font-semibold text-slate-800">
+                    <h3 className="text-lg font-semibold text-dark-text-primary mt-4">
                       Tiempos de llegada en:
                     </h3>
                     <div className="mt-2 flex items-center">
                       <div
                         className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm mr-3 border-2"
                         style={{ 
-                          backgroundColor: 'white',
+                          backgroundColor: 'transparent',
                           borderColor: selectedLine.color,
-                          color: selectedLine.color
+                          color: selectedLine.color,
+                          boxShadow: `0 0 10px ${selectedLine.color}40`
                         }}
                       >
                         {stops.findIndex((s) => s.id === selectedStop.id) + 1}
                       </div>
                       <div>
-                        <h4 className="font-semibold text-slate-800">{selectedStop.name}</h4>
-                        <p className="text-sm text-slate-600">{selectedStop.street}</p>
+                        <h4 className="font-semibold text-dark-text-primary">{selectedStop.name}</h4>
+                        <p className="text-sm text-dark-text-muted">{selectedStop.street}</p>
                       </div>
                     </div>
                   </div>
@@ -360,32 +361,35 @@ export default function UsuarioPage() {
                   {isLoadingETAs ? (
                     <div className="space-y-3">
                       <div className="flex flex-col items-center justify-center py-12">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 mb-4" style={{ borderColor: selectedLine.color }}></div>
-                        <p className="text-slate-700 font-semibold mb-2">Calculando tiempos de llegada...</p>
-                        <p className="text-sm text-slate-600 text-center max-w-md">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 mb-4 shadow-neon" style={{ borderColor: selectedLine.color }}></div>
+                        <p className="text-dark-text-primary font-semibold mb-2">Calculando tiempos de llegada...</p>
+                        <p className="text-sm text-dark-text-muted text-center max-w-md">
                           Esperando datos de posición del autobús (~20 segundos) Necesitamos determinar la dirección
                         </p>
                       </div>
                     </div>
                   ) : etas.length === 0 ? (
                     <div className="text-center py-8">
-                      <p className="text-slate-600">Lo sentimos, no hay autobuses acercándose a esta parada en este momento</p>
-                      <p className="text-sm text-slate-500 mt-2">Los autobuses deben estar activos y transmitiendo su ubicación</p>
+                      <p className="text-dark-text-secondary">Lo sentimos, no hay autobuses acercándose a esta parada en este momento</p>
+                      <p className="text-sm text-dark-text-muted mt-2">Los autobuses deben estar activos y transmitiendo su ubicación</p>
                     </div>
                   ) : (
                     <div className="space-y-3">
                       {etas.map((eta, index) => (
                         <div
                           key={eta.busId}
-                          className="flex items-center justify-between p-4 bg-gradient-to-r from-slate-50 to-slate-100 rounded-lg border border-slate-200"
+                          className="flex items-center justify-between p-4 bg-dark-bg-tertiary bg-opacity-30 rounded-lg border border-dark-border transition-all group"
                         >
                           <div className="flex items-center">
                             <div
                               className="w-12 h-12 rounded-full flex items-center justify-center mr-4"
-                              style={{ backgroundColor: selectedLine.color }}
+                              style={{ 
+                                backgroundColor: selectedLine.color,
+                                boxShadow: `0 0 15px ${selectedLine.color}60`
+                              }}
                             >
                               <svg
-                                className="w-6 h-6 text-white"
+                                className="w-6 h-6 text-dark-bg-primary"
                                 fill="currentColor"
                                 viewBox="0 0 24 24"
                               >
@@ -393,35 +397,38 @@ export default function UsuarioPage() {
                               </svg>
                             </div>
                             <div>
-                              <p className="font-semibold text-slate-800">{eta.busId}</p>
-                              <p className="text-xs text-slate-500">Línea {selectedLine.name}</p>
+                              <p className="font-semibold text-dark-text-primary">{eta.busId}</p>
+                              <p className="text-xs text-dark-text-muted">Línea {selectedLine.name}</p>
                             </div>
                           </div>
                           <div className="text-right">
-                            <p className="text-2xl font-bold" style={{ color: selectedLine.color }}>
+                            <p className="text-2xl font-bold" style={{ 
+                              color: selectedLine.color,
+                              textShadow: `0 0 10px ${selectedLine.color}40`
+                            }}>
                               {Math.round(eta.estimatedMinutes)}
                             </p>
-                            <p className="text-xs text-slate-600">minutos</p>
+                            <p className="text-xs text-dark-text-muted">minutos</p>
                           </div>
                         </div>
                       ))}
                     </div>
                   )}
 
-                  <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                    <p className="text-xs text-blue-700 text-center">
-                      El cálculo mostrado se basa en la posición real del autobús
+                  <div className="mt-4 p-3 bg-neon-blue bg-opacity-10 rounded-lg border border-neon-blue border-opacity-30 backdrop-blur-sm">
+                    <p className="text-xs text-neon-blue text-center">
+                      ⏱️ Tiempos calculados en tiempo real siguiendo la ruta del autobús
                     </p>
                   </div>
                 </>
               )}
-            </Card>
+            </div>
           </>
         )}
       </div>
 
       <style jsx>{`
-        /* Pushable button styles para líneas */
+        /* Pushable button styles para líneas con efecto neón */
         .pushable-line {
           position: relative;
           background: transparent;
@@ -439,7 +446,7 @@ export default function UsuarioPage() {
           outline: none;
         }
 
-        /* Edge layer */
+        /* Edge layer con sombra oscura */
         .edge-line {
           position: absolute;
           top: 0;
@@ -448,26 +455,29 @@ export default function UsuarioPage() {
           width: 100%;
           border-radius: 8px;
           background: var(--line-color-darker);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
-        /* Front layer */
+        /* Front layer con efecto neón */
         .front-line {
           display: block;
           position: relative;
           border-radius: 8px;
           padding: 16px 16px;
-          color: white;
+          color: #0a0e27;
           font-weight: 700;
           text-transform: none;
           font-size: 0.9rem;
           transform: translateY(-4px);
-          transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+          transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1), box-shadow 300ms;
           background: var(--line-color);
+          box-shadow: 0 0 15px var(--line-color), 0 0 30px var(--line-color)50;
         }
 
         .pushable-line:hover .front-line {
-          transform: translateY(-4px);
+          transform: translateY(-6px);
           transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+          box-shadow: 0 0 20px var(--line-color), 0 0 40px var(--line-color)60, 0 0 60px var(--line-color)30;
         }
 
         .pushable-line:active .front-line {
@@ -477,16 +487,24 @@ export default function UsuarioPage() {
 
         .pushable-line.selected .front-line {
           transform: translateY(-6px);
-          box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 25px var(--line-color), 0 0 50px var(--line-color)70, inset 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
         .pushable-line.selected:active .front-line {
           transform: translateY(-4px);
         }
 
-        /* Leaflet popup styles */
+        /* Leaflet popup styles para modo oscuro */
         .leaflet-popup-content-wrapper {
-          background-color: white !important;
+          background-color: #0f1420 !important;
+          color: #e2e8f0 !important;
+          border: 1px solid #1e293b !important;
+          box-shadow: 0 0 20px rgba(6, 214, 160, 0.2) !important;
+        }
+
+        .leaflet-popup-tip {
+          background-color: #0f1420 !important;
+          border: 1px solid #1e293b !important;
         }
       `}</style>
     </div>

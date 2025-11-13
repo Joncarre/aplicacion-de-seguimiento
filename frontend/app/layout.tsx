@@ -38,7 +38,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: '#10b981',
+  themeColor: '#0a0e27',
 };
 
 export default function RootLayout({
@@ -52,9 +52,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={montserrat.className}>
-        <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50">
-          {children}
-        </div>
+        {children}
       </body>
     </html>
   );

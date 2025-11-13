@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Bus } from 'lucide-react';
 import BackButton from '@/components/ui/BackButton';
 import Card from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
@@ -59,24 +60,24 @@ export default function ConductorAuthPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-4">
+    <main className="min-h-screen flex items-center justify-center p-4 relative z-10">
       <div className="w-full max-w-md animate-fadeIn">
         {/* Botón volver */}
         <div className="mb-6">
           <BackButton href="/" />
         </div>
 
-        {/* Tarjeta de autenticación */}
-        <Card>
+        {/* Tarjeta de autenticación con estilo oscuro */}
+        <div className="card-dark p-8 rounded-2xl">
           {/* Icono y título */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-2xl mb-4 shadow-lg">
-              <Lock size={32} className="text-white" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-neon-blue/20 rounded-2xl mb-4">
+              <Bus size={32} className="text-neon-blue" />
             </div>
-            <h1 className="text-2xl font-bold text-text-primary mb-2">
-              Acceso de Conductor
+            <h1 className="text-2xl font-bold text-neon-blue mb-2">
+              Acceso Conductor
             </h1>
-            <p className="text-sm text-text-muted">
+            <p className="text-sm text-dark-text-muted">
               Introduce tu código de conductor
             </p>
           </div>
@@ -117,26 +118,26 @@ export default function ConductorAuthPage() {
             </div>
           </form>
 
-          {/* Información adicional */}
-          <div className="mt-6 p-4 bg-green-50 rounded-xl border border-green-200">
-            <p className="text-xs text-text-secondary text-center">
-              Por favor, recuerda detener la ubicación al realizar un descanso o terminar la jornada.
+          {/* Información adicional con estilo oscuro */}
+          <div className="mt-6 p-4 bg-neon-green bg-opacity-10 rounded-xl border border-neon-green border-opacity-30 backdrop-blur-sm">
+            <p className="text-xs text-neon-green text-center">
+              💡 Recuerda detener la ubicación al realizar un descanso o terminar la jornada.
             </p>
           </div>
-        </Card>
+        </div>
 
-        {/* Loading overlay */}
+        {/* Loading overlay con estilo oscuro */}
         {isLoading && (
-          <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-50">
-            <Card className="p-8">
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="card-dark p-8 rounded-2xl">
               <LoadingSpinner message="Validando código..." />
-            </Card>
+            </div>
           </div>
         )}
       </div>
 
       <style jsx>{`
-        /* Pushable button styles */
+        /* Pushable button styles con efecto neón */
         .pushable-access {
           position: relative;
           background: transparent;
@@ -153,7 +154,7 @@ export default function ConductorAuthPage() {
           outline: none;
         }
 
-        /* Edge layer */
+        /* Edge layer con sombra oscura */
         .edge-access {
           position: absolute;
           top: 0;
@@ -161,37 +162,38 @@ export default function ConductorAuthPage() {
           height: 100%;
           width: 100%;
           border-radius: 8px;
-          background: linear-gradient(
-            to right,
-            #42a59f 0%,
-            #51bea1 8%,
-            #42a59f 92%,
-            #42a59f 100%
-          );
+          background: #06d6a0;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
-        /* Front layer */
+        /* Front layer con efecto neón */
         .front-access {
           display: block;
           position: relative;
           border-radius: 8px;
           padding: 16px 16px;
-          color: white;
+          color: #0a0e27;
           font-weight: 700;
           text-transform: none;
           font-size: 0.9rem;
           transform: translateY(-4px);
-          transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
-          background: #5dcaadff;
+          transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1), box-shadow 300ms;
+          background: #06d6a0;
+          box-shadow: 0 0 20px rgba(6, 214, 160, 0.6), 0 0 40px rgba(6, 214, 160, 0.3);
         }
 
         .pushable-access:disabled .front-access {
-          background: #a8d8cc;
+          background: #1a1f3a;
+          color: #64748b;
+          box-shadow: none;
         }
 
- 
+        .pushable-access:hover:not(:disabled) .front-access {
+          transform: translateY(-6px);
+          box-shadow: 0 0 30px rgba(6, 214, 160, 0.8), 0 0 60px rgba(6, 214, 160, 0.5), 0 0 90px rgba(6, 214, 160, 0.3);
+        }
 
-        .pushable-access:active .front-access {
+        .pushable-access:active:not(:disabled) .front-access {
           transform: translateY(-2px);
           transition: transform 34ms;
         }

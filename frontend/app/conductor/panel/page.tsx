@@ -149,14 +149,14 @@ export default function PanelConductor() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100 flex items-center justify-center">
-        <p className="text-muted-foreground">Verificando autenticación...</p>
+      <div className="min-h-screen bg-transparent flex items-center justify-center relative z-10">
+        <p className="text-dark-text-muted">Verificando autenticación...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100 p-4 pb-safe">
+    <div className="min-h-screen bg-transparent p-4 pb-safe relative z-10">
       <div className="max-w-md mx-auto space-y-4">
         {/* Selección de línea */}
         {!isTransmitting && (
@@ -170,24 +170,11 @@ export default function PanelConductor() {
                   <button
                     key={line.id}
                     onClick={() => handleLineSelection(line.id)}
-                    className={`p-4 rounded-lg border-[2px] transition-all ${
-                      selectedLine === line.id
-                        ? 'scale-100'
-                        : ''
-                    }`}
+                    className={`p-4 rounded-lg border-[2px] transition-all`}
                     style={{
-                      backgroundColor: selectedLine === line.id ? `${line.color}20` : 'white',
-                      borderColor: selectedLine === line.id ? line.color : '#e5e7eb',
-                    }}
-                    onMouseEnter={(e) => {
-                      if (selectedLine !== line.id) {
-                        e.currentTarget.style.borderColor = line.color;
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (selectedLine !== line.id) {
-                        e.currentTarget.style.borderColor = '#e5e7eb';
-                      }
+                      backgroundColor: selectedLine === line.id ? `${line.color}20` : 'rgba(26, 31, 58, 0.5)',
+                      borderColor: selectedLine === line.id ? line.color : '#1e293b',
+                      boxShadow: selectedLine === line.id ? `0 0 20px ${line.color}40` : 'none',
                     }}
                   >
                     <div className="flex items-center justify-center gap-2">
@@ -195,7 +182,7 @@ export default function PanelConductor() {
                         className="w-6 h-6" 
                         style={{ color: line.color }}
                       />
-                      <span className="font-bold text-lg">{line.name}</span>
+                      <span className="font-bold text-lg text-dark-text-primary">{line.name}</span>
                     </div>
                   </button>
                 ))}
@@ -206,24 +193,27 @@ export default function PanelConductor() {
 
         {/* Estado de transmisión */}
         {isTransmitting && selectedLine && (
-          <div className="backdrop-blur-sm rounded-3xl shadow-lg p-6 border transition-all duration-100 animated-border-card">
+          <div className="card-dark backdrop-blur-sm rounded-3xl p-6 border border-dark-border transition-all duration-100">
             <div className="flex flex-col items-center gap-3">
               <MapPin className="w-12 h-12 animate-pulse" 
-                style={{ color: busLines.find(l => l.id === selectedLine)?.color }} 
+                style={{ 
+                  color: busLines.find(l => l.id === selectedLine)?.color,
+                  filter: `drop-shadow(0 0 10px ${busLines.find(l => l.id === selectedLine)?.color})`
+                }} 
               />
               <div className="text-center">
-                <p className="font-bold text-green-900">
+                <p className="font-bold text-dark-text-primary">
                   Transmitiendo posición...
                 </p>
                 <p className="text-sm font-semibold"
                   style={{ color: busLines.find(l => l.id === selectedLine)?.color }}>
                   Línea {busLines.find(l => l.id === selectedLine)?.name} activa
                 </p>
-                <p className="text-xs text-green-600 mt-1">
+                <p className="text-xs text-neon-green mt-1">
                   GPS actualizado cada 10 segundos
                 </p>
                 {location && (
-                  <div className="mt-2 text-xs text-green-600">
+                  <div className="mt-2 text-xs text-dark-text-muted">
                     <p>Latitud: {location.latitude.toFixed(6)}</p>
                     <p>Longitud: {location.longitude.toFixed(6)}</p>
                   </div>
@@ -235,13 +225,13 @@ export default function PanelConductor() {
 
         {/* Error de ubicación */}
         {locationError && (
-          <Card className="border-red-300 bg-red-50">
+          <Card className="border-neon-pink bg-neon-pink bg-opacity-10">
             <CardContent className="pt-6">
               <div className="flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-neon-pink flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-red-900">Error de ubicación</p>
-                  <p className="text-sm text-red-700">{locationError}</p>
+                  <p className="font-semibold text-neon-pink">Error de ubicación</p>
+                  <p className="text-sm text-dark-text-muted">{locationError}</p>
                 </div>
               </div>
             </CardContent>
@@ -250,13 +240,13 @@ export default function PanelConductor() {
 
         {/* Error de API */}
         {apiError && (
-          <Card className="border-red-300 bg-red-50">
+          <Card className="border-neon-pink bg-neon-pink bg-opacity-10">
             <CardContent className="pt-6">
               <div className="flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-neon-pink flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-red-900">Error</p>
-                  <p className="text-sm text-red-700">{apiError}</p>
+                  <p className="font-semibold text-neon-pink">Error</p>
+                  <p className="text-sm text-dark-text-muted">{apiError}</p>
                 </div>
               </div>
             </CardContent>
@@ -311,34 +301,34 @@ export default function PanelConductor() {
         )}
       </div>
 
-      {/* Modal de confirmación */}
+      {/* Modal de confirmación con estilo oscuro */}
       {showEndConfirm && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-          <div className="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl border-2 transition-all duration-300 p-10 max-w-sm w-full transform hover:scale-[1.00]">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+          <div className="card-dark backdrop-blur-md rounded-3xl border-2 border-dark-border transition-all duration-300 p-10 max-w-sm w-full">
             <div className="text-center mb-6">
-              <div className="mx-auto w-16 h-16 bg-red-10 rounded-full flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="mx-auto w-16 h-16 bg-neon-pink bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-dark-text-primary mb-2">
                 ¿Finalizar trayecto?
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-dark-text-muted">
                 Esta acción cerrará tu sesión actual
               </p>
             </div>
             <div className="flex gap-3">
               <Button
                 onClick={handleEndJourneyCancel}
-                className="flex-1 h-12 text-base font-medium transition-all hover:scale-100"
+                className="flex-1 h-12 text-base font-medium transition-all"
                 style={{ backgroundColor: '#9ca3af', color: 'white', borderColor: '#5f5f5fff', borderWidth: '1px', borderRadius: '6px' }}
               >
                 Cancelar
               </Button>
               <Button
                 onClick={handleEndJourneyConfirm}
-                className="flex-1 h-12 text-base font-medium transition-all hover:scale-100"
+                className="flex-1 h-12 text-base font-medium transition-all"
                 style={{ backgroundColor: '#f35d52ff', color: 'white', borderColor: '#c42424ff', borderWidth: '1px', borderRadius: '6px' }}
               >
                 Finalizar
@@ -356,9 +346,8 @@ export default function PanelConductor() {
         }
 
         .animated-border-card {
-          border: 2px solid transparent;
-          background: linear-gradient(white, white) padding-box,
-                      linear-gradient(var(--angle), #070707, #17c3b2) border-box;
+          border: 2px solid #17c3b2;
+          background: white;
           animation: 4s rotate linear infinite;
         }
 
@@ -398,31 +387,15 @@ export default function PanelConductor() {
         }
 
         .edge-pause {
-          background: linear-gradient(
-            to right,
-            hsl(44, 85%, 55%) 0%,
-            hsl(44, 85%, 65%) 8%,
-            hsl(44, 85%, 55%) 92%,
-            hsl(44, 85%, 45%) 100%
-          );
+          background: hsl(44, 85%, 55%);
         }
 
         .edge-end {
-          background: linear-gradient(
-            to right,
-            hsl(15, 85%, 55%) 0%,
-            hsl(15, 85%, 65%) 8%,
-            hsl(15, 85%, 55%) 92%,
-            hsl(15, 85%, 45%) 100%
-          );
+          background: hsl(15, 85%, 55%);
         }
 
         .edge-start {
-          background: linear-gradient(
-            to right,
-            hsl(30, 10%, 55%) 0%,
-            hsl(30, 10%, 65%) 8%,
-            hsl(30, 10%, 55%) 92%,
+          background: hsl(30, 10%, 55%);
             hsl(30, 10%, 45%) 100%
           );
         }

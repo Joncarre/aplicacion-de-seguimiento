@@ -8,34 +8,64 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Líneas de autobús
+        // Líneas de autobús con colores neón
         line: {
           1: {
-            DEFAULT: '#86efac', // green-300
-            dark: '#4ade80',    // green-400
-            light: '#bbf7d0',   // green-200
+            DEFAULT: '#ef476f',
+            dark: '#d62d56',
+            light: '#ff6b8a',
           },
           2: {
-            DEFAULT: '#6ee7b7', // emerald-300
-            dark: '#34d399',    // emerald-400
-            light: '#a7f3d0',   // emerald-200
+            DEFAULT: '#ffd166',
+            dark: '#f5c24d',
+            light: '#ffe699',
           },
           3: {
-            DEFAULT: '#5eead4', // teal-300
-            dark: '#2dd4bf',    // teal-400
-            light: '#99f6e4',   // teal-200
+            DEFAULT: '#06d6a0',
+            dark: '#05b885',
+            light: '#39e3b8',
           },
           4: {
-            DEFAULT: '#7dd3fc', // sky-300
-            dark: '#38bdf8',    // sky-400
-            light: '#bae6fd',   // sky-200
+            DEFAULT: '#118ab2',
+            dark: '#0e6f8e',
+            light: '#3da5c4',
+          },
+          5: {
+            DEFAULT: '#9984d4',
+            dark: '#7d68b8',
+            light: '#b5a3e3',
           },
         },
-        // Colores personalizados
+        // Fondos oscuros
+        dark: {
+          bg: {
+            primary: '#0a0e27',
+            secondary: '#131729',
+            tertiary: '#1a1f3a',
+            card: '#0f1420',
+          },
+          text: {
+            primary: '#e2e8f0',
+            secondary: '#cbd5e1',
+            muted: '#94a3b8',
+          },
+          border: {
+            DEFAULT: '#1e293b',
+            light: '#334155',
+          },
+        },
+        // Colores de acento neón
         accent: {
-          primary: '#10b981',  // green-500
-          hover: '#059669',    // green-600
-          active: '#047857',   // green-700
+          primary: '#06d6a0',
+          hover: '#39e3b8',
+          active: '#05b885',
+        },
+        neon: {
+          green: '#06d6a0',
+          blue: '#118ab2',
+          yellow: '#ffd166',
+          pink: '#ef476f',
+          purple: '#9984d4',
         },
       },
       fontFamily: {
@@ -47,6 +77,13 @@ module.exports = {
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'neon-pulse': 'neon-pulse 2s ease-in-out infinite',
+        'sparkle': 'sparkle 15s ease-in-out infinite',
+      },
+      boxShadow: {
+        'neon': '0 0 10px rgba(6, 214, 160, 0.4)',
+        'neon-lg': '0 0 20px rgba(6, 214, 160, 0.4), 0 0 40px rgba(6, 214, 160, 0.2)',
+        'neon-xl': '0 0 30px rgba(6, 214, 160, 0.5), 0 0 60px rgba(6, 214, 160, 0.3)',
       },
     },
   },

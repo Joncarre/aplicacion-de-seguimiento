@@ -12,11 +12,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const baseClasses = 'font-medium rounded-2xl transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed';
     
     const variants = {
-      primary: 'bg-accent-primary hover:bg-accent-hover active:bg-accent-active text-white shadow-lg hover:shadow-xl',
-      secondary: 'bg-white/80 hover:bg-white text-text-primary border-2 border-accent-primary shadow-md hover:shadow-lg',
-      outline: 'bg-transparent hover:bg-green-50 text-accent-primary border-2 border-accent-primary',
-      ghost: 'bg-transparent hover:bg-green-50 text-accent-primary',
-      destructive: 'bg-red-600 hover:bg-red-700 active:bg-red-800 text-white shadow-lg hover:shadow-xl',
+      primary: 'bg-neon-green hover:bg-accent-hover active:bg-accent-active text-dark-bg-primary',
+      secondary: 'bg-dark-bg-tertiary bg-opacity-50 hover:bg-opacity-70 text-dark-text-primary border-2 border-neon-green',
+      outline: 'bg-transparent hover:bg-dark-bg-tertiary hover:bg-opacity-30 text-neon-green border-2 border-neon-green',
+      ghost: 'bg-transparent hover:bg-dark-bg-tertiary hover:bg-opacity-30 text-neon-green',
+      destructive: 'bg-neon-pink hover:bg-opacity-80 active:bg-opacity-60 text-white',
     };
     
     const sizes = {

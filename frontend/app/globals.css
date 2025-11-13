@@ -5,49 +5,68 @@
 /* Importar fuentes de Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap');
 
-/* Variables CSS personalizadas */
+/* Variables CSS personalizadas - MODO OSCURO */
 :root {
-  /* Colores de líneas */
-  --line-1: #86efac;
-  --line-1-dark: #4ade80;
-  --line-1-light: #bbf7d0;
+  /* Colores de líneas con efecto neón */
+  --line-1: #ef476f;
+  --line-1-dark: #d62d56;
+  --line-1-light: #ff6b8a;
+  --line-1-glow: rgba(239, 71, 111, 0.5);
   
-  --line-2: #6ee7b7;
-  --line-2-dark: #34d399;
-  --line-2-light: #a7f3d0;
+  --line-2: #ffd166;
+  --line-2-dark: #f5c24d;
+  --line-2-light: #ffe699;
+  --line-2-glow: rgba(255, 209, 102, 0.5);
   
-  --line-3: #5eead4;
-  --line-3-dark: #2dd4bf;
-  --line-3-light: #99f6e4;
+  --line-3: #06d6a0;
+  --line-3-dark: #05b885;
+  --line-3-light: #39e3b8;
+  --line-3-glow: rgba(6, 214, 160, 0.5);
   
-  --line-4: #7dd3fc;
-  --line-4-dark: #38bdf8;
-  --line-4-light: #bae6fd;
+  --line-4: #118ab2;
+  --line-4-dark: #0e6f8e;
+  --line-4-light: #3da5c4;
+  --line-4-glow: rgba(17, 138, 178, 0.5);
+  
+  --line-5: #9984d4;
+  --line-5-dark: #7d68b8;
+  --line-5-light: #b5a3e3;
+  --line-5-glow: rgba(153, 132, 212, 0.5);
 
-  /* Fondos */
-  --bg-primary: #f0fdf4;
-  --bg-secondary: #dcfce7;
-  --bg-tertiary: #bbf7d0;
+  /* Fondos oscuros con gradientes sutiles */
+  --bg-primary: #0a0e27;
+  --bg-secondary: #131729;
+  --bg-tertiary: #1a1f3a;
+  --bg-card: #0f1420;
+  --bg-card-hover: #161b2e;
 
-  /* Texto */
-  --text-primary: #14532d;
-  --text-secondary: #166534;
-  --text-muted: #16a34a;
+  /* Texto en modo oscuro */
+  --text-primary: #e2e8f0;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
 
-  /* Acentos */
-  --accent-primary: #10b981;
-  --accent-hover: #059669;
-  --accent-active: #047857;
+  /* Acentos neón */
+  --accent-primary: #06d6a0;
+  --accent-hover: #39e3b8;
+  --accent-active: #05b885;
+  --accent-glow: rgba(6, 214, 160, 0.4);
 
-  /* Estados */
-  --success: #22c55e;
-  --warning: #f59e0b;
-  --error: #ef4444;
-  --info: #3b82f6;
+  /* Estados con efecto neón */
+  --success: #06d6a0;
+  --success-glow: rgba(6, 214, 160, 0.3);
+  --warning: #ffd166;
+  --warning-glow: rgba(255, 209, 102, 0.3);
+  --error: #ef476f;
+  --error-glow: rgba(239, 71, 111, 0.3);
+  --info: #118ab2;
+  --info-glow: rgba(17, 138, 178, 0.3);
 
-  /* Bordes y Sombras */
-  --border: #d1fae5;
-  --shadow: rgba(5, 150, 105, 0.1);
+  /* Bordes y Sombras oscuras */
+  --border: #1e293b;
+  --border-light: #334155;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --shadow-glow: rgba(6, 214, 160, 0.15);
 }
 
 /* Estilos base */
@@ -68,8 +87,40 @@ body {
 
 body {
   color: var(--text-primary);
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  background: var(--bg-primary);
   min-height: 100vh;
+  position: relative;
+}
+
+/* Efecto de estrellas/partículas en el fondo */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20% 30%, rgba(6, 214, 160, 0.3), transparent),
+    radial-gradient(2px 2px at 60% 70%, rgba(17, 138, 178, 0.3), transparent),
+    radial-gradient(1px 1px at 50% 50%, rgba(255, 209, 102, 0.2), transparent),
+    radial-gradient(1px 1px at 80% 10%, rgba(239, 71, 111, 0.3), transparent),
+    radial-gradient(2px 2px at 90% 60%, rgba(153, 132, 212, 0.3), transparent);
+  background-size: 200% 200%;
+  animation: sparkle 15s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0.5;
+    background-position: 0% 0%;
+  }
+  50% {
+    opacity: 0.8;
+    background-position: 100% 100%;
+  }
 }
 
 /* Tipografía */
@@ -78,22 +129,24 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
-/* Scrollbar personalizado */
+/* Scrollbar personalizado - modo oscuro */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--accent-primary);
   border-radius: 5px;
+  box-shadow: 0 0 10px var(--accent-glow);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-hover);
+  box-shadow: 0 0 15px var(--accent-glow);
 }
 
 /* Animaciones custom */
@@ -136,25 +189,46 @@ h1, h2, h3, h4, h5, h6 {
   animation: slideIn 0.3s ease-out;
 }
 
-/* Utilidades custom */
+/* Utilidades custom - modo oscuro */
 .glassmorphism {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(15, 20, 32, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, var(--accent-primary), var(--line-3));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent-primary);
 }
 
-/* Focus visible para accesibilidad */
+.glow-text {
+  text-shadow: 0 0 20px var(--accent-glow);
+}
+
+.neon-border {
+  border: 1px solid var(--accent-primary);
+  box-shadow: 0 0 10px var(--accent-glow), inset 0 0 10px var(--accent-glow);
+}
+
+.card-dark {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px var(--shadow), 0 0 40px rgba(6, 214, 160, 0.05);
+  transition: all 0.3s ease;
+}
+
+.card-dark:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 8px 30px var(--shadow), 0 0 50px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+/* Focus visible para accesibilidad - modo oscuro */
 *:focus-visible {
   outline: 2px solid var(--accent-primary);
   outline-offset: 2px;
   border-radius: 4px;
+  box-shadow: 0 0 15px var(--accent-glow);
 }
 
 /* Transiciones suaves globales */
@@ -181,7 +255,7 @@ a, button, input, select, textarea {
   border-radius: 1.5rem;
 }
 
-/* Loading spinner */
+/* Loading spinner - modo oscuro neón */
 .spinner {
   border: 4px solid var(--bg-tertiary);
   border-top: 4px solid var(--accent-primary);
@@ -189,11 +263,26 @@ a, button, input, select, textarea {
   width: 40px;
   height: 40px;
   animation: spin 1s linear infinite;
+  box-shadow: 0 0 20px var(--accent-glow);
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Animaciones adicionales para efectos neón */
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--accent-glow), 0 0 10px var(--accent-glow);
+  }
+  50% {
+    box-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow), 0 0 30px var(--accent-glow);
+  }
+}
+
+.animate-neon-pulse {
+  animation: neon-pulse 2s ease-in-out infinite;
 }
 
 /* Estilos para PWA */

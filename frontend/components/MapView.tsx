@@ -243,11 +243,10 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
           inset: 0 !important;
           border-radius: 12px !important;
           padding: 2px !important;
-          background: linear-gradient(var(--angle), rgba(231, 230, 230, 0.81), rgba(231, 230, 230, 0.81), rgba(231, 230, 230, 0.81), rgba(231, 230, 230, 0.81), ${lineColor}) !important;
+          background: ${lineColor} !important;
           -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0) !important;
           -webkit-mask-composite: xor !important;
           mask-composite: exclude !important;
-          animation: 5s rotate linear infinite !important;
           pointer-events: none !important;
         }
 

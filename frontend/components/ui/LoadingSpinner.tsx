@@ -17,14 +17,15 @@ export default function LoadingSpinner({ size = 'md', message }: LoadingSpinnerP
       <div
         className={`
           ${sizes[size]}
-          border-green-200
-          border-t-accent-primary
+          border-dark-border
+          border-t-neon-green
           rounded-full
           animate-spin
+          shadow-neon
         `}
       />
       {message && (
-        <p className="text-text-muted text-sm animate-pulse">{message}</p>
+        <p className="text-dark-text-muted text-sm animate-pulse">{message}</p>
       )}
     </div>
   );
