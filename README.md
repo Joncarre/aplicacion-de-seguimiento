@@ -6,7 +6,7 @@ Sistema de seguimiento en tiempo real de autobuses urbanos en Aranjuez, Madrid.
 
 ## Descripción
 
-Aplicación web progresiva (PWA) que permite el seguimiento GPS en tiempo real de los autobuses urbanos de Aranjuez. Los conductores transmiten su ubicación cada 10 segundos, permitiendo a los usuarios conocer la posición exacta de cada bus y estimar tiempos de llegada precisos.
+Aplicación web que permite el seguimiento GPS en tiempo real de los autobuses urbanos de Aranjuez. Los conductores transmiten su ubicación cada 10 segundos, permitiendo a los usuarios conocer la posición exacta de cada bus y estimar tiempos de llegada precisos.
 
 ### Problema que Resuelve
 
