@@ -217,12 +217,6 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s ease;
 }
 
-.card-dark:hover {
-  border-color: var(--accent-primary);
-  box-shadow: 0 8px 30px var(--shadow), 0 0 50px var(--accent-glow);
-  transform: translateY(-2px);
-}
-
 /* Focus visible para accesibilidad - modo oscuro */
 *:focus-visible {
   outline: 2px solid var(--accent-primary);

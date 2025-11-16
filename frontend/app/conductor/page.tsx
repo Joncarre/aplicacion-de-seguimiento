@@ -119,9 +119,9 @@ export default function ConductorAuthPage() {
           </form>
 
           {/* Información adicional con estilo oscuro */}
-          <div className="mt-6 p-4 bg-neon-green bg-opacity-10 rounded-xl border border-neon-green border-opacity-30 backdrop-blur-sm">
-            <p className="text-xs text-neon-green text-center">
-              💡 Recuerda detener la ubicación al realizar un descanso o terminar la jornada.
+          <div className="mt-6 p-4 bg-neon-blue bg-opacity-10 rounded-xl border border-neon-blue border-opacity-30 backdrop-blur-sm">
+            <p className="text-xs text-white text-center">
+              Por favor, recuerda detener la ubicación al realizar un descanso o terminar la jornada.
             </p>
           </div>
         </div>
@@ -137,6 +137,7 @@ export default function ConductorAuthPage() {
       </div>
 
       <style jsx>{`
+
         /* Pushable button styles con efecto neón */
         .pushable-access {
           position: relative;
@@ -162,7 +163,7 @@ export default function ConductorAuthPage() {
           height: 100%;
           width: 100%;
           border-radius: 8px;
-          background: #06d6a0;
+          background: #118ab2;
           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
@@ -172,25 +173,20 @@ export default function ConductorAuthPage() {
           position: relative;
           border-radius: 8px;
           padding: 16px 16px;
-          color: #0a0e27;
+          color: #ffffffff;
           font-weight: 700;
           text-transform: none;
           font-size: 0.9rem;
           transform: translateY(-4px);
           transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1), box-shadow 300ms;
-          background: #06d6a0;
-          box-shadow: 0 0 20px rgba(6, 214, 160, 0.6), 0 0 40px rgba(6, 214, 160, 0.3);
+          background: #5ea6beff;
+          box-shadow: 0 0 20px rgba(207, 207, 207, 0), 0 0 40px rgba(0, 2, 3, 0.3);
         }
 
         .pushable-access:disabled .front-access {
           background: #1a1f3a;
-          color: #64748b;
+          color: #d8d8d8ff;
           box-shadow: none;
-        }
-
-        .pushable-access:hover:not(:disabled) .front-access {
-          transform: translateY(-6px);
-          box-shadow: 0 0 30px rgba(6, 214, 160, 0.8), 0 0 60px rgba(6, 214, 160, 0.5), 0 0 90px rgba(6, 214, 160, 0.3);
         }
 
         .pushable-access:active:not(:disabled) .front-access {

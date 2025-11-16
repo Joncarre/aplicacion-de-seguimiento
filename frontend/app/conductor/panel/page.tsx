@@ -162,7 +162,7 @@ export default function PanelConductor() {
         {!isTransmitting && (
           <Card>
             <CardHeader className="mb-2.5">
-              <CardTitle className="text-base font-normal">Selecciona tu línea</CardTitle>
+              <CardTitle className="text-xl font-extralight tracking-wider text-dark-text-primary" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.1em' }}>Selecciona tu línea</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
@@ -415,19 +415,19 @@ export default function PanelConductor() {
         }
 
         .front-pause {
-          background: #f7d08a;
+          background: #c0a167ff;
         }
 
         .front-end {
-          background: #f79f79;
+          background: #c08a73ff;
         }
 
         .front-start {
-          background: #a8a8a8ff;
+          background: #a7a7a7ff;
         }
 
         .pushable:disabled .front-start {
-          background: #dfd7d3ff;
+          background: #3c4055ff;
         }
 
         .pushable:active .front-pause,
