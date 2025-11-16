@@ -113,30 +113,39 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
     parseFloat(stop.longitude.toString()),
   ]);
 
-  // Icono personalizado para el bus
-  const busIcon = new L.Icon({
-    iconUrl: 'data:image/svg+xml;base64,' + btoa(`
-      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="${lineColor}">
-        <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2l2-2h4l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4M7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17m9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m1.5-7H6V6h12v4z"/>
-      </svg>
-    `),
-    iconSize: [40, 40],
-    iconAnchor: [20, 20],
-    popupAnchor: [0, -20],
-  });
+  // Icono personalizado para las paradas con el color de la línea
+  const createStopIcon = (stopNumber: number) => {
+    // Oscurecer un poco el color si es amarillo
+    let iconColor = lineColor;
+    if (lineColor.toLowerCase() === '#ffeb3b' || lineColor.toLowerCase() === '#ffd700' || lineColor.toLowerCase().includes('yellow')) {
+      iconColor = '#f9a825'; // amarillo más oscuro
+    }
+    
+    return new L.Icon({
+      iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" fill="${iconColor}" opacity="0.9"/>
+          <circle cx="12" cy="12" r="8" fill="white" opacity="0.3"/>
+          <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="white">${stopNumber}</text>
+        </svg>
+      `),
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32],
+    });
+  };
 
   // Icono personalizado para la ubicación del usuario
   const userIcon = new L.Icon({
     iconUrl: 'data:image/svg+xml;base64,' + btoa(`
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="8" fill="#3b82f6" opacity="0.3"/>
-        <circle cx="12" cy="12" r="4" fill="#3b82f6"/>
-        <circle cx="12" cy="12" r="2" fill="white"/>
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="42" viewBox="0 0 24 32">
+        <path d="M12 0C7.31 0 3.5 3.81 3.5 8.5c0 5.25 8.5 17.5 8.5 17.5s8.5-12.25 8.5-17.5C20.5 3.81 16.69 0 12 0z" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
+        <circle cx="12" cy="8.5" r="3" fill="white"/>
       </svg>
     `),
-    iconSize: [32, 32],
-    iconAnchor: [16, 16],
-    popupAnchor: [0, -16],
+    iconSize: [32, 42],
+    iconAnchor: [16, 42],
+    popupAnchor: [0, -42],
   });
 
   return (
@@ -151,21 +160,12 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {/* Dibujar línea entre paradas */}
-      {routeCoordinates.length > 1 && (
-        <Polyline
-          positions={routeCoordinates}
-          color={lineColor}
-          weight={4}
-          opacity={0.7}
-        />
-      )}
-
       {/* Markers de paradas */}
       {stops.map((stop, index) => (
         <Marker
           key={stop.id}
           position={[parseFloat(stop.latitude.toString()), parseFloat(stop.longitude.toString())]}
+          icon={createStopIcon(index + 1)}
           eventHandlers={{
             click: () => {
               if (onStopClick) {
@@ -183,36 +183,12 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
         </Marker>
       ))}
 
-      {/* Marker del bus en tiempo real */}
-      {busLocation && (
-        <Marker
-          position={[busLocation.latitude, busLocation.longitude]}
-          icon={busIcon}
-        >
-          <Popup>
-            <div className="text-sm">
-              <p className="font-bold text-base">Autobús</p>
-              <p className="text-slate-600">
-                Última actualización: {new Date(busLocation.timestamp).toLocaleTimeString('es-ES')}
-              </p>
-            </div>
-          </Popup>
-        </Marker>
-      )}
-
       {/* Marker de la ubicación del usuario */}
       {userLocation && (
         <Marker
           position={userLocation}
           icon={userIcon}
-        >
-          <Popup>
-            <div className="text-sm">
-              <p className="font-bold text-base">📍 Tu ubicación</p>
-              <p className="text-slate-600">Estás aquí</p>
-            </div>
-          </Popup>
-        </Marker>
+        />
       )}
 
       <style>{`

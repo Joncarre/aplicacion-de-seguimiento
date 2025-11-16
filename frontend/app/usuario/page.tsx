@@ -421,7 +421,7 @@ export default function UsuarioPage() {
 
                   <div className="mt-4 p-3 bg-neon-blue bg-opacity-10 rounded-lg border border-neon-blue border-opacity-30 backdrop-blur-sm">
                     <p className="text-xs text-neon-blue text-center">
-                      Tiempos calculados en tiempo real siguiendo la ruta del autobús
+                      Tiempos calculados en base a la localización real del autobús
                     </p>
                   </div>
                 </>
