@@ -217,6 +217,13 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s ease;
 }
 
+.card-dark-no-border {
+  background: var(--bg-card);
+  border: none !important;
+  box-shadow: 0 4px 20px var(--shadow), 0 0 40px rgba(6, 214, 160, 0.05);
+  transition: all 0.3s ease;
+}
+
 /* Focus visible para accesibilidad - modo oscuro */
 *:focus-visible {
   outline: 2px solid var(--accent-primary);

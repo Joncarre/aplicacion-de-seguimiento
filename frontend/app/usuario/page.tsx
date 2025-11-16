@@ -193,10 +193,10 @@ export default function UsuarioPage() {
   return (
     <div className="min-h-screen bg-transparent relative z-10">
       {/* Header con estilo oscuro */}
-      <div className="bg-dark-bg-card shadow-lg border-b border-dark-border">
+      <div className="bg-dark-bg-card shadow-lg" style={{ backgroundColor: 'rgb(10 14 39)', border: 'none !important' }}>
         <div className="max-w-6xl mx-auto px-4 py-4">
           <BackButton href="/" />
-          <h1 className="text-2xl font-bold text-neon-green mt-4">
+          <h1 className="text-xl font-light tracking-wide text-neon-white mt-4" style={{ fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif' }}>
             Seguimiento de autobuses
           </h1>
           <p className="text-sm text-dark-text-muted mt-1">
@@ -213,11 +213,11 @@ export default function UsuarioPage() {
         )}
 
         {/* Selector de líneas con estilo oscuro */}
-        <div className="card-dark p-6 mb-4 rounded-2xl">
-          <h2 className="text-lg font-semibold mb-4 text-dark-text-primary">
-            Selecciona tu línea
+        <div className="card-dark-no-border p-6 mb-4 rounded-2xl" style={{ backgroundColor: 'rgb(10 14 39)' }}>
+          <h2 className="text-xl font-light tracking-wide text-dark-text-primary mb-4" style={{ fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif' }}>
+       
           </h2>
-          <div className="grid grid-cols-5 gap-4">
+          <div className="grid grid-cols-5 gap-4" style={{ backgroundColor: 'rgb(10 14 39)' }}>
             {lines && lines.length > 0 ? (
               lines.map((line) => (
                 <button
@@ -262,10 +262,10 @@ export default function UsuarioPage() {
             </div>
 
             {/* Lista de paradas O Panel de ETAs con estilo oscuro */}
-            <div className="card-dark p-6 rounded-2xl">
+            <div className="card-dark-no-border p-6 rounded-2xl" style={{ backgroundColor: 'rgb(10 14 39)' }}>
               {!selectedStop ? (
                 <>
-                  <h3 className="text-lg font-semibold mb-4 text-dark-text-primary">
+                  <h3 className="text-xl font-light tracking-wide text-dark-text-primary mb-4" style={{ fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif' }}>
                     Paradas de la línea
                   </h3>
                   {stops.length === 0 ? (
@@ -318,7 +318,7 @@ export default function UsuarioPage() {
                   <div className="mb-4">
                     <button
                       onClick={handleBackToStops}
-                      className="font-medium rounded-2xl transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed bg-dark-bg-tertiary bg-opacity-30 hover:bg-opacity-50 text-neon-green px-4 py-2 text-sm flex items-center gap-2 border border-dark-border"
+                      className="font-medium rounded-2xl transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-opacity-50 text-neon-green px-4 py-2 text-sm flex items-center gap-2"
                     >
                       <svg
                         className="w-5 h-5"
@@ -361,7 +361,11 @@ export default function UsuarioPage() {
                   {isLoadingETAs ? (
                     <div className="space-y-3">
                       <div className="flex flex-col items-center justify-center py-12">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 mb-4 shadow-neon" style={{ borderColor: selectedLine.color }}></div>
+                        <div className="dots-loader mb-4">
+                          <div className="dot" style={{ backgroundColor: selectedLine.color }}></div>
+                          <div className="dot" style={{ backgroundColor: selectedLine.color }}></div>
+                          <div className="dot" style={{ backgroundColor: selectedLine.color }}></div>
+                        </div>
                         <p className="text-dark-text-primary font-semibold mb-2">Calculando tiempos de llegada...</p>
                         <p className="text-sm text-dark-text-muted text-center max-w-md">
                           Esperando datos de posición del autobús (~20 segundos) Necesitamos determinar la dirección
@@ -417,7 +421,7 @@ export default function UsuarioPage() {
 
                   <div className="mt-4 p-3 bg-neon-blue bg-opacity-10 rounded-lg border border-neon-blue border-opacity-30 backdrop-blur-sm">
                     <p className="text-xs text-neon-blue text-center">
-                      ⏱️ Tiempos calculados en tiempo real siguiendo la ruta del autobús
+                      Tiempos calculados en tiempo real siguiendo la ruta del autobús
                     </p>
                   </div>
                 </>
@@ -428,6 +432,45 @@ export default function UsuarioPage() {
       </div>
 
       <style jsx>{`
+        /* Dots loader */
+        .dots-loader {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .dot {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          animation: pulse-dot 1.4s ease-in-out infinite;
+          box-shadow: 0 0 15px currentColor;
+        }
+
+        .dot:nth-child(1) {
+          animation-delay: 0s;
+        }
+
+        .dot:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+
+        @keyframes pulse-dot {
+          0%, 80%, 100% {
+            transform: scale(0.6);
+            opacity: 0.5;
+          }
+          40% {
+            transform: scale(1.2);
+            opacity: 1;
+          }
+        }
+
         /* Pushable button styles para líneas con efecto neón */
         .pushable-line {
           position: relative;
