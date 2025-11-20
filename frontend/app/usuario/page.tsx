@@ -265,9 +265,6 @@ export default function UsuarioPage() {
             <div className="card-dark-no-border p-6 rounded-2xl" style={{ backgroundColor: 'rgb(10 14 39)' }}>
               {!selectedStop ? (
                 <>
-                  <h3 className="text-xl font-light tracking-wide text-dark-text-primary mb-4" style={{ fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif' }}>
-                    Paradas de la línea
-                  </h3>
                   {stops.length === 0 ? (
                     <p className="text-dark-text-muted text-center py-8">
                       No hay paradas configuradas para esta línea

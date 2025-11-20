@@ -7,21 +7,33 @@ const prisma = new PrismaClient();
 // Middleware de autenticación admin (simple - puedes mejorarlo)
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
+console.log('🔐 Password configurado en backend:', ADMIN_PASSWORD ? '***' + ADMIN_PASSWORD.slice(-4) : 'NO CONFIGURADO');
+
 const adminAuth = async (req: any, res: any, next: any) => {
   const authHeader = req.headers.authorization;
   
+  console.log('🔍 Header de autorización recibido:', authHeader ? 'Sí' : 'No');
+  
   if (!authHeader || !authHeader.startsWith('Basic ')) {
+    console.log('❌ No hay header de autorización o no es Basic');
     return res.status(401).json({ error: 'Autenticación requerida' });
   }
 
   const base64Credentials = authHeader.split(' ')[1];
   const credentials = Buffer.from(base64Credentials, 'base64').toString('utf-8');
   const [username, password] = credentials.split(':');
+  
+  console.log('👤 Usuario recibido:', username);
+  console.log('🔑 Password recibido:', password ? '***' + password.slice(-4) : 'vacío');
+  console.log('🔐 Password esperado:', ADMIN_PASSWORD ? '***' + ADMIN_PASSWORD.slice(-4) : 'NO CONFIGURADO');
+  console.log('✅ Contraseñas coinciden:', password === ADMIN_PASSWORD);
 
   if (username !== 'admin' || password !== ADMIN_PASSWORD) {
+    console.log('❌ Credenciales inválidas');
     return res.status(403).json({ error: 'Credenciales inválidas' });
   }
 
+  console.log('✅ Autenticación exitosa');
   next();
 };
 
