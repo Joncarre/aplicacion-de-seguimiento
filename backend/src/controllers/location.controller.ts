@@ -54,7 +54,7 @@ export async function submitLocation(req: Request, res: Response) {
 
     logger.info(`Location submitted: ${location.id}`);
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       location: {
         id: location.id,
@@ -65,7 +65,7 @@ export async function submitLocation(req: Request, res: Response) {
     });
   } catch (error) {
     logger.error('Error in submitLocation:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Error al guardar ubicación',
     });
   }
@@ -105,7 +105,7 @@ export async function assignLineToSession(req: Request, res: Response) {
     // Actualizar sesión
     const session = await updateSessionLine(sessionId, lineId);
 
-    res.json({
+    return res.json({
       success: true,
       session: {
         id: session.id,
@@ -114,7 +114,7 @@ export async function assignLineToSession(req: Request, res: Response) {
     });
   } catch (error) {
     logger.error('Error in assignLineToSession:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Error al asignar línea',
     });
   }
@@ -139,7 +139,7 @@ export async function endDriverSession(req: Request, res: Response) {
     // Finalizar sesión
     const session = await endSession(sessionId);
 
-    res.json({
+    return res.json({
       success: true,
       session: {
         id: session.id,
@@ -148,7 +148,7 @@ export async function endDriverSession(req: Request, res: Response) {
     });
   } catch (error) {
     logger.error('Error in endDriverSession:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Error al finalizar sesión',
     });
   }
@@ -174,7 +174,7 @@ export async function getLocationsByLine(req: Request, res: Response) {
     // Obtener ubicaciones
     const locations = await getRecentLocationsByLine(lineId, limit);
 
-    res.json({
+    return res.json({
       success: true,
       locations: locations.map((loc) => ({
         id: loc.id,
@@ -189,7 +189,7 @@ export async function getLocationsByLine(req: Request, res: Response) {
     });
   } catch (error) {
     logger.error('Error in getLocationsByLine:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Error al obtener ubicaciones',
     });
   }
@@ -199,7 +199,7 @@ export async function getLocationsByLine(req: Request, res: Response) {
  * GET /api/lines
  * Obtiene todas las líneas de autobús
  */
-export async function getBusLines(req: Request, res: Response) {
+export async function getBusLines(_req: Request, res: Response) {
   try {
     const lines = await getAllBusLines();
 
@@ -225,10 +225,10 @@ export async function getBusLines(req: Request, res: Response) {
  * Ejecuta la limpieza nocturna manualmente
  * TODO: Proteger con autenticación de administrador
  */
-export async function manualCleanup(req: Request, res: Response) {
+export async function manualCleanup(_req: Request, res: Response) {
   try {
     logger.info('🧹 Limpieza manual iniciada');
-    
+
     const result = await performNightlyCleanup();
 
     res.json({
@@ -250,7 +250,7 @@ export async function manualCleanup(req: Request, res: Response) {
  * Obtiene estadísticas de ubicaciones
  * TODO: Proteger con autenticación de administrador
  */
-export async function getStats(req: Request, res: Response) {
+export async function getStats(_req: Request, res: Response) {
   try {
     const stats = await getLocationStats();
 

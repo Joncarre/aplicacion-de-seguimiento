@@ -27,7 +27,7 @@ app.use(helmet({
 // CORS configurado
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:3000',
-  'http://localhost:3001', 
+  'http://localhost:3001',
   'http://localhost:3002',
   'http://localhost:3003'
 ];
@@ -61,7 +61,7 @@ app.use(express.urlencoded({ extended: true }));
 // ============================================
 
 // Ruta de health check
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (_req: Request, res: Response) => {
   res.json({
     status: 'ok',
     message: 'API de seguimiento de autobuses - Aranjuez',
@@ -70,7 +70,7 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 
-app.get('/health', (req: Request, res: Response) => {
+app.get('/health', (_req: Request, res: Response) => {
   res.json({
     status: 'healthy',
     uptime: process.uptime(),
@@ -97,12 +97,12 @@ app.use((req: Request, res: Response) => {
 });
 
 // Manejador de errores global
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error('Error:', err);
 
   // En producción, no enviar detalles del error
   const isProduction = process.env.NODE_ENV === 'production';
-  
+
   res.status(500).json({
     error: isProduction ? 'Error interno del servidor' : err.message,
     ...(isProduction ? {} : { stack: err.stack })

@@ -11,9 +11,9 @@ console.log('🔐 Password configurado en backend:', ADMIN_PASSWORD ? '***' + AD
 
 const adminAuth = async (req: any, res: any, next: any) => {
   const authHeader = req.headers.authorization;
-  
+
   console.log('🔍 Header de autorización recibido:', authHeader ? 'Sí' : 'No');
-  
+
   if (!authHeader || !authHeader.startsWith('Basic ')) {
     console.log('❌ No hay header de autorización o no es Basic');
     return res.status(401).json({ error: 'Autenticación requerida' });
@@ -22,7 +22,7 @@ const adminAuth = async (req: any, res: any, next: any) => {
   const base64Credentials = authHeader.split(' ')[1];
   const credentials = Buffer.from(base64Credentials, 'base64').toString('utf-8');
   const [username, password] = credentials.split(':');
-  
+
   console.log('👤 Usuario recibido:', username);
   console.log('🔑 Password recibido:', password ? '***' + password.slice(-4) : 'vacío');
   console.log('🔐 Password esperado:', ADMIN_PASSWORD ? '***' + ADMIN_PASSWORD.slice(-4) : 'NO CONFIGURADO');
@@ -67,10 +67,10 @@ router.get('/stops', adminAuth, async (req, res) => {
       },
     });
 
-    res.json(stops);
+    return res.json(stops);
   } catch (error) {
     console.error('Error al obtener paradas:', error);
-    res.status(500).json({ error: 'Error al obtener paradas' });
+    return res.status(500).json({ error: 'Error al obtener paradas' });
   }
 });
 
@@ -94,10 +94,10 @@ router.get('/stops/:id', adminAuth, async (req, res) => {
       return res.status(404).json({ error: 'Parada no encontrada' });
     }
 
-    res.json(stop);
+    return res.json(stop);
   } catch (error) {
     console.error('Error al obtener parada:', error);
-    res.status(500).json({ error: 'Error al obtener parada' });
+    return res.status(500).json({ error: 'Error al obtener parada' });
   }
 });
 
@@ -108,8 +108,8 @@ router.post('/stops', adminAuth, async (req, res) => {
 
     // Validaciones
     if (!name || !street || !latitude || !longitude) {
-      return res.status(400).json({ 
-        error: 'Faltan campos requeridos: name, street, latitude, longitude' 
+      return res.status(400).json({
+        error: 'Faltan campos requeridos: name, street, latitude, longitude'
       });
     }
 
@@ -156,10 +156,10 @@ router.post('/stops', adminAuth, async (req, res) => {
       },
     });
 
-    res.status(201).json(stopWithLines);
+    return res.status(201).json(stopWithLines);
   } catch (error) {
     console.error('Error al crear parada:', error);
-    res.status(500).json({ error: 'Error al crear parada' });
+    return res.status(500).json({ error: 'Error al crear parada' });
   }
 });
 
@@ -186,10 +186,10 @@ router.put('/stops/:id', adminAuth, async (req, res) => {
       },
     });
 
-    res.json(stop);
+    return res.json(stop);
   } catch (error) {
     console.error('Error al actualizar parada:', error);
-    res.status(500).json({ error: 'Error al actualizar parada' });
+    return res.status(500).json({ error: 'Error al actualizar parada' });
   }
 });
 
@@ -202,10 +202,10 @@ router.delete('/stops/:id', adminAuth, async (req, res) => {
       where: { id },
     });
 
-    res.json({ message: 'Parada eliminada correctamente' });
+    return res.json({ message: 'Parada eliminada correctamente' });
   } catch (error) {
     console.error('Error al eliminar parada:', error);
-    res.status(500).json({ error: 'Error al eliminar parada' });
+    return res.status(500).json({ error: 'Error al eliminar parada' });
   }
 });
 
@@ -237,10 +237,10 @@ router.post('/stops/:stopId/lines/:lineId', adminAuth, async (req, res) => {
       },
     });
 
-    res.status(201).json(stopOnLine);
+    return res.status(201).json(stopOnLine);
   } catch (error) {
     console.error('Error al asignar parada a línea:', error);
-    res.status(500).json({ error: 'Error al asignar parada a línea' });
+    return res.status(500).json({ error: 'Error al asignar parada a línea' });
   }
 });
 
@@ -256,10 +256,10 @@ router.delete('/stops/:stopId/lines/:lineId', adminAuth, async (req, res) => {
       },
     });
 
-    res.json({ message: 'Parada desasignada de la línea correctamente' });
+    return res.json({ message: 'Parada desasignada de la línea correctamente' });
   } catch (error) {
     console.error('Error al desasignar parada de línea:', error);
-    res.status(500).json({ error: 'Error al desasignar parada de línea' });
+    return res.status(500).json({ error: 'Error al desasignar parada de línea' });
   }
 });
 
@@ -283,10 +283,10 @@ router.put('/stops/:stopId/lines/:lineId/order', adminAuth, async (req, res) => 
       },
     });
 
-    res.json({ message: 'Orden actualizado correctamente', stopOnLine });
+    return res.json({ message: 'Orden actualizado correctamente', stopOnLine });
   } catch (error) {
     console.error('Error al actualizar orden:', error);
-    res.status(500).json({ error: 'Error al actualizar orden' });
+    return res.status(500).json({ error: 'Error al actualizar orden' });
   }
 });
 

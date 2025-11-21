@@ -38,10 +38,10 @@ router.get('/lines/:lineId/stops', async (req, res) => {
       order: sol.order,
     }));
 
-    res.json(stops);
+    return res.json(stops);
   } catch (error) {
     console.error('Error al obtener paradas:', error);
-    res.status(500).json({ error: 'Error al obtener paradas' });
+    return res.status(500).json({ error: 'Error al obtener paradas' });
   }
 });
 
@@ -66,10 +66,10 @@ router.get('/bus-location/:lineId/latest', async (req, res) => {
       return res.status(404).json({ message: 'No hay buses activos en esta línea' });
     }
 
-    res.json(latestLocation);
+    return res.json(latestLocation);
   } catch (error) {
     console.error('Error al obtener ubicación:', error);
-    res.status(500).json({ error: 'Error al obtener ubicación' });
+    return res.status(500).json({ error: 'Error al obtener ubicación' });
   }
 });
 
