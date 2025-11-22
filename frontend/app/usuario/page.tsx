@@ -69,7 +69,7 @@ export default function UsuarioPage() {
   // Cargar líneas
   const loadLines = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/lines');
+      const response = await fetch(`${API_URL}/api/lines`);
       if (response.ok) {
         const data = await response.json();
         setLines(data.lines || data);
@@ -103,7 +103,7 @@ export default function UsuarioPage() {
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:3001/api/lines/${lineId}/stops`);
+      const response = await fetch(`${API_URL}/api/lines/${lineId}/stops`);
       if (response.ok) {
         const data = await response.json();
         setStops(data);
@@ -121,7 +121,7 @@ export default function UsuarioPage() {
   // Cargar ubicación actual del bus
   const loadBusLocation = async (lineId: string) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/bus-location/${lineId}/latest`);
+      const response = await fetch(`${API_URL}/api/bus-location/${lineId}/latest`);
       if (response.ok) {
         const data = await response.json();
         if (data.latitude && data.longitude) {
@@ -140,17 +140,17 @@ export default function UsuarioPage() {
   // Cargar ETAs reales desde el backend
   const loadRealETAs = async (stop: Stop): Promise<BusETA[]> => {
     if (!selectedLineId) return [];
-    
+
     try {
-      const response = await fetch(`http://localhost:3001/api/eta/${selectedLineId}/${stop.id}`);
-      
+      const response = await fetch(`${API_URL}/api/eta/${selectedLineId}/${stop.id}`);
+
       if (!response.ok) {
         console.error('Error cargando ETAs');
         return [];
       }
 
       const data = await response.json();
-      
+
       if (!data.success || !data.data) {
         return [];
       }
@@ -174,7 +174,7 @@ export default function UsuarioPage() {
     setSelectedStop(stop);
     setIsLoadingETAs(true);
     setEtas([]); // Limpiar ETAs previos
-    
+
     // Esperar 20 segundos antes de mostrar ETAs (necesitamos 2 posiciones del bus)
     // Las posiciones se envían cada 10 segundos, por lo que 20 segundos garantizan 2 posiciones
     setTimeout(async () => {
@@ -215,7 +215,7 @@ export default function UsuarioPage() {
         {/* Selector de líneas con estilo oscuro */}
         <div className="card-dark-no-border p-6 mb-4 rounded-2xl" style={{ backgroundColor: 'rgb(10 14 39)' }}>
           <h2 className="text-xl font-light tracking-wide text-dark-text-primary mb-4" style={{ fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif' }}>
-       
+
           </h2>
           <div className="grid grid-cols-5 gap-4" style={{ backgroundColor: 'rgb(10 14 39)' }}>
             {lines && lines.length > 0 ? (
@@ -223,9 +223,8 @@ export default function UsuarioPage() {
                 <button
                   key={line.id}
                   onClick={() => setSelectedLineId(line.id)}
-                  className={`pushable-line ${
-                    selectedLineId === line.id ? 'selected' : ''
-                  }`}
+                  className={`pushable-line ${selectedLineId === line.id ? 'selected' : ''
+                    }`}
                   style={{
                     '--line-color': line.color,
                     '--line-color-dark': adjustColor(line.color, -20),
@@ -279,7 +278,7 @@ export default function UsuarioPage() {
                         >
                           <div
                             className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm mr-3 border-2 transition-all"
-                            style={{ 
+                            style={{
                               backgroundColor: 'transparent',
                               borderColor: selectedLine.color,
                               color: selectedLine.color
@@ -338,7 +337,7 @@ export default function UsuarioPage() {
                     <div className="mt-2 flex items-center">
                       <div
                         className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm mr-3 border-2"
-                        style={{ 
+                        style={{
                           backgroundColor: 'transparent',
                           borderColor: selectedLine.color,
                           color: selectedLine.color,
@@ -384,7 +383,7 @@ export default function UsuarioPage() {
                           <div className="flex items-center">
                             <div
                               className="w-12 h-12 rounded-full flex items-center justify-center mr-4"
-                              style={{ 
+                              style={{
                                 backgroundColor: selectedLine.color,
                                 boxShadow: `0 0 15px ${selectedLine.color}60`
                               }}
@@ -403,7 +402,7 @@ export default function UsuarioPage() {
                             </div>
                           </div>
                           <div className="text-right">
-                            <p className="text-2xl font-bold" style={{ 
+                            <p className="text-2xl font-bold" style={{
                               color: selectedLine.color,
                               textShadow: `0 0 10px ${selectedLine.color}40`
                             }}>
