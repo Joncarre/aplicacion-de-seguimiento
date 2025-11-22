@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { Mail } from 'lucide-react';
 import BackButton from '@/components/ui/BackButton';
 
@@ -23,43 +22,33 @@ export default function ContactoPage() {
                     </div>
 
                     {/* Título */}
-                    <h1 className="text-3xl md:text-4xl font-light text-center text-white mb-4" style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}>
+                    <h1 className="text-2xl md:text-3xl font-light text-center text-white mb-3" style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}>
                         Gracias por utilizar esta aplicación
                     </h1>
 
                     {/* Mensaje principal */}
-                    <p className="text-lg text-slate-300 text-center leading-relaxed mb-8" style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}>
+                    <p className="text-base text-slate-300 text-center leading-relaxed mb-6" style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}>
                         Esperamos que sea de gran ayuda.
                     </p>
 
                     {/* Mensaje de contacto */}
                     <div className="bg-slate-900/50 rounded-xl p-6 border border-slate-600/30">
-                        <p className="text-base text-slate-300 text-center leading-relaxed mb-4" style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}>
+                        <p className="text-sm text-slate-300 text-center leading-relaxed mb-3" style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}>
                             Por favor, si tienes algún problema o sugerencia de mejora, escribe un correo a:
                         </p>
 
                         {/* Email destacado */}
                         <a
                             href="mailto:autobusesaranjuez@gmail.com"
-                            className="block text-center text-xl font-medium text-blue-400 hover:text-blue-300 transition-colors duration-300 mb-2"
+                            className="block text-center text-lg font-medium text-blue-400 hover:text-blue-300 transition-colors duration-300 mb-2"
                             style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}
                         >
                             autobusesaranjuez@gmail.com
                         </a>
 
-                        <p className="text-sm text-slate-400 text-center" style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}>
+                        <p className="text-xs text-slate-400 text-center" style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}>
                             Estaremos encantados de ayudarte
                         </p>
-                    </div>
-
-                    {/* Botón de volver adicional */}
-                    <div className="mt-8 text-center">
-                        <Link
-                            href="/"
-                            className="inline-block px-6 py-3 text-sm font-medium text-slate-300 bg-slate-700/50 hover:bg-slate-600/50 rounded-lg border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300"
-                        >
-                            Volver al inicio
-                        </Link>
                     </div>
                 </div>
             </div>
