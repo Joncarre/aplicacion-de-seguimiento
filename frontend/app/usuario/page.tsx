@@ -11,6 +11,8 @@ const MapView = dynamic(() => import('@/components/MapView'), {
   loading: () => <p className="text-center py-12">Cargando mapa...</p>,
 });
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+
 interface BusLine {
   id: string;
   name: string;
