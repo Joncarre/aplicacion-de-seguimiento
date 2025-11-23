@@ -22,13 +22,13 @@ export default function ContactoPage() {
                     </div>
 
                     {/* Título */}
-                    <h1 className="text-2xl md:text-3xl font-light text-center text-white mb-3" style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}>
+                    <h1 className="text-xl md:text-2xl font-light text-center text-white mb-3" style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}>
                         Gracias por utilizar esta aplicación
                     </h1>
 
                     {/* Mensaje principal */}
                     <p className="text-base text-slate-300 text-center leading-relaxed mb-6" style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}>
-                        Esperamos que sea de gran ayuda.
+                        Esperamos que sea de gran ayuda
                     </p>
 
                     {/* Mensaje de contacto */}
@@ -40,7 +40,7 @@ export default function ContactoPage() {
                         {/* Email destacado */}
                         <a
                             href="mailto:autobusesaranjuez@gmail.com"
-                            className="block text-center text-lg font-medium text-blue-400 hover:text-blue-300 transition-colors duration-300 mb-2"
+                            className="block text-center text-base font-medium text-blue-400 hover:text-blue-300 transition-colors duration-300 mb-2"
                             style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}
                         >
                             autobusesaranjuez@gmail.com

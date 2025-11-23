@@ -219,7 +219,7 @@ export default function UsuarioPage() {
           <h2 className="text-xl font-light tracking-wide text-dark-text-primary mb-4" style={{ fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif' }}>
 
           </h2>
-          <div className="grid grid-cols-5 gap-4" style={{ backgroundColor: 'rgb(10 14 39)' }}>
+          <div className="grid grid-cols-5 gap-2" style={{ backgroundColor: 'rgb(10 14 39)' }}>
             {lines && lines.length > 0 ? (
               lines.map((line) => (
                 <button

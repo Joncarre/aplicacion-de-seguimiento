@@ -144,20 +144,20 @@ export default function HomePage() {
 
         {/* Footer con estilo oscuro */}
         <div className="mt-12 text-center">
-          <p className="text-xs text-dark-text-muted">
+          {/* Botón de feedback */}
+          <Link
+            href="/contacto"
+            className="inline-block px-4 py-2 text-xs font-medium text-slate-300 bg-slate-800/50 hover:bg-slate-700/50 rounded-lg border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300"
+          >
+            Danos tu opinión
+          </Link>
+
+          <p className="text-xs text-dark-text-muted mt-4">
             All rights reserved © 2025 Jonathan Carrero
           </p>
           <p className="text-xs text-dark-text-muted mt-1 opacity-70">
             Version 1.0.0
           </p>
-
-          {/* Botón de feedback */}
-          <Link
-            href="/contacto"
-            className="mt-4 inline-block px-4 py-2 text-xs font-medium text-slate-300 bg-slate-800/50 hover:bg-slate-700/50 rounded-lg border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300"
-          >
-            Danos tu opinión
-          </Link>
         </div>
       </div>
     </main>

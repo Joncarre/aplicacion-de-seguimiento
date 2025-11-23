@@ -71,9 +71,6 @@ export default function ConductorAuthPage() {
         <div className="card-dark p-8 rounded-2xl">
           {/* Icono y título */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-neon-blue/20 rounded-2xl mb-4">
-              <Bus size={32} className="text-neon-blue" />
-            </div>
             <h1 className="text-2xl font-bold text-neon-blue mb-2">
               Acceso Conductor
             </h1>
