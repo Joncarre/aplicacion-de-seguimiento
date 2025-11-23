@@ -143,7 +143,7 @@ export default function HomePage() {
         </div>
 
         {/* Footer con estilo oscuro */}
-        <div className="mt-12 text-center">
+        <div className="mt-4 text-center">
           {/* Botón de feedback */}
           <Link
             href="/contacto"
