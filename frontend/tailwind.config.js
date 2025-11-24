@@ -16,9 +16,9 @@ module.exports = {
             light: '#ff6b8a',
           },
           2: {
-            DEFAULT: '#ffd166',
-            dark: '#f5c24d',
-            light: '#ffe699',
+            DEFAULT: '#ff8c42',
+            dark: '#e67328',
+            light: '#ffa666',
           },
           3: {
             DEFAULT: '#06d6a0',
@@ -63,7 +63,7 @@ module.exports = {
         neon: {
           green: '#06d6a0',
           blue: '#118ab2',
-          yellow: '#ffd166',
+          orange: '#ff8c42',
           pink: '#ef476f',
           purple: '#9984d4',
         },

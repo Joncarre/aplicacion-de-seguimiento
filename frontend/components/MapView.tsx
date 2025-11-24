@@ -69,7 +69,7 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
       (error) => {
         console.error('Error obteniendo ubicación:', error);
         let errorMessage = 'No se pudo obtener tu ubicación';
-        
+
         switch (error.code) {
           case error.PERMISSION_DENIED:
             errorMessage = 'Permiso de ubicación DENEGADO. Por favor, permite el acceso a tu ubicación en la configuración del navegador.';
@@ -81,7 +81,7 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
             errorMessage = 'Tiempo de espera agotado al obtener tu ubicación.';
             break;
         }
-        
+
         console.error('💡 Mensaje de error:', errorMessage);
         setLocationError(errorMessage);
       },
@@ -115,12 +115,12 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
 
   // Icono personalizado para las paradas con el color de la línea
   const createStopIcon = (stopNumber: number) => {
-    // Oscurecer un poco el color si es amarillo
+    // Oscurecer un poco el color si es naranja
     let iconColor = lineColor;
-    if (lineColor.toLowerCase() === '#ffeb3b' || lineColor.toLowerCase() === '#ffd700' || lineColor.toLowerCase().includes('yellow')) {
-      iconColor = '#f9a825'; // amarillo más oscuro
+    if (lineColor.toLowerCase() === '#ff8c42' || lineColor.toLowerCase().includes('orange')) {
+      iconColor = '#e67328'; // naranja más oscuro
     }
-    
+
     return new L.Icon({
       iconUrl: 'data:image/svg+xml;base64,' + btoa(`
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
@@ -176,8 +176,8 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
         >
           <Popup>
             <div className="text-sm" style={{ color: lineColor }}>
-                <p className="my-0" style={{ marginBottom: '2px', marginTop: '4px' }}>Parada {index + 1}</p>
-                <p className="font-normal text-slate-700 my-0" style={{ marginBottom: '2px', marginTop: '2px' }}>{stop.name}</p>
+              <p className="my-0" style={{ marginBottom: '2px', marginTop: '4px' }}>Parada {index + 1}</p>
+              <p className="font-normal text-slate-700 my-0" style={{ marginBottom: '2px', marginTop: '2px' }}>{stop.name}</p>
             </div>
           </Popup>
         </Marker>
