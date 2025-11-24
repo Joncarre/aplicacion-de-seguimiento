@@ -17,19 +17,19 @@ export function formatTime(seconds: number): string {
   if (seconds < 60) {
     return `${Math.round(seconds)} seg`;
   }
-  
+
   const minutes = Math.floor(seconds / 60);
   if (minutes < 60) {
     return `${minutes} min`;
   }
-  
+
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
-  
+
   if (remainingMinutes === 0) {
     return `${hours} h`;
   }
-  
+
   return `${hours} h ${remainingMinutes} min`;
 }
 
@@ -46,10 +46,10 @@ export function validateDriverCode(code: string): boolean {
 export function getLineColor(lineName: string): string {
   const colors: Record<string, string> = {
     'L1': '#86efac',
-    'L2': '#6ee7b7',
+    'L2': '#fd9d3c',
     'L3': '#5eead4',
     'L4': '#7dd3fc',
   };
-  
+
   return colors[lineName] || '#10b981';
 }
