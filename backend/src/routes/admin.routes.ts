@@ -291,7 +291,7 @@ router.put('/stops/:stopId/lines/:lineId/order', adminAuth, async (req, res) => 
 });
 
 // ENDPOINT TEMPORAL PARA EJECUTAR SEED (ELIMINAR DESPUÉS DEL USO)
-router.post('/run-seed', async (req, res) => {
+router.post('/run-seed', async (_req, res) => {
   try {
     console.log('🌱 Ejecutando seed desde endpoint...');
 
@@ -301,7 +301,7 @@ router.post('/run-seed', async (req, res) => {
     exec('npx prisma db seed', (error: any, stdout: any, stderr: any) => {
       if (error) {
         console.error('❌ Error ejecutando seed:', error);
-        return res.status(500).json({
+        res.status(500).json({
           error: 'Error ejecutando seed',
           details: error.message,
           stderr: stderr
@@ -310,12 +310,15 @@ router.post('/run-seed', async (req, res) => {
 
       console.log('📋 Output del seed:', stdout);
 
-      return res.json({
+      res.json({
         success: true,
         message: 'Seed ejecutado correctamente',
         output: stdout
       });
     });
+
+    // No esperamos a que termine, retornamos void
+    return;
 
   } catch (error: any) {
     console.error('❌ Error en endpoint de seed:', error);
