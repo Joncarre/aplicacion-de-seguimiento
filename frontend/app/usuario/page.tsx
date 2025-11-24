@@ -195,7 +195,7 @@ export default function UsuarioPage() {
   return (
     <div className="min-h-screen bg-transparent relative z-10">
       {/* Header con estilo oscuro */}
-      <div className="bg-dark-bg-card shadow-lg" style={{ backgroundColor: 'rgb(10 14 39)', border: 'none !important' }}>
+      <div className="bg-transparent shadow-lg" style={{ border: 'none !important' }}>
         <div className="max-w-6xl mx-auto px-4 py-4">
           <BackButton href="/" />
           <h1 className="text-xl font-light tracking-wide text-neon-white mt-4" style={{ fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif' }}>
@@ -215,11 +215,11 @@ export default function UsuarioPage() {
         )}
 
         {/* Selector de líneas con estilo oscuro */}
-        <div className="card-dark-no-border px-6 mb-4 rounded-2xl" style={{ backgroundColor: 'rgb(10 14 39)' }}>
+        <div className="card-dark-no-border px-6 mb-4 rounded-2xl" style={{ backgroundColor: 'transparent' }}>
           <h2 className="text-xl font-light tracking-wide text-dark-text-primary mb-4" style={{ fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif' }}>
 
           </h2>
-          <div className="grid grid-cols-5 gap-2" style={{ backgroundColor: 'rgb(10 14 39)' }}>
+          <div className="grid grid-cols-5 gap-2" style={{ backgroundColor: 'transparent' }}>
             {lines && lines.length > 0 ? (
               lines.map((line) => (
                 <button
@@ -263,7 +263,7 @@ export default function UsuarioPage() {
             </div>
 
             {/* Lista de paradas O Panel de ETAs con estilo oscuro */}
-            <div className="card-dark-no-border p-6 rounded-2xl" style={{ backgroundColor: 'rgb(10 14 39)' }}>
+            <div className="card-dark-no-border p-6 rounded-2xl" style={{ backgroundColor: 'transparent' }}>
               {!selectedStop ? (
                 <>
                   {stops.length === 0 ? (

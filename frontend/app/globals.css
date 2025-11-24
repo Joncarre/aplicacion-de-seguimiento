@@ -233,7 +233,7 @@ h6 {
 .card-dark-no-border {
   background: var(--bg-card);
   border: none !important;
-  box-shadow: 0 4px 20px var(--shadow), 0 0 40px rgba(6, 214, 160, 0.05);
+  box-shadow: none;
   transition: all 0.3s ease;
 }
 

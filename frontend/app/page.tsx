@@ -1,13 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { User, Bus } from 'lucide-react';
+import Image from 'next/image';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen flex justify-center p-4 relative z-10">
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex justify-center p-4 relative z-10">
       <style jsx>{`
         .hover-border-glow {
           transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -27,7 +27,7 @@ export default function HomePage() {
       <div className="w-full max-w-md animate-fadeIn">
         {/* Título principal con efecto neón */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-5xl font-bold text-green mb-3 whitespace-nowrap">
+          <h1 className="text-3xl md:text-5xl font-bold text-green mb-3 mt-3 whitespace-nowrap">
             Autobuses Aranjuez
           </h1>
           <p className="text-dark-text-secondary text-sm md:text-base">
@@ -41,9 +41,7 @@ export default function HomePage() {
           <Link href="/usuario" className="block group">
             <div className="p-6 hover:bg-dark-bg-hover rounded-2xl transition-all duration-300 cursor-pointer border-2 border-transparent hover-border-glow">
               <div className="flex items-center gap-4">
-                <div className="flex-shrink-0 w-16 h-16 bg-neon-green/20 rounded-2xl flex items-center justify-center">
-                  <User size={32} className="text-neon-green" />
-                </div>
+                <Image src="/user.png" alt="Usuario" width={48} height={48} className="flex-shrink-0" />
                 <div className="flex-1">
                   <h2 className="text-xl font-semibold text-dark-text-primary mb-1 transition-colors">
                     Soy usuario
@@ -75,9 +73,7 @@ export default function HomePage() {
           <Link href="/conductor" className="block group">
             <div className="p-6 hover:bg-dark-bg-hover rounded-2xl transition-all duration-300 cursor-pointer border-2 border-transparent hover-border-glow-blue">
               <div className="flex items-center gap-4">
-                <div className="flex-shrink-0 w-16 h-16 bg-neon-blue/20 rounded-2xl flex items-center justify-center">
-                  <Bus size={32} className="text-neon-blue" />
-                </div>
+                <Image src="/driver.png" alt="Conductor" width={48} height={48} className="flex-shrink-0" />
                 <div className="flex-1">
                   <h2 className="text-xl font-semibold text-dark-text-primary mb-1 transition-colors">
                     Soy conductor
