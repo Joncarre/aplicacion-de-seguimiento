@@ -117,8 +117,8 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
   const createStopIcon = (stopNumber: number) => {
     // Oscurecer un poco el color si es naranja
     let iconColor = lineColor;
-    if (lineColor.toLowerCase() === '#ff6b35' || lineColor.toLowerCase().includes('orange')) {
-      iconColor = '#e65100'; // naranja oscuro
+    if (lineColor.toLowerCase() === '#ff8000' || lineColor.toLowerCase().includes('orange')) {
+      iconColor = '#cc6600'; // naranja oscuro
     }
 
     return new L.Icon({
