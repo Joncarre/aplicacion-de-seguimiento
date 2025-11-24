@@ -162,7 +162,7 @@ export default function PanelConductor() {
         {!isTransmitting && (
           <Card>
             <CardHeader className="mb-2.5">
-              <CardTitle className="text-base font-extralight tracking-wider text-dark-text-primary" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.1em' }}>Selecciona tu línea</CardTitle>
+              <CardTitle className="text-base font-extralight tracking-wider text-dark-text-primary text-center" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.1em' }}>Selecciona tu línea</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
@@ -279,7 +279,7 @@ export default function PanelConductor() {
               <span className="shadow-pause"></span>
               <span className="edge-pause"></span>
               <span className="front-pause">
-                Pausar trayecto
+                Pausa trayecto
               </span>
             </button>
             <button
@@ -290,7 +290,7 @@ export default function PanelConductor() {
               <span className="shadow-end"></span>
               <span className="edge-end"></span>
               <span className="front-end">
-                Finalizar trayecto
+                Termina trayecto
               </span>
             </button>
           </div>
