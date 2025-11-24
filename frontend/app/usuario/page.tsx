@@ -195,7 +195,7 @@ export default function UsuarioPage() {
   return (
     <div className="min-h-screen bg-transparent relative z-10">
       {/* Header con estilo oscuro */}
-      <div className="bg-transparent shadow-lg" style={{ border: 'none !important' }}>
+      <div className="bg-transparent" style={{ border: 'none !important' }}>
         <div className="max-w-6xl mx-auto px-4 py-4">
           <BackButton href="/" />
           <h1 className="text-xl font-light tracking-wide text-neon-white mt-4" style={{ fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif' }}>
@@ -276,7 +276,7 @@ export default function UsuarioPage() {
                         <div
                           key={stop.id}
                           onClick={() => handleStopClick(stop)}
-                          className="w-full flex items-center p-3 bg-dark-bg-tertiary bg-opacity-30 rounded-lg hover:bg-opacity-50 transition-all cursor-pointer border border-dark-border group"
+                          className="w-full flex items-center p-3 bg-dark-bg-tertiary bg-opacity-30 rounded-lg hover:bg-opacity-50 transition-all cursor-pointer border border-gray-600 group"
                         >
                           <div
                             className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm mr-3 border-2 transition-all"
@@ -293,10 +293,11 @@ export default function UsuarioPage() {
                             <p className="text-sm text-dark-text-muted">{stop.street}</p>
                           </div>
                           <svg
-                            className="w-5 h-5 text-dark-text-muted transition-colors"
+                            className="w-5 h-5 transition-colors"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
+                            style={{ color: selectedLine.color }}
                           >
                             <path
                               strokeLinecap="round"
