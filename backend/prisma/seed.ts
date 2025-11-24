@@ -8,7 +8,7 @@ async function main() {
   // Crear las 5 líneas de autobús
   const lines = [
     { name: 'L1', color: '#ef476f', description: 'Línea 1' },
-    { name: 'L2', color: '#fd9d3c', description: 'Línea 2' },
+    { name: 'L2', color: '#ffa654', description: 'Línea 2' },
     { name: 'L3', color: '#06d6a0', description: 'Línea 3' },
     { name: 'L4', color: '#118ab2', description: 'Línea 4' },
     { name: 'L5', color: '#9984d4', description: 'Línea 5' },

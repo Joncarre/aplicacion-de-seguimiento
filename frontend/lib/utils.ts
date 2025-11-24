@@ -46,7 +46,7 @@ export function validateDriverCode(code: string): boolean {
 export function getLineColor(lineName: string): string {
   const colors: Record<string, string> = {
     'L1': '#86efac',
-    'L2': '#fd9d3c',
+    'L2': '#ffa654',
     'L3': '#5eead4',
     'L4': '#7dd3fc',
   };
