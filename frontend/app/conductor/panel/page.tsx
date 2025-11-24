@@ -290,7 +290,7 @@ export default function PanelConductor() {
               <span className="shadow-end"></span>
               <span className="edge-end"></span>
               <span className="front-end">
-                Termina trayecto
+                Fin trayecto
               </span>
             </button>
           </div>

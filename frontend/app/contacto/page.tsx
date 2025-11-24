@@ -7,6 +7,18 @@ export default function ContactoPage() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex justify-center p-4">
             <div className="max-w-2xl w-full">
+                {/* Botón de volver */}
+                <div className="mb-6">
+                    <BackButton href="/" />
+                </div>
+
+                {/* Icono de email */}
+                <div className="flex justify-center mb-6">
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
+                        <Mail className="w-8 h-8 text-white" />
+                    </div>
+                </div>
+
                 <h1 className="text-xl md:text-2xl font-light text-center text-white mb-3" style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}>
                     Gracias por utilizar esta aplicación
                 </h1>
