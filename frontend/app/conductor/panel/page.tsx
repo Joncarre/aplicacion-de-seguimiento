@@ -32,12 +32,12 @@ export default function PanelConductor() {
     // Verificar autenticación
     const token = localStorage.getItem('authToken');
     const storedSessionId = localStorage.getItem('sessionId');
-    
+
     if (!token || !storedSessionId) {
       router.push('/conductor');
       return;
     }
-    
+
     setIsAuthenticated(true);
     setSessionId(storedSessionId);
 
@@ -72,7 +72,7 @@ export default function PanelConductor() {
           speed: location.speed,
           heading: location.heading,
         });
-        
+
         console.log('Ubicación enviada:', location);
         setApiError(null);
       } catch (error) {
@@ -97,10 +97,10 @@ export default function PanelConductor() {
     try {
       // Asignar línea a la sesión
       await api.assignLineToSession(sessionId, selectedLine);
-      
+
       // Solicitar permisos de geolocalización
       const permissionGranted = await requestPermission();
-      
+
       if (permissionGranted) {
         setIsTransmitting(true);
         setApiError(null);
@@ -125,16 +125,16 @@ export default function PanelConductor() {
     try {
       // Finalizar sesión en el backend
       await api.endDriverSession(sessionId);
-      
+
       // Limpiar estado local
       setIsTransmitting(false);
       setSelectedLine(null);
       setApiError(null);
-      
+
       // Limpiar localStorage y redirigir al login
       localStorage.removeItem('authToken');
       localStorage.removeItem('sessionId');
-      
+
       router.push('/conductor');
     } catch (error) {
       console.error('Error al finalizar trayecto:', error);
@@ -162,7 +162,7 @@ export default function PanelConductor() {
         {!isTransmitting && (
           <Card>
             <CardHeader className="mb-2.5">
-              <CardTitle className="text-xl font-extralight tracking-wider text-dark-text-primary" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.1em' }}>Selecciona tu línea</CardTitle>
+              <CardTitle className="text-lg font-extralight tracking-wider text-dark-text-primary" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.1em' }}>Selecciona tu línea</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
@@ -178,10 +178,6 @@ export default function PanelConductor() {
                     }}
                   >
                     <div className="flex items-center justify-center gap-2">
-                      <Bus 
-                        className="w-6 h-6" 
-                        style={{ color: line.color }}
-                      />
                       <span className="font-bold text-lg text-dark-text-primary">{line.name}</span>
                     </div>
                   </button>
@@ -195,11 +191,11 @@ export default function PanelConductor() {
         {isTransmitting && selectedLine && (
           <div className="card-dark backdrop-blur-sm rounded-3xl p-6 border border-dark-border transition-all duration-100">
             <div className="flex flex-col items-center gap-3">
-              <MapPin className="w-12 h-12 animate-pulse" 
-                style={{ 
+              <MapPin className="w-12 h-12 animate-pulse"
+                style={{
                   color: busLines.find(l => l.id === selectedLine)?.color,
                   filter: `drop-shadow(0 0 10px ${busLines.find(l => l.id === selectedLine)?.color})`
-                }} 
+                }}
               />
               <div className="text-center">
                 <p className="font-bold text-dark-text-primary">
@@ -260,7 +256,7 @@ export default function PanelConductor() {
               onClick={handleStartJourney}
               disabled={!selectedLine}
               className="pushable"
-              style={{ 
+              style={{
                 width: '75%',
                 cursor: selectedLine ? 'pointer' : 'not-allowed',
                 opacity: selectedLine ? 1 : 0.7
@@ -409,7 +405,7 @@ export default function PanelConductor() {
           color: white;
           font-weight: 700;
           text-transform: none;
-          font-size: 0.9rem;
+          font-size: 0.85rem;
           transform: translateY(-4px);
           transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
         }

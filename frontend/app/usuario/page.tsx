@@ -198,7 +198,7 @@ export default function UsuarioPage() {
       <div className="bg-transparent" style={{ border: 'none !important' }}>
         <div className="max-w-6xl mx-auto px-4 py-4">
           <BackButton href="/" />
-          <h1 className="text-xl font-light tracking-wide text-neon-white mt-4" style={{ fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif' }}>
+          <h1 className="text-lg font-light tracking-wide text-neon-white mt-4" style={{ fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif' }}>
             Seguimiento de autobuses
           </h1>
           <p className="text-sm text-dark-text-muted mt-1">
@@ -249,7 +249,7 @@ export default function UsuarioPage() {
         {selectedLine && (
           <>
             {/* Mapa con borde neón */}
-            <div className="card-dark p-0 overflow-hidden mb-4 rounded-2xl" style={{ height: '350px' }}>
+            <div className="card-dark p-0 overflow-hidden mb-4 rounded-lg" style={{ height: '350px' }}>
               {isLoading ? (
                 <p className="text-center py-12 text-dark-text-muted">Cargando mapa...</p>
               ) : (
