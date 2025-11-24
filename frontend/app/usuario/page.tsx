@@ -215,7 +215,7 @@ export default function UsuarioPage() {
         )}
 
         {/* Selector de líneas con estilo oscuro */}
-        <div className="card-dark-no-border p-6 mb-4 rounded-2xl" style={{ backgroundColor: 'rgb(10 14 39)' }}>
+        <div className="card-dark-no-border px-6 mb-4 rounded-2xl" style={{ backgroundColor: 'rgb(10 14 39)' }}>
           <h2 className="text-xl font-light tracking-wide text-dark-text-primary mb-4" style={{ fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif' }}>
 
           </h2>
