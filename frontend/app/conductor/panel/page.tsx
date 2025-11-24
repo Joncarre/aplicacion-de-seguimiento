@@ -162,7 +162,7 @@ export default function PanelConductor() {
         {!isTransmitting && (
           <Card>
             <CardHeader className="mb-2.5">
-              <CardTitle className="text-lg font-extralight tracking-wider text-dark-text-primary" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.1em' }}>Selecciona tu línea</CardTitle>
+              <CardTitle className="text-base font-extralight tracking-wider text-dark-text-primary" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.1em' }}>Selecciona tu línea</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
@@ -405,7 +405,7 @@ export default function PanelConductor() {
           color: white;
           font-weight: 700;
           text-transform: none;
-          font-size: 0.85rem;
+          font-size: 0.8rem;
           transform: translateY(-4px);
           transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
         }

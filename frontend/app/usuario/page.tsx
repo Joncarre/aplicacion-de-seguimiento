@@ -249,7 +249,7 @@ export default function UsuarioPage() {
         {selectedLine && (
           <>
             {/* Mapa con borde neón */}
-            <div className="card-dark p-0 overflow-hidden mb-4 rounded-lg" style={{ height: '350px' }}>
+            <div className="card-dark p-0 overflow-hidden mb-4 rounded-3xl" style={{ height: '350px' }}>
               {isLoading ? (
                 <p className="text-center py-12 text-dark-text-muted">Cargando mapa...</p>
               ) : (

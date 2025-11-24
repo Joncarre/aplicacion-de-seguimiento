@@ -27,7 +27,7 @@ export default function HomePage() {
       <div className="w-full max-w-md animate-fadeIn">
         {/* Título principal con efecto neón */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-5xl font-bold text-green mb-3 mt-3 whitespace-nowrap">
+          <h1 className="text-3xl md:text-5xl font-bold text-green mb-3 mt-10 whitespace-nowrap">
             Autobuses Aranjuez
           </h1>
           <p className="text-dark-text-secondary text-sm md:text-base">
