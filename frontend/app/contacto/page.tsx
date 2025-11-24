@@ -5,7 +5,7 @@ import BackButton from '@/components/ui/BackButton';
 
 export default function ContactoPage() {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex justify-center p-4">
             <div className="max-w-2xl w-full">
                 {/* Botón de volver */}
                 <div className="mb-6">

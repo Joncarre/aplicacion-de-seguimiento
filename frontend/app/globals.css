@@ -12,29 +12,29 @@
   --line-1-dark: #d62d56;
   --line-1-light: #ff6b8a;
   --line-1-glow: rgba(239, 71, 111, 0.5);
-  
-  --line-2: #ffd166;
+
+  --line-2: #ffb870;
   --line-2-dark: #f5c24d;
   --line-2-light: #ffe699;
   --line-2-glow: rgba(255, 209, 102, 0.5);
-  
+
   --line-3: #06d6a0;
   --line-3-dark: #05b885;
   --line-3-light: #39e3b8;
   --line-3-glow: rgba(6, 214, 160, 0.5);
-  
+
   --line-4: #118ab2;
   --line-4-dark: #0e6f8e;
   --line-4-light: #3da5c4;
   --line-4-glow: rgba(17, 138, 178, 0.5);
-  
+
   --line-5: #9984d4;
   --line-5-dark: #7d68b8;
   --line-5-light: #b5a3e3;
   --line-5-glow: rgba(153, 132, 212, 0.5);
 
   /* Fondos oscuros con gradientes sutiles */
-  --bg-primary: #0a0e27;
+  --bg-primary: #1e293b;
   --bg-secondary: #131729;
   --bg-tertiary: #1a1f3a;
   --bg-card: #0f1420;
@@ -100,7 +100,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
+  background-image:
     radial-gradient(2px 2px at 20% 30%, rgba(6, 214, 160, 0.3), transparent),
     radial-gradient(2px 2px at 60% 70%, rgba(17, 138, 178, 0.3), transparent),
     radial-gradient(1px 1px at 50% 50%, rgba(255, 209, 102, 0.2), transparent),
@@ -113,10 +113,13 @@ body::before {
 }
 
 @keyframes sparkle {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.5;
     background-position: 0% 0%;
   }
+
   50% {
     opacity: 0.8;
     background-position: 100% 100%;
@@ -124,7 +127,12 @@ body::before {
 }
 
 /* Tipografía */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Poppins', 'Inter', sans-serif;
   font-weight: 600;
 }
@@ -155,6 +163,7 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -166,6 +175,7 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     transform: translateX(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -173,9 +183,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes pulse-slow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.7;
   }
@@ -233,12 +246,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Transiciones suaves globales */
-a, button, input, select, textarea {
+a,
+button,
+input,
+select,
+textarea {
   transition: all 0.2s ease-in-out;
 }
 
 /* Prevenir zoom en inputs en iOS */
 @media screen and (max-width: 768px) {
+
   input[type="text"],
   input[type="number"],
   input[type="email"],
@@ -268,15 +286,23 @@ a, button, input, select, textarea {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Animaciones adicionales para efectos neón */
 @keyframes neon-pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 5px var(--accent-glow), 0 0 10px var(--accent-glow);
   }
+
   50% {
     box-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow), 0 0 30px var(--accent-glow);
   }

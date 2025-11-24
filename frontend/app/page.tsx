@@ -7,57 +7,21 @@ import Card from '@/components/ui/Card';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen flex items-center justify-center p-4 relative z-10">
+    <main className="min-h-screen flex justify-center p-4 relative z-10">
       <style jsx>{`
-        @keyframes border-glow {
-          0% {
-            border-color: transparent;
-            box-shadow: 0 0 0 rgba(6, 214, 160, 0);
-          }
-          25% {
-            border-color: rgba(6, 214, 160, 0.3);
-            box-shadow: 0 0 10px rgba(6, 214, 160, 0.3);
-          }
-          50% {
-            border-color: rgba(6, 214, 160, 0.8);
-            box-shadow: 0 0 20px rgba(6, 214, 160, 0.5);
-          }
-          75% {
-            border-color: rgba(6, 214, 160, 0.3);
-            box-shadow: 0 0 10px rgba(6, 214, 160, 0.3);
-          }
-          100% {
-            border-color: transparent;
-            box-shadow: 0 0 0 rgba(6, 214, 160, 0);
-          }
+        .hover-border-glow {
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .hover-border-glow:hover {
-          animation: border-glow 0.6s ease-in-out 1;
+          border-color: rgba(6, 214, 160, 0.8);
+          box-shadow: 0 0 20px rgba(6, 214, 160, 0.5);
         }
-        @keyframes border-glow-blue {
-          0% {
-            border-color: transparent;
-            box-shadow: 0 0 0 rgba(17, 138, 178, 0);
-          }
-          25% {
-            border-color: rgba(17, 138, 178, 0.3);
-            box-shadow: 0 0 10px rgba(17, 138, 178, 0.3);
-          }
-          50% {
-            border-color: rgba(17, 138, 178, 0.8);
-            box-shadow: 0 0 20px rgba(17, 138, 178, 0.5);
-          }
-          75% {
-            border-color: rgba(17, 138, 178, 0.3);
-            box-shadow: 0 0 10px rgba(17, 138, 178, 0.3);
-          }
-          100% {
-            border-color: transparent;
-            box-shadow: 0 0 0 rgba(17, 138, 178, 0);
-          }
+        .hover-border-glow-blue {
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .hover-border-glow-blue:hover {
-          animation: border-glow-blue 0.6s ease-in-out 1;
+          border-color: rgba(17, 138, 178, 0.8);
+          box-shadow: 0 0 20px rgba(17, 138, 178, 0.5);
         }
       `}</style>
       <div className="w-full max-w-md animate-fadeIn">
@@ -143,7 +107,7 @@ export default function HomePage() {
         </div>
 
         {/* Footer con estilo oscuro */}
-        <div className="mt-4 text-center">
+        <div className="mt-8 text-center">
           {/* Botón de feedback */}
           <Link
             href="/contacto"

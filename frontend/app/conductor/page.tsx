@@ -60,7 +60,7 @@ export default function ConductorAuthPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-4 relative z-10">
+    <main className="min-h-screen flex justify-center p-4 relative z-10">
       <div className="w-full max-w-md animate-fadeIn">
         {/* Botón volver */}
         <div className="mb-6">

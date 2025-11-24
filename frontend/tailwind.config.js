@@ -16,7 +16,7 @@ module.exports = {
             light: '#ff6b8a',
           },
           2: {
-            DEFAULT: '#ffa654',
+            DEFAULT: '#ffb870',
             dark: '#cc6600',
             light: '#ffa033',
           },
@@ -39,7 +39,7 @@ module.exports = {
         // Fondos oscuros
         dark: {
           bg: {
-            primary: '#0a0e27',
+            primary: '#1e293b',
             secondary: '#131729',
             tertiary: '#1a1f3a',
             card: '#0f1420',
@@ -63,7 +63,7 @@ module.exports = {
         neon: {
           green: '#06d6a0',
           blue: '#118ab2',
-          orange: '#ffa654',
+          orange: '#ffb870',
           pink: '#ef476f',
           purple: '#9984d4',
         },

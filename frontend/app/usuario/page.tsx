@@ -505,7 +505,7 @@ export default function UsuarioPage() {
           position: relative;
           border-radius: 8px;
           padding: 16px 16px;
-          color: #0a0e27;
+          color: #ffffff;
           font-weight: 700;
           text-transform: none;
           font-size: 0.9rem;
