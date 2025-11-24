@@ -290,4 +290,40 @@ router.put('/stops/:stopId/lines/:lineId/order', adminAuth, async (req, res) => 
   }
 });
 
+// ENDPOINT TEMPORAL PARA EJECUTAR SEED (ELIMINAR DESPUÉS DEL USO)
+router.post('/run-seed', async (req, res) => {
+  try {
+    console.log('🌱 Ejecutando seed desde endpoint...');
+
+    // Importar y ejecutar seed
+    const { exec } = require('child_process');
+
+    exec('npx prisma db seed', (error: any, stdout: any, stderr: any) => {
+      if (error) {
+        console.error('❌ Error ejecutando seed:', error);
+        return res.status(500).json({
+          error: 'Error ejecutando seed',
+          details: error.message,
+          stderr: stderr
+        });
+      }
+
+      console.log('📋 Output del seed:', stdout);
+
+      return res.json({
+        success: true,
+        message: 'Seed ejecutado correctamente',
+        output: stdout
+      });
+    });
+
+  } catch (error: any) {
+    console.error('❌ Error en endpoint de seed:', error);
+    return res.status(500).json({
+      error: 'Error ejecutando seed',
+      details: error.message
+    });
+  }
+});
+
 export default router;
