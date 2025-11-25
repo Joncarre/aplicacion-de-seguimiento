@@ -62,41 +62,39 @@ async function main() {
 
   // Paradas de L1 con coordenadas reales
   const stopsData = [
-    // L1 - Línea completa con paradas reales (32 paradas - Ida y Vuelta)
-    // Ida
+    // L1 - Línea completa con paradas reales (31 paradas - Ida y Vuelta)
     { name: 'Valeras - San Antonio', street: 'Ida: Valeras - San Antonio', lat: 40.033812728108465, lon: -3.6085229597493673, line: 'L1', order: 1 },
-    { name: 'Abastos - Florida', street: 'Ida: Abastos - Florida', lat: 40.03219893965174, lon: -3.606989186757715, line: 'L1', order: 2 },
-    { name: 'Abastos - Ayuntamiento', street: 'Ida: Abastos - Ayuntamiento', lat: 40.03205928640961, lon: -3.6038349091616606, line: 'L1', order: 3 },
-    { name: 'Abastos - Concha', street: 'Ida: Abastos - Concha', lat: 40.03182658066351, lon: -3.6009958155931026, line: 'L1', order: 4 },
-    { name: 'Foso - Gobernador', street: 'Ida: Foso - Gobernador', lat: 40.03253140920107, lon: -3.597875425391982, line: 'L1', order: 5 },
-    { name: 'Foso - Infantas', street: 'Ida: Foso - Infantas', lat: 40.0335642661764, lon: -3.5979370867577, line: 'L1', order: 6 },
-    { name: 'Moreras - La Barraca de Federico', street: 'Ida: Moreras - La Barraca de Federico', lat: 40.03550311476256, lon: -3.5968147963423736, line: 'L1', order: 7 },
-    { name: 'Moreras - Ancha (Ida)', street: 'Ida: Moreras - Ancha', lat: 40.035350358201256, lon: -3.5947716301853183, line: 'L1', order: 8 },
-    { name: 'Moreras - Primero de Mayo (Ida)', street: 'Ida: Moreras - Primero de Mayo', lat: 40.03534883619025, lon: -3.5927056078955077, line: 'L1', order: 9 },
-    { name: 'Primero de Mayo - Polideportivo (Ida 1)', street: 'Ida: Primero de Mayo - Polideportivo', lat: 40.0340311834769, lon: -3.5925734076600873, line: 'L1', order: 10 },
+    { name: 'Abastos - Florida', street: 'Abastos - Florida', lat: 40.03219893965174, lon: -3.606989186757715, line: 'L1', order: 2 },
+    { name: 'Abastos - Ayuntamiento', street: 'Abastos - Ayuntamiento', lat: 40.03205928640961, lon: -3.6038349091616606, line: 'L1', order: 3 },
+    { name: 'Abastos - Concha', street: 'Abastos - Concha', lat: 40.03182658066351, lon: -3.6009958155931026, line: 'L1', order: 4 },
+    { name: 'Foso - Gobernador', street: 'Foso - Gobernador', lat: 40.03253140920107, lon: -3.597875425391982, line: 'L1', order: 5 },
+    { name: 'Foso - Infantas', street: 'Foso - Infantas', lat: 40.0335642661764, lon: -3.5979370867577, line: 'L1', order: 6 },
+    { name: 'Moreras - La Barraca de Federico', street: 'Moreras - La Barraca de Federico', lat: 40.03550311476256, lon: -3.5968147963423736, line: 'L1', order: 7 },
+    { name: 'Moreras - Ancha', street: 'Ida: Moreras - Ancha', lat: 40.035350358201256, lon: -3.5947716301853183, line: 'L1', order: 8 },
+    { name: 'Moreras - Primero de Mayo', street: 'Ida: Moreras - Primero de Mayo', lat: 40.03534883619025, lon: -3.5927056078955077, line: 'L1', order: 9 },
+    { name: 'Primero de Mayo - Polideportivo', street: 'Ida: Primero de Mayo - Polideportivo', lat: 40.0340311834769, lon: -3.5925734076600873, line: 'L1', order: 10 },
     { name: 'Gta. Nuevo Aranjuez - Cuarteles', street: 'Gta. Nuevo Aranjuez - Cuarteles', lat: 40.032474047885074, lon: -3.593057567495322, line: 'L1', order: 11 },
-    { name: 'Primero de Mayo - Polideportivo (Ida 2)', street: 'Primero de Mayo - Polideportivo', lat: 40.03406600817077, lon: -3.592777158985715, line: 'L1', order: 12 },
-    { name: 'Moreras - Colegio', street: 'Moreras - Colegio', lat: 40.035068365135686, lon: -3.5894366423002553, line: 'L1', order: 13 },
-    { name: 'Moreras - Augusto Moreno', street: 'Moreras - Augusto Moreno', lat: 40.034739269543984, lon: -3.584642380934511, line: 'L1', order: 14 },
-    { name: 'Caramillar - Noria', street: 'Caramillar - Noria', lat: 40.035964645939636, lon: -3.5786712370382796, line: 'L1', order: 15 },
-    { name: 'Estudios Cinematográficos - Mediodía', street: 'Estudios Cinematográficos - Mediodía', lat: 40.03802218441581, lon: -3.5783529216967502, line: 'L1', order: 16 },
-    { name: 'Cecilio Lázaro - Víctimas del Terrorismo', street: 'Cecilio Lázaro - Víctimas del Terrorismo', lat: 40.03595520260203, lon: -3.580360462178551, line: 'L1', order: 17 },
-    { name: 'Moreras - Julio Valdeón', street: 'Moreras - Julio Valdeón', lat: 40.034847833908266, lon: -3.584197933343236, line: 'L1', order: 18 },
-    { name: 'Álvarez de Quindos - Cándido López', street: 'Álvarez de Quindos - Cándido López', lat: 40.03478410485926, lon: -3.587831529648191, line: 'L1', order: 19 },
-    { name: 'Alvarez de Quindos - Cuarteles', street: 'Alvarez de Quindos - Cuarteles', lat: 40.03296245281095, lon: -3.5894437045079615, line: 'L1', order: 20 },
-    { name: 'Gta. Nuevo Aranjuez - Primero de Mayo', street: 'Gta. Nuevo Aranjuez - Primero de Mayo', lat: 40.03272061274892, lon: -3.5920257314957924, line: 'L1', order: 21 },
-    // Vuelta
-    { name: 'Primero de Mayo - Polideportivo (Vuelta)', street: 'Vuelta: Primero de Mayo - Polideportivo', lat: 40.03412533341811, lon: -3.5930556996904226, line: 'L1', order: 22 },
-    { name: 'Moreras - Primero de Mayo (Vuelta)', street: 'Vuelta: Moreras - Primero de Mayo', lat: 40.03523075252211, lon: -3.59272572446297, line: 'L1', order: 23 },
-    { name: 'Moreras - Ancha (Vuelta)', street: 'Vuelta: Moreras - Ancha', lat: 40.0353873416899, lon: -3.5946870934416406, line: 'L1', order: 24 },
-    { name: 'Príncipe - Iglesia', street: 'Príncipe - Iglesia', lat: 40.03581706159243, lon: -3.5984277112307295, line: 'L1', order: 25 },
-    { name: 'Infantas - Capitán Angosto Gómez', street: 'Infantas - Capitán Angosto Gómez', lat: 40.03488880262144, lon: -3.6009081299288312, line: 'L1', order: 26 },
-    { name: 'Rey - Auditorio', street: 'Rey - Auditorio', lat: 40.03252200921908, lon: -3.600089048684796, line: 'L1', order: 27 },
-    { name: 'Gobernador - Almíbar', street: 'Gobernador - Almíbar', lat: 40.03242471324906, lon: -3.6022663388154252, line: 'L1', order: 28 },
-    { name: 'Gobernador - Mercado de Abastos', street: 'Gobernador - Mercado de Abastos', lat: 40.03274182363451, lon: -3.6046414640261952, line: 'L1', order: 29 },
-    { name: 'Gobernador - Valeras', street: 'Gobernador - Valeras', lat: 40.032895293680106, lon: -3.6080918756725655, line: 'L1', order: 30 },
-    { name: 'Valeras - San Antonio (Vuelta)', street: 'Vuelta: Valeras - San Antonio', lat: 40.033707690940446, lon: -3.6086776906854703, line: 'L1', order: 31 },
-    { name: 'Estación - Est. Aranjuez', street: 'Estación - Est. Aranjuez', lat: 40.03465769049544, lon: -3.617225658483494, line: 'L1', order: 32 },
+    // Parada 12 eliminada
+    { name: 'Moreras - Colegio', street: 'Moreras - Colegio', lat: 40.035068365135686, lon: -3.5894366423002553, line: 'L1', order: 12 },
+    { name: 'Moreras - Augusto Moreno', street: 'Moreras - Augusto Moreno', lat: 40.034739269543984, lon: -3.584642380934511, line: 'L1', order: 13 },
+    { name: 'Caramillar - Noria', street: 'Caramillar - Noria', lat: 40.035964645939636, lon: -3.5786712370382796, line: 'L1', order: 14 },
+    { name: 'Estudios Cinematográficos - Mediodía', street: 'Estudios Cinematográficos - Mediodía', lat: 40.03802218441581, lon: -3.5783529216967502, line: 'L1', order: 15 },
+    { name: 'Cecilio Lázaro - Víctimas del Terrorismo', street: 'Cecilio Lázaro - Víctimas del Terrorismo', lat: 40.03595520260203, lon: -3.580360462178551, line: 'L1', order: 16 },
+    { name: 'Moreras - Julio Valdeón', street: 'Moreras - Julio Valdeón', lat: 40.034847833908266, lon: -3.584197933343236, line: 'L1', order: 17 },
+    { name: 'Álvarez de Quindos - Cándido López', street: 'Álvarez de Quindos - Cándido López', lat: 40.03478410485926, lon: -3.587831529648191, line: 'L1', order: 18 },
+    { name: 'Alvarez de Quindos - Cuarteles', street: 'Alvarez de Quindos - Cuarteles', lat: 40.03296245281095, lon: -3.5894437045079615, line: 'L1', order: 19 },
+    { name: 'Gta. Nuevo Aranjuez - Primero de Mayo', street: 'Gta. Nuevo Aranjuez - Primero de Mayo', lat: 40.03272061274892, lon: -3.5920257314957924, line: 'L1', order: 20 },
+    { name: 'Primero de Mayo - Polideportivo', street: 'Vuelta: Primero de Mayo - Polideportivo', lat: 40.03412533341811, lon: -3.5930556996904226, line: 'L1', order: 21 },
+    { name: 'Moreras - Primero de Mayo', street: 'Vuelta: Moreras - Primero de Mayo', lat: 40.03523075252211, lon: -3.59272572446297, line: 'L1', order: 22 },
+    { name: 'Moreras - Ancha', street: 'Vuelta: Moreras - Ancha', lat: 40.0353873416899, lon: -3.5946870934416406, line: 'L1', order: 23 },
+    { name: 'Príncipe - Iglesia', street: 'Príncipe - Iglesia', lat: 40.03581706159243, lon: -3.5984277112307295, line: 'L1', order: 24 },
+    { name: 'Infantas - Capitán Angosto Gómez', street: 'Infantas - Capitán Angosto Gómez', lat: 40.03488880262144, lon: -3.6009081299288312, line: 'L1', order: 25 },
+    { name: 'Rey - Auditorio', street: 'Rey - Auditorio', lat: 40.03252200921908, lon: -3.600089048684796, line: 'L1', order: 26 },
+    { name: 'Gobernador - Almíbar', street: 'Gobernador - Almíbar', lat: 40.03242471324906, lon: -3.6022663388154252, line: 'L1', order: 27 },
+    { name: 'Gobernador - Mercado de Abastos', street: 'Gobernador - Mercado de Abastos', lat: 40.03274182363451, lon: -3.6046414640261952, line: 'L1', order: 28 },
+    { name: 'Gobernador - Valeras', street: 'Gobernador - Valeras', lat: 40.032895293680106, lon: -3.6080918756725655, line: 'L1', order: 29 },
+    { name: 'Valeras - San Antonio', street: 'Vuelta: Valeras - San Antonio', lat: 40.033707690940446, lon: -3.6086776906854703, line: 'L1', order: 30 },
+    { name: 'Estación - Est. Aranjuez', street: 'Estación - Est. Aranjuez', lat: 40.03465769049544, lon: -3.617225658483494, line: 'L1', order: 31 },
 
     // L2 - Línea Este-Oeste (9 paradas)
     { name: 'Palacio Real', street: 'Calle del Príncipe', lat: 40.0315, lon: -3.6025, line: 'L2', order: 1 },
@@ -190,7 +188,7 @@ async function main() {
   console.log('📊 Resumen:');
   console.log(`   - ${lines.length} líneas creadas`);
   console.log(`   - ${stopsData.length} paradas creadas`);
-  console.log('   - L1: 32 paradas | L2: 9 paradas | L3: 10 paradas | L4: 7 paradas | L5: 8 paradas');
+  console.log('   - L1: 31 paradas | L2: 9 paradas | L3: 10 paradas | L4: 7 paradas | L5: 8 paradas');
   console.log('');
   console.log('📋 Próximos pasos:');
   console.log('   1. Ejecuta: npm run generate-codes');
