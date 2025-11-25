@@ -31,10 +31,36 @@ async function main() {
     console.log(`✅ Línea ${created.name} creada/actualizada con color ${created.color}`);
   }
 
-  console.log('\n🚏 Creando paradas de ejemplo en Aranjuez...');
+  console.log('\n🗑️  Eliminando paradas antiguas de L1...');
 
-  // Paradas de ejemplo (coordenadas ficticias en Aranjuez)
-  // Centro: aproximadamente 40.0333, -3.6000
+  // Primero eliminar las relaciones StopOnLine de L1
+  const deletedRelations = await prisma.stopOnLine.deleteMany({
+    where: {
+      lineId: createdLines['L1'].id
+    }
+  });
+  console.log(`✅ ${deletedRelations.count} relaciones de paradas eliminadas de L1`);
+
+  // Luego eliminar las paradas que solo pertenecían a L1
+  // (esto no afectará paradas compartidas con otras líneas)
+  const stopsToDelete = await prisma.stop.findMany({
+    where: {
+      lines: {
+        none: {} // Paradas que ya no tienen ninguna línea asociada
+      }
+    }
+  });
+
+  for (const stop of stopsToDelete) {
+    await prisma.stop.delete({
+      where: { id: stop.id }
+    });
+  }
+  console.log(`✅ ${stopsToDelete.length} paradas huérfanas eliminadas`);
+
+  console.log('\n🚏 Creando paradas de L1 en Aranjuez...');
+
+  // Paradas de L1 con coordenadas reales
   const stopsData = [
     // L1 - Línea completa con paradas reales (32 paradas - Ida y Vuelta)
     // Ida

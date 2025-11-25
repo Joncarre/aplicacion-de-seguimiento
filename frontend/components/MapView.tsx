@@ -175,8 +175,8 @@ export default function MapView({ stops, busLocation, lineColor, onStopClick }: 
           }}
         >
           <Popup>
-            <div className="text-sm" style={{ color: lineColor }}>
-              <p className="my-0" style={{ marginBottom: '2px', marginTop: '4px' }}>Parada {index + 1}</p>
+            <div className="text-sm" style={{ color: lineColor, textAlign: 'center' }}>
+              <p className="my-0" style={{ marginBottom: '2px', marginTop: '4px' }}>Parada <strong>{index + 1}</strong></p>
               <p className="font-normal text-slate-700 my-0" style={{ marginBottom: '2px', marginTop: '2px' }}>{stop.name}</p>
             </div>
           </Popup>
