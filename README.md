@@ -1,6 +1,8 @@
 # Aplicación de seguimiento de autobuses urbanos de Aranjuez
 ---
 
+[Visitar este enlace para acceder](https://determined-enjoyment-production.up.railway.app/)
+
 Esta aplicación web ha sido diseñada para facilitar la movilidad en Aranjuez, ofreciendo a los ciudadanos una herramienta moderna y sencilla para el seguimiento de los autobuses urbanos. A diferencia de otras soluciones que se basan en estimaciones tales como Google Maps o Moovit, este sistema conecta directamente con los conductores para mostrar su ubicación real en el mapa.
 
 El sistema consta de dos partes que trabajan en conjunto:
@@ -21,6 +23,28 @@ El sistema consta de dos partes que trabajan en conjunto:
 *   **Acceso seguro:** Sistema de autenticación mediante códigos únicos de 6 dígitos, garantizando que solo personal autorizado pueda emitir señales.
 *   **Operación simplificada:** Interfaz diseñada para ser usada de forma segura y rápida, permitiendo detener el trayecto y finalizarlo y/o pausarlo en cualquier momento.
 *   **Transmisión automática:** Una vez iniciado el trayecto, la aplicación envía la ubicación GPS cada 10 segundos de manera automática, sin que el conductor tenga que intervenir.
+
+---
+
+## Capturas de pantalla
+
+<img src="recursos_readme/im0.png" width="25%" alt="Panel de conductor">
+
+Los conductores, al comenzar su jornada, pueden seleccionar en la línea que van a conducir para comenzar a emitir su señal GPS. Al hacer un descanso o finalizar su jornada, pueden detener la emisión de señales pulsando el botón "Finalizar trayecto".
+
+<img src="recursos_readme/im1.png" width="25%" alt="Mapa interactivo">
+
+Por otro lado, cuando los usuarios acceden, verán un mapa interactivo con las líneas y paradas. Al pulsar en una parada, se mostrará su nombre y el tiempo que faltará para que los próximos autobuses de dicha línea lleguen.
+
+<img src="recursos_readme/im3.png" width="25%" alt="Tiempo de llegada">
+
+Nótese que si el autobús se retrasa, el tiempo de llegada se actualizará de forma automática. Por lo tanto, la persona sabe de manera precisa el tiempo que le queda para que el autobús llegue. Esta información puede ser consultada para cualquier parada de cualquier línea de autobús en tiempo real.
+
+<img src="recursos_readme/im5.png" width="25%" alt="Página de contacto">
+
+Se dispone de un correo electrónico (actualmente no operativo hasta que la aplicación sea lanzada por completo) para contactar y solicitar la información de la aplicación, propuestas de mejora o reportar problemas en el funcionamiento.
+
+<img src="recursos_readme/im6.png" width="25%" alt="Contacto adicional">
 
 ---
 
