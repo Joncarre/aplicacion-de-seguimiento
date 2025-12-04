@@ -1,63 +1,26 @@
-# Aplicación de Seguimiento de Autobuses Urbanos de Aranjuez
-
-Sistema de seguimiento en tiempo real de autobuses urbanos en Aranjuez, Madrid.
-
+# Aplicación de seguimiento de autobuses urbanos de Aranjuez
 ---
 
-## Descripción
+Esta aplicación web ha sido diseñada para facilitar la movilidad en Aranjuez, ofreciendo a los ciudadanos una herramienta moderna y sencilla para el seguimiento de los autobuses urbanos. A diferencia de otras soluciones que se basan en estimaciones tales como Google Maps o Moovit, este sistema conecta directamente con los conductores para mostrar su ubicación real en el mapa.
 
-Aplicación web que permite el seguimiento GPS en tiempo real de los autobuses urbanos de Aranjuez. Los conductores transmiten su ubicación cada 10 segundos, permitiendo a los usuarios conocer la posición exacta de cada bus y estimar tiempos de llegada precisos.
-
-### Problema que Resuelve
-
-Las aplicaciones como Google Maps solo hacen estimaciones basadas en horarios, sin datos en tiempo real. Esta aplicación proporciona la ubicación exacta de cada autobús, eliminando la incertidumbre sobre cuándo llegará el siguiente bus.
-
----
-
-## Stack Tecnológico
-
-### Frontend
-- Next.js 14 (App Router)
-- TypeScript 5.6
-- Tailwind CSS 3.4
-- React-Leaflet (mapas interactivos)
-- Socket.io-client (tiempo real)
-
-### Backend
-- Node.js 18+ + Express
-- TypeScript
-- Socket.io (WebSockets)
-- PostgreSQL 14+
-- Prisma ORM
+El sistema consta de dos partes que trabajan en conjunto:
+1.  **Panel de Usuario:** La interfaz que ven los ciudadanos. Es accesible desde cualquier móvil u ordenador y muestra un mapa interactivo con las líneas y paradas.
+2.  **Panel de Conductor:** Los conductores utilizan una interfaz simplificada para emitir su señal GPS, y el servidor se encarga de procesar esa información y enviarla instantáneamente a todos los usuarios conectados.
 
 ---
 
 ## Funcionalidades
 
-### Para Usuarios
-- Visualización de líneas de bus (L1, L2, L3, L4)
-- Mapa interactivo con todas las paradas
-- Ubicación en tiempo real de cada autobús
-- Tiempo estimado de llegada preciso
-- Detección inteligente de dirección del bus
-- Interfaz responsive mobile-first
+### 👥 Para los ciudadanos
+*   **Visualización de las líneas de autobuses:** Acceso a las 5 líneas urbanas (L1, L2, L3, L4, L5) con sus recorridos completos.
+*   **Paradas detalladas:** Al pulsar en una parada, puedes ver su nombre y ubicación exacta en el mapa.
+*   **Estimaciones de llegada:** Cálculo dinámico de cuánto tardará el autobús en llegar a tu parada.
+*   **Diseño intuitivo:** Interfaz sencilla con colores distintivos para cada línea, facilitando su identificación.
 
-### Para Conductores
-- Autenticación mediante código único de 10 dígitos
-- Transmisión automática de GPS cada 10 segundos
-- Control simple: botones para iniciar/finalizar trayecto
-- Panel optimizado para uso durante conducción
-
----
-
-## Características Técnicas
-
-- **Autenticación:** Códigos únicos hasheados con bcrypt
-- **Tiempo real:** WebSockets mediante Socket.io
-- **Geolocalización:** API de Geolocation del navegador
-- **Base de datos:** PostgreSQL con capacidad para PostGIS
-- **Seguridad:** CORS, Helmet, rate limiting, validaciones cliente/servidor
-- **PWA:** Instalable en dispositivos móviles
+### 🚌 Para los conductores
+*   **Acceso seguro:** Sistema de autenticación mediante códigos únicos de 6 dígitos, garantizando que solo personal autorizado pueda emitir señales.
+*   **Operación simplificada:** Interfaz diseñada para ser usada de forma segura y rápida, permitiendo detener el trayecto y finalizarlo y/o pausarlo en cualquier momento.
+*   **Transmisión automática:** Una vez iniciado el trayecto, la aplicación envía la ubicación GPS cada 10 segundos de manera automática, sin que el conductor tenga que intervenir.
 
 ---
 
@@ -65,94 +28,30 @@ Las aplicaciones como Google Maps solo hacen estimaciones basadas en horarios, s
 
 ```
 aplicacion-de-seguimiento/
-├── backend/              # API REST + WebSocket
-│   ├── src/             # Código fuente
-│   ├── prisma/          # Esquema de base de datos
-│   └── scripts/         # Utilidades (generación de códigos)
-├── frontend/            # Aplicación Next.js
-│   ├── app/            # Páginas y rutas
-│   ├── components/     # Componentes React
-│   └── lib/            # Utilidades y configuración
-└── docs/               # Documentación técnica
+├── backend/              # Servidor API REST + WebSocket
+│   ├── src/             # Lógica del servidor
+│   ├── prisma/          # Definición de la base de datos y datos iniciales (semillas)
+│   └── scripts/         # Herramientas para mantenimiento (generación de códigos)
+├── frontend/            # Aplicación web Next.js
+│   ├── app/            # Páginas (Usuario, Conductor, Admin)
+│   ├── components/     # Piezas reutilizables (Mapas, Tarjetas, Botones)
+│   └── lib/            # Funciones de utilidad
+└── docs/               # Documentación técnica detallada
 ```
 
 ---
 
-## Líneas de Autobús
+## Líneas de autobús y colores
 
-| Línea | Color | Hex |
-|-------|-------|-----|
-| L1 | Verde Claro | #86efac |
-| L2 | Esmeralda | #6ee7b7 |
-| L3 | Teal | #5eead4 |
-| L4 | Cielo | #7dd3fc |
+Cada línea tiene asignado un color distintivo para facilitar su identificación en el mapa y en la interfaz:
 
----
-
-## Estado del Desarrollo
-
-| Fase | Estado | Descripción |
-|------|--------|-------------|
-| Fase 1 | ✓ Completada | Estructura y configuración base |
-| Fase 2 | ✓ Completada | Autenticación y roles |
-| Fase 3 | En desarrollo | Panel de conductor |
-| Fase 4 | Pendiente | Panel de usuario |
-| Fase 5 | Pendiente | Cálculo de llegadas |
-| Fase 6 | Pendiente | Optimización y tiempo real |
-| Fase 7 | Pendiente | Testing y despliegue |
-
-**Progreso:** 29% (2/7 fases completadas)
-
----
-
-## Configuración de Desarrollo
-
-### Requisitos
-- Node.js 18+
-- PostgreSQL 14+
-- npm
-
-### Variables de Entorno
-
-**Backend (.env):**
-```env
-PORT=3001
-DATABASE_URL="postgresql://user:password@localhost:5432/bus_tracking"
-JWT_SECRET=your-secret
-SESSION_SECRET=your-secret
-```
-
-**Frontend (.env.local):**
-```env
-NEXT_PUBLIC_API_URL=http://localhost:3001
-NEXT_PUBLIC_WS_URL=http://localhost:3001
-```
-
-### Instalación
-
-```bash
-# Backend
-cd backend
-npm install
-npx prisma migrate dev
-npm run generate-codes
-npm run dev
-
-# Frontend
-cd frontend
-npm install
-npm run dev
-```
-
----
-
-## Documentación Técnica
-
-- `docs/ARCHITECTURE.md` - Arquitectura del sistema
-- `docs/PHASES.md` - Fases de desarrollo
-- `docs/DESIGN_SYSTEM.md` - Sistema de diseño
-- `docs/SECURITY.md` - Consideraciones de seguridad
-- `docs/PROJECT_STRUCTURE.md` - Estructura de archivos
+| Línea | Nombre / Zona | Color | Código Hex |
+|-------|---------------|-------|------------|
+| **L1** | Línea 1 | <span style="color:#ef476f">■</span> Rosa/Rojo | `#ef476f` |
+| **L2** | Línea 2 | <span style="color:#ffa654">■</span> Naranja | `#ffa654` |
+| **L3** | Línea 3 | <span style="color:#06d6a0">■</span> Verde Menta | `#06d6a0` |
+| **L4** | Línea 4 | <span style="color:#118ab2">■</span> Azul | `#118ab2` |
+| **L5** | Línea 5 | <span style="color:#9984d4">■</span> Violeta | `#9984d4` |
 
 ---
 
@@ -162,5 +61,25 @@ Proyecto privado - Autobuses Urbanos de Aranjuez
 
 ---
 
-**Última actualización:** 7 de Noviembre de 2025  
-**Versión:** 1.0.0 (Fase 2 completada)
+**Última actualización:** 4 de Diciembre de 2025
+**Versión:** 1.1.0 (Fases 1-4 completadas)
+
+
+## 📄 Licencia
+
+Este proyecto está desarrollado bajo la **Licencia MIT**.
+
+###  Desarrollador principal
+**Jonathan Carrero**  
+**Email:** jonathan.carrero.aranda@gmail.com
+
+### Contribuciones
+Las contribuciones son siempre bienvenidas, pero por favor:
+1.  **Fork** el proyecto
+2.  **Crea** una rama para tu feature
+3.  **Commit** tus cambios  
+4.  **Push** a la rama
+5.  **Abre** un Pull Request
+
+---
+*Created by Jonathan Carrero*

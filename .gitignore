@@ -91,3 +91,6 @@ admin-credentials.txt
 # Phase 4 specific - stops/paradas data exports
 stops-export*.json
 paradas-export*.json
+
+# Resources
+recursos_readme/
