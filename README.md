@@ -26,8 +26,6 @@ El sistema consta de dos partes que trabajan en conjunto:
 
 ---
 
-## Capturas de pantalla
-
 <div align="center">
     <img src="frontend/public/readme-images/im0.png" alt="Panel de conductor" width="35%">
 </div>
@@ -91,11 +89,6 @@ Cada línea tiene asignado un color distintivo para facilitar su identificación
 
 **Última actualización:** 4 de Diciembre de 2025
 **Versión:** 1.1.0
-
-
-## 📄 Licencia
-
-Este proyecto está desarrollado bajo la **Licencia MIT**.
 
 ###  Desarrollador principal
 **Jonathan Carrero**  
