@@ -1,4 +1,4 @@
-# Aplicación de seguimiento de autobuses urbanos de Aranjuez
+# Aplicación seguimiento de autobuses en Aranjuez
 ---
 
 
