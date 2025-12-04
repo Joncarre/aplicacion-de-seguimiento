@@ -47,22 +47,16 @@ Cada línea tiene asignado un color distintivo para facilitar su identificación
 
 | Línea | Nombre / Zona | Color | Código Hex |
 |-------|---------------|-------|------------|
-| **L1** | Línea 1 | <span style="color:#ef476f">■</span> Rosa/Rojo | `#ef476f` |
-| **L2** | Línea 2 | <span style="color:#ffa654">■</span> Naranja | `#ffa654` |
-| **L3** | Línea 3 | <span style="color:#06d6a0">■</span> Verde Menta | `#06d6a0` |
-| **L4** | Línea 4 | <span style="color:#118ab2">■</span> Azul | `#118ab2` |
-| **L5** | Línea 5 | <span style="color:#9984d4">■</span> Violeta | `#9984d4` |
-
----
-
-## Licencia
-
-Proyecto privado - Autobuses Urbanos de Aranjuez
+| **L1** | Línea 1 | ![#ef476f](https://placehold.co/15x15/ef476f/ef476f.png) Rojo | `#ef476f` |
+| **L2** | Línea 2 | ![#ffa654](https://placehold.co/15x15/ffa654/ffa654.png) Naranja | `#ffa654` |
+| **L3** | Línea 3 | ![#06d6a0](https://placehold.co/15x15/06d6a0/06d6a0.png) Verde | `#06d6a0` |
+| **L4** | Línea 4 | ![#118ab2](https://placehold.co/15x15/118ab2/118ab2.png) Azul | `#118ab2` |
+| **L5** | Línea 5 | ![#9984d4](https://placehold.co/15x15/9984d4/9984d4.png) Violeta | `#9984d4` |
 
 ---
 
 **Última actualización:** 4 de Diciembre de 2025
-**Versión:** 1.1.0 (Fases 1-4 completadas)
+**Versión:** 1.1.0
 
 
 ## 📄 Licencia
