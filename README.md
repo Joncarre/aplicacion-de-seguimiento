@@ -28,23 +28,33 @@ El sistema consta de dos partes que trabajan en conjunto:
 
 ## Capturas de pantalla
 
-<img src="recursos_readme/im0.png" width="25%" alt="Panel de conductor">
+<div align="center">
+    <img src="frontend/public/readme-images/im0.png" alt="Panel de conductor" width="25%">
+</div>
 
 Los conductores, al comenzar su jornada, pueden seleccionar en la línea que van a conducir para comenzar a emitir su señal GPS. Al hacer un descanso o finalizar su jornada, pueden detener la emisión de señales pulsando el botón "Finalizar trayecto".
 
-<img src="recursos_readme/im1.png" width="25%" alt="Mapa interactivo">
+<div align="center">
+    <img src="frontend/public/readme-images/im1.png" alt="Mapa interactivo" width="25%">
+</div>
 
 Por otro lado, cuando los usuarios acceden, verán un mapa interactivo con las líneas y paradas. Al pulsar en una parada, se mostrará su nombre y el tiempo que faltará para que los próximos autobuses de dicha línea lleguen.
 
-<img src="recursos_readme/im3.png" width="25%" alt="Tiempo de llegada">
+<div align="center">
+    <img src="frontend/public/readme-images/im3.png" alt="Tiempo de llegada" width="25%">
+</div>
 
 Nótese que si el autobús se retrasa, el tiempo de llegada se actualizará de forma automática. Por lo tanto, la persona sabe de manera precisa el tiempo que le queda para que el autobús llegue. Esta información puede ser consultada para cualquier parada de cualquier línea de autobús en tiempo real.
 
-<img src="recursos_readme/im5.png" width="25%" alt="Página de contacto">
+<div align="center">
+    <img src="frontend/public/readme-images/im5.png" alt="Página de contacto" width="25%">
+</div>
 
 Se dispone de un correo electrónico (actualmente no operativo hasta que la aplicación sea lanzada por completo) para contactar y solicitar la información de la aplicación, propuestas de mejora o reportar problemas en el funcionamiento.
 
-<img src="recursos_readme/im6.png" width="25%" alt="Contacto adicional">
+<div align="center">
+    <img src="frontend/public/readme-images/im6.png" alt="Contacto adicional" width="25%">
+</div>
 
 ---
 
